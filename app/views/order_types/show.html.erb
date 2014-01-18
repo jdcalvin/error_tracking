@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @order_type.title %>
+</p>
+
+
+<table>
+	<th>Name</th>
+	<th>Category</th>
+	<th>Testing</th>
+<% @order_type.tasks.each do |task| %>
+	<tr>
+		<td><%= task.description %></td>
+		<td><%= task.category.name %></td>
+		<td><%= link_to 'Show', @task %></td>
+      
+	</tr>
+
+	<% end %>
+</table>
+
+<%= link_to 'Edit', edit_order_type_path(@order_type) %> |
+<%= link_to 'Back', order_types_path %>

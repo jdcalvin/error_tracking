@@ -1,4 +1,4 @@
-<%= form_for(@task) do |f| %>
+<%= form_for[@task] do |f| %>
   <% if @task.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
@@ -20,6 +20,6 @@
     <%= f.select :category_id, list_category %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Add Task"%>
   </div>
 <% end %>
