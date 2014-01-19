@@ -1,6 +1,6 @@
 module TasksHelper
 	def list_category
-		Category.pluck(:id)
+		Category.pluck(:name)
 	end
 
 	#def covert_to_id(&list_category)

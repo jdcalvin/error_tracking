@@ -11,6 +11,11 @@ cat.each do |x|
 Category.new(name: x).save
 end
 
+order_type = OrderType.new.save
+
+
+
+
 city_lien = ["did not update", "incorrect amount"]
 datedown = ["did not run", "doc is incorrect", "wrong effective date",
 						"missed exceptions", "did not update new vesting"]
@@ -30,25 +35,25 @@ end
 
 
 city_lien.each do |x|
-	Task.new(description: x, category_id: convert_to_id("City Lien")).save
+	Task.new(description: x, order_type_id: 1, category_id: convert_to_id("City Lien")).save
 end
 
 datedown.each do |x|
-	Task.new(description: x, category_id: convert_to_id("Datedown")).save
+	Task.new(description: x, order_type_id: 1, category_id: convert_to_id("Datedown")).save
 end
 
 general.each do |x|
-	Task.new(description: x, category_id: convert_to_id("General")).save
+	Task.new(description: x, order_type_id: 1, category_id: convert_to_id("General")).save
 end
 
 names.each do |x|
-	Task.new(description: x, category_id: convert_to_id("Names")).save
+	Task.new(description: x, order_type_id: 1, category_id: convert_to_id("Names")).save
 end
 
 policy.each do |x|
-	Task.new(description: x, category_id: convert_to_id("Policy")).save
+	Task.new(description: x, order_type_id: 1, category_id: convert_to_id("Policy")).save
 end
 
 taxes.each do |x|
-	Task.new(description: x, category_id: convert_to_id("Taxes")).save
+	Task.new(description: x, order_type_id: 1, category_id: convert_to_id("Taxes")).save
 end

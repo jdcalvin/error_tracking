@@ -1,6 +1,13 @@
 <h1>Editing task</h1>
+<%= form_for(@task) do |f| %>
+<%= render 'error' %>
+	
+	<div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Update"%>
+  </div>
+<% end %>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @task %> |
-<%= link_to 'Back', tasks_path %>

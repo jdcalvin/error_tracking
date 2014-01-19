@@ -1,3 +1,17 @@
-<h1>New task</h1>
+<h1>Add Task</h1>
+<%= form_for [@order_type, @task] do |f| %>
+	<%= render 'error' %>
 
-<%= render 'form' %>
+	<div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>    
+  </div>
+  <div class="field">
+  	<%= f.label :category_id %><br>
+  	<%= f.select :category_id, list_category  %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Add Task"%>
+  </div>
+
+<% end %>

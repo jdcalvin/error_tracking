@@ -1,10 +1,10 @@
 class TasksController < ApplicationController
-  include FindCategory
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    @order_type = OrderType.find(params[:order_type_id])
+    @tasks = @order_type.tasks
   end
 
   # GET /tasks/1
@@ -14,7 +14,8 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    @task = Task.new  
+    @order_type = OrderType.find(params[:order_type_id])
+    @task = Task.new
   end
 
   # GET /tasks/1/edit
@@ -29,7 +30,7 @@ class TasksController < ApplicationController
     
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
+        format.html { redirect_to order_type_tasks_path, notice: 'Task was successfully created.' }
         format.json { render action: 'show', status: :created, location: @task }
       else
         format.html { render action: 'new' }
