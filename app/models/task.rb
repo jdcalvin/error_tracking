@@ -3,7 +3,7 @@ class Task < ActiveRecord::Base
   belongs_to :category
   belongs_to :order_type
   validates :description, :category_id, presence: true
-  validates :category, inclusion: { in: 27..33 }, presence: true
+  # validates :category, inclusion: { in: 27..33 }, presence: true
 
   def self.convert_to_id
 
