@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20140118020143) do
     t.integer  "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "order_type_id"
+    t.integer  "order_type_id", default: 1
   end
 
   add_index "tasks", ["category_id"], name: "index_tasks_on_category_id"

@@ -27,7 +27,6 @@ class TasksController < ApplicationController
   def create
     @order_type = OrderType.find(params[:order_type_id])
     @task = @order_type.tasks.build(task_params)
-    
     respond_to do |format|
       if @task.save
         format.html { redirect_to order_type_tasks_path, notice: 'Task was successfully created.' }
