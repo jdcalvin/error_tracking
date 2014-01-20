@@ -11,7 +11,7 @@ cat.each do |x|
 Category.new(name: x).save
 end
 
-order_type = OrderType.new.save
+order_type = OrderType.new(title:"fnfi errors").save
 
 
 
@@ -30,30 +30,31 @@ policy = ["did not update amount", "incorrect FNF sheet", "missed new loan",
 taxes = ["did not update", "shown incorrectly", "wrong data"]
 
 def convert_to_id(cat_name)
-	cat_name = Category.find_by(name: cat_name).id
+	cat_name = Category.find_by(name: cat_name)
+	return cat_name.id.to_i
 end
 
 
 city_lien.each do |x|
-	Task.new(description: x, order_type_id: 1, category_id: convert_to_id("City Lien")).save
+	Task.new(description: x, category_id: convert_to_id("City Lien")).save
 end
 
 datedown.each do |x|
-	Task.new(description: x, order_type_id: 1, category_id: convert_to_id("Datedown")).save
+	Task.new(description: x, category_id: convert_to_id("Datedown")).save
 end
 
 general.each do |x|
-	Task.new(description: x, order_type_id: 1, category_id: convert_to_id("General")).save
+	Task.new(description: x, category_id: convert_to_id("General")).save
 end
 
 names.each do |x|
-	Task.new(description: x, order_type_id: 1, category_id: convert_to_id("Names")).save
+	Task.new(description: x, category_id: convert_to_id("Names")).save
 end
 
 policy.each do |x|
-	Task.new(description: x, order_type_id: 1, category_id: convert_to_id("Policy")).save
+	Task.new(description: x, category_id: convert_to_id("Policy")).save
 end
 
 taxes.each do |x|
-	Task.new(description: x, order_type_id: 1, category_id: convert_to_id("Taxes")).save
+	Task.new(description: x, category_id: convert_to_id("Taxes")).save
 end
