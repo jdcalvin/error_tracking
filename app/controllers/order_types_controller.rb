@@ -1,8 +1,14 @@
 class OrderTypesController < ApplicationController
-  before_action :set_order_type, only: [:show, :edit, :update, :destroy]
+  before_action :set_order_type, only: [:show, :edit, :update, :destroy, :validations]
 
   # GET /order_types
   # GET /order_types.json
+
+  def validations
+    @orders = Order.all
+    @tasks = @order_type.tasks
+  end
+  
   def index
     @order_types = OrderType.all
   end

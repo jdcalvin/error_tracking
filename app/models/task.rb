@@ -5,14 +5,8 @@ class Task < ActiveRecord::Base
   has_many :validations
   has_many :orders, through: :validations
   validates :description, :category_id, presence: true
-  # validates :category, inclusion: { in: 27..33 }, presence: true
 
-  def self.convert_to_id
-
-  end
-
-  def self.cat_name
-  end
-
+  accepts_nested_attributes_for :validations
+  
   
 end

@@ -6,6 +6,7 @@ Fnfi::Application.routes.draw do
   resources :order_types do 
     resources :tasks, only: [:index, :new, :create]
     resources :orders, only: [:index, :new, :create, :show, :edit, :destroy]
+   
   end
   
   resources :tasks, only: [:show, :edit, :update, :destroy]
