@@ -20,7 +20,12 @@ class OrdersController < ApplicationController
   def new
     @order_type = OrderType.find(params[:order_type_id])
     @order = Order.new
-      1.times { @order.validations.build }
+    #OLD WAY    
+    #@order.validations.build
+    #@order_type.tasks.each do |task|
+      #@task_id = task.id
+      @order.validations.build
+    #end
   end
 
   # GET /orders/1/edit
@@ -72,7 +77,9 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
+      #params.require(:order).permit(:order, :note, :order_type_id,
+      #  validations_attributes: [:id, :approval, :order_id])
       params.require(:order).permit(:order, :note, :order_type_id,
-        validations_attributes: [:id, :approval, :order_id])
+            validations_attributes: [:id, :approval, :order_id])
     end
 end

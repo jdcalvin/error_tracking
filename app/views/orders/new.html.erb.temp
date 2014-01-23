@@ -11,13 +11,10 @@
   <div class="field">
     <%= f.label 'proofed by: user (model not defined' %>
   </div>
-    <% @order_type.tasks.each do |task| %>
+    <%= f.fields_for :validations do |entry| %>
       <p>
-        <%= f.label task.description %> 
-        <%= f.fields_for :validations do |entry| %>
-          <%= entry.text_field :approval  %>
-          <%= entry.label :task_id, task.id %>
-        <% end %>  
+        <%= entry.text_field :approval  %>
+        <%# :task_id @order_type.tasks.last.id %>
       </p>
     <% end %>
 <div class="field">
