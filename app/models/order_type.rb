@@ -4,4 +4,5 @@ class OrderType < ActiveRecord::Base
 	has_many :orders
 
 	accepts_nested_attributes_for :tasks
+
 end

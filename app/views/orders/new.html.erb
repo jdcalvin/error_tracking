@@ -1,0 +1,26 @@
+<h1>New order for <%= find_order_type.title %></h1>
+<%= form_for [@order_type, @order] do |f| %>
+
+	<%= render 'error' %>
+  
+  <div class="field">
+    <%= f.label :order %><br>
+    <%= f.text_field :order %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'proofed by: user (model not defined' %>
+  </div>
+    <%= f.fields_for :validations do |entry| %>
+      <p>
+        <%= entry.text_field :approval  %>
+      </p>
+    <% end %>
+<div class="field">
+    <%= f.label :note %><br>
+    <%= f.text_area :note, rows: 6, cols: 40 %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Submit" %>
+  </div>
+<% end %>

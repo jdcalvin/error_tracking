@@ -16,6 +16,8 @@ class TasksController < ApplicationController
   def new
     @order_type = OrderType.find(params[:order_type_id])
     @task = Task.new
+    #@validation = task.validations.build
+
   end
 
   # GET /tasks/1/edit

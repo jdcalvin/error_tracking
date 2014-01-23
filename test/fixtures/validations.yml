@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  task_id: 
+  order_id: 
+  approval: false
+
+two:
+  task_id: 
+  order_id: 
+  approval: false
