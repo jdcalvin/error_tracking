@@ -1,39 +1,27 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-
-  # GET /orders
-  # GET /orders.json
-
   
   def index
     @order_type = OrderType.find(params[:order_type_id])
     @orders = Order.all
   end
 
-  # GET /orders/1
-  # GET /orders/1.json
   def show
     @order = Order.find(params[:id])
   end
 
-  # GET /orders/new
   def new
     @order_type = OrderType.find(params[:order_type_id])
     @order = Order.new
-    #OLD WAY    
-    #@order.validations.build
-    #@order_type.tasks.each do |task|
-      #@task_id = task.id
+    @tasks = @order_type.tasks
       @order.validations.build
-    #end
+      task_id = @order.validations(params[:task_id])
+      a
   end
 
-  # GET /orders/1/edit
   def edit
   end
 
-  # POST /orders
-  # POST /orders.json
   def create
     @order_type = OrderType.find(params[:order_type_id])
     @order = @order_type.orders.build(order_params)
@@ -47,8 +35,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /orders/1
-  # PATCH/PUT /orders/1.json
   def update
     respond_to do |format|
       if @order.update(order_params)
@@ -59,8 +45,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  # DELETE /orders/1
-  # DELETE /orders/1.json
   def destroy
     @order.destroy
     respond_to do |format|
@@ -77,9 +61,7 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      #params.require(:order).permit(:order, :note, :order_type_id,
-      #  validations_attributes: [:id, :approval, :order_id])
       params.require(:order).permit(:order, :note, :order_type_id,
-            validations_attributes: [:id, :approval, :order_id])
+        validations_attributes: [:id, :approval, :order_id, :task_id])
     end
 end

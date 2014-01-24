@@ -9,17 +9,26 @@
   </div>
 
   <div class="field">
-    <%= f.label 'proofed by: user (model not defined' %>
+    <%= f.label 'proofed by: User (model not defined)' %>
   </div>
+    <table>
+      <tr>
+      <th>Category</th>
+      <th>Description</th>
+      <th>Status</th>
+    </tr>
     <% @order_type.tasks.each do |task| %>
-      <p>
-        <%= f.label task.description %> 
-        <%= f.fields_for :validations do |entry| %>
-          <%= entry.text_field :approval  %>
-          <%= entry.label :task_id, task.id %>
-        <% end %>  
-      </p>
+      <tr>
+        <td><strong><%= f.label task.category.name %></strong></td>
+        <td><%= f.label task.description %></td>
+      <%= f.fields_for :validations do |entry| %>
+        <td><%= entry.check_box :approval %></td> 
+          <%= entry.hidden_field(:task_id, :value => task.id) %>
+
+        <% end %>
+      </tr>
     <% end %>
+    </table>
 <div class="field">
     <%= f.label :note %><br>
     <%= f.text_area :note, rows: 6, cols: 40 %>
