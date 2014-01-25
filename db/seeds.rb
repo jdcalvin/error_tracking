@@ -1,21 +1,16 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
+puts "Creating sample database - this may take awhile..."
+#Categories
 cat = ["city lien", "datedown", "documents", "general", "names", "policy", "taxes"]
 cat.each do |x|
 Category.new(name: x).save
 end
 
+#Order Type
 order_type = OrderType.new(title:"fnfi errors").save
 
 
 
-
+#Tasks
 city_lien = ["did not update", "incorrect amount"]
 datedown = ["did not run", "doc is incorrect", "wrong effective date",
 						"missed exceptions", "did not update new vesting"]
@@ -57,4 +52,56 @@ end
 
 taxes.each do |x|
 	Task.new(description: x, category_id: convert_to_id("Taxes")).save
+end
+
+
+#Randomizes order number
+def create_order_num
+	arr = "TST00".split(//)
+	5.times do 
+		arr << rand(10)
+	end
+	arr.join
+end
+
+#Validations have an average return of 1-3 errors 
+def have_error(order)
+	order.tasks.each do |task|
+		v = Validation.new
+		if rand(20)+1 <= 3 
+			v.approval = true
+		else
+			v.approval = false
+		end
+		v.order_id = order.id
+		v.task_id = task.id
+		v.save
+	end
+end
+
+#Validations have no errors
+def no_error(order)
+	order.tasks.each do |task|
+		v = Validation.new
+		v.approval = false
+		v.order_id = order.id
+		v.task_id = task.id
+		v.save
+	end
+end
+
+#Creates 500 orders
+500.times do
+	order = Order.new(order_type_id: 1)
+	order.order = create_order_num
+
+	#Randomizes day the order was created
+	order.created_at = "2014-01-#{rand(31)+1} 00:00:00"
+	order.save
+
+	if rand(100)+1 > 70 #Creating 30% chance an error will occur
+		have_error(order)
+	else
+		no_error(order)
+	end
 end

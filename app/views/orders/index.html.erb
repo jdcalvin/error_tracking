@@ -1,29 +1,32 @@
 <h1>Listing orders</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Order</th>
-      <th>Note</th>
-      <th>Order type</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
+  <ol>
     <% @order_type.orders.each do |order| %>
-      <tr>
-        <td><%= order.order %></td>
-        <td><%= order.note %></td>
-        <td><%= order.order_type.title %></td>
-        <td><%= link_to 'Show', 
-            "/order_types/#{order.order_type.id}/orders/#{order.id}" %></td>
-        <td><%= link_to 'Destroy', "/order_types/#{order.order_type.id}/orders/#{order.id}" , method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <li> <%= order.order %> : 
 
-<br>
+        <%= order.validations.where(approval: true).count %> Errors
+        <ul>
+        <% order.validations.where(approval:true).each do |x| %>
+
+        <li> <%= x.task.category.name %> : <%= x.task.description %> </li>
+        <% end %>
+      </ul>
+      </li>
+      <p>
+        Note: <%= order.note %></br>
+
+        <%= link_to 'Show', 
+            "/order_types/#{order.order_type.id}/orders/#{order.id}" %> |
+        <%= link_to 'Destroy', "/order_types/#{order.order_type.id}/orders/#{order.id}" , method: :delete, data: { confirm: 'Are you sure?' } %> 
+      </p>
+    <% end %>
+  </ol>
+
+      
+
+     
+      
+      
+
 
 <%= link_to 'New Order', new_order_type_order_path %>

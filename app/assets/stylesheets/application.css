@@ -11,3 +11,29 @@
  *= require_self
  *= require_tree .
  */
+
+table {
+	border-collapse: collapse;
+	width: 50%;
+	border: 1px solid #CAD1FC;
+}
+	.line-even {
+		background: #D8DDFC;
+	}
+	.line-odd {
+		background: none;
+	}
+
+	.order-header
+	{
+		background: #3C4AA2;
+		color: white;
+
+.note-field {
+	margin: 1em;
+}
+
+	textarea {
+		background-color: #FFFAC5;
+}
+		

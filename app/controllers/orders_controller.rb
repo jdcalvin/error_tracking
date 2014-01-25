@@ -16,7 +16,6 @@ class OrdersController < ApplicationController
     @tasks = @order_type.tasks
       @order.validations.build
       task_id = @order.validations(params[:task_id])
-      a
   end
 
   def edit
