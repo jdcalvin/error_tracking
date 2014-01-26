@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   
   def index
+    date = Date.today-30
     @order_type = OrderType.find(params[:order_type_id])
     @orders = Order.all
   end

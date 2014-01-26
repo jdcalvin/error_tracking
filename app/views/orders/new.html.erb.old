@@ -1,0 +1,39 @@
+<h1>New order for <%= find_order_type.title %></h1>
+<%= form_for [@order_type, @order] do |f| %>
+
+	<%= render 'error' %>
+  
+  <div class="field">
+    <%= f.label :order %><br>
+    <%= f.text_field :order %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'proofed by: User (model not defined)' %>
+  </div>
+    <table>
+      <tr class = "order-header">
+      <th>Category</th>
+      <th>Description</th>
+      <th>Status</th>
+    </tr>
+    <% @order_type.tasks.each do |task| %>
+      <tr class="<%= cycle('line-odd', 'line-even') %>">
+        <td><strong><%= f.label task.category.name %></strong></td>
+        <td style="text-align: center"><%= f.label task.description %></td>
+      <%= f.fields_for :validations do |entry| %>
+        <td style="text-align: center"><%= entry.check_box :approval %></td> 
+          <%= entry.hidden_field(:task_id, :value => task.id) %>
+
+        <% end %>
+      </tr>
+    <% end %>
+    </table>
+<div class="note-field">
+    <h4><%= f.label :note, "Notes:" %><br><h4>
+    <%= f.text_area :note, rows: 10, cols: 40 %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Submit" %>
+  </div>
+<% end %>

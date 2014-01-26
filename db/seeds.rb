@@ -68,7 +68,7 @@ end
 def have_error(order)
 	order.tasks.each do |task|
 		v = Validation.new
-		if rand(20)+1 <= 3 
+		if rand(20)+1 <= 2 
 			v.approval = true
 		else
 			v.approval = false

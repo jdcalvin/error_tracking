@@ -1,0 +1,23 @@
+<h1> Listing Orders for <%= fake_time(day).strftime("%d - %A") %>
+
+	<ol>
+		<% orders_by_day(day).each do |order| %>
+      <li> <strong><%= order.order %></strong> :
+        <%= order.validations.where(approval: true).count %> Errors
+        <p><%= order.created_at.strftime("%d - %A") %></p>
+        <ul>
+        <% order.validations.where(approval:true).each do |x| %>
+
+        <li> <%= x.task.category.name %> : <%= x.task.description %> </li>
+        <% end %>
+      </ul>
+      </li>
+      <p>
+        Note: <%= order.note %></br>
+
+        <%= link_to 'Show', 
+            "/order_types/#{order.order_type.id}/orders/#{order.id}" %> |
+        <%= link_to 'Destroy', "/order_types/#{order.order_type.id}/orders/#{order.id}" , method: :delete, data: { confirm: 'Are you sure?' } %> 
+      </p>
+    <% end %>
+  </ol>

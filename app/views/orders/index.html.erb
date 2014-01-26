@@ -1,26 +1,26 @@
-<h1>Listing orders</h1>
+<h1>Total Orders</h1>
+<table class = "list-orders">
+  <% sort_by_day.each do |day| %>
+    <tr class="day-header"><!--SHOW DATE-->
+      <td colspan=3>
+        <h3><%= fake_time(day).strftime("%d - %A") %></h3>
+      </td>
+    </tr>
+    <tr class="day-title">
+      <td>Total Orders</td>
+      <td>Total w/ Errors</td>
+      <td> Error % </td>
+    </tr>
+    <tr class="day-values">
+      <td><%=orders_by_day(day).count %></td>
+      <td><%=count_errors(day) %></td>
+      <td><%=count_errors(day)/orders_by_day(day).count.to_f*100 %></td>
+    </tr>
+  <% end %>
+</table>
 
-  <ol>
-    <% @order_type.orders.each do |order| %>
-      <li> <%= order.order %> : 
 
-        <%= order.validations.where(approval: true).count %> Errors
-        <ul>
-        <% order.validations.where(approval:true).each do |x| %>
 
-        <li> <%= x.task.category.name %> : <%= x.task.description %> </li>
-        <% end %>
-      </ul>
-      </li>
-      <p>
-        Note: <%= order.note %></br>
-
-        <%= link_to 'Show', 
-            "/order_types/#{order.order_type.id}/orders/#{order.id}" %> |
-        <%= link_to 'Destroy', "/order_types/#{order.order_type.id}/orders/#{order.id}" , method: :delete, data: { confirm: 'Are you sure?' } %> 
-      </p>
-    <% end %>
-  </ol>
 
       
 

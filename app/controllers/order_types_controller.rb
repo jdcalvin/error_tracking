@@ -11,6 +11,8 @@ class OrderTypesController < ApplicationController
   
   def index
     @order_types = OrderType.all
+    @orders = Order.order('created_at')
+
   end
 
   # GET /order_types/1
