@@ -1,9 +1,9 @@
 <div id="orders">
+	<h2 id="month"><%= @order_type.title %> for <%= @date.strftime("%B %Y") %> </h2>
   <%= calendar do |date| %>
   	<div class="day"><%= date.day %></div>
     		<p><strong>Correct: </strong><%= orders_by_day(date).count - count_errors(date)%>/<%= orders_by_day(date).count %></p>
-    		<p><strong>Quality: </strong> %<%=100-(count_errors(date)/orders_by_day(date).count.to_f*100).round(2) %></td>
-
+    		<p><strong>Quality: </strong> <%=quality(date)%>%</td>
   <% end %>
 </div>
 
