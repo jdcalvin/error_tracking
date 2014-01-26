@@ -1,25 +1,11 @@
-<h1>Total Orders</h1>
-<table class = "list-orders">
-  <% sort_by_day.each do |day| %>
-    <tr class="day-header"><!--SHOW DATE-->
-      <td colspan=3>
-        <h3><%= fake_time(day).strftime("%d - %A") %></h3>
-      </td>
-    </tr>
-    <tr class="day-title">
-      <td>Total Orders</td>
-      <td>Total w/ Errors</td>
-      <td> Error % </td>
-    </tr>
-    <tr class="day-values">
-      <td><%=orders_by_day(day).count %></td>
-      <td><%=count_errors(day) %></td>
-      <td><%=count_errors(day)/orders_by_day(day).count.to_f*100 %></td>
-    </tr>
+<div id="orders">
+  <%= calendar do |date| %>
+  	<div class="day"><%= date.day %></div>
+    		<p><strong>Correct: </strong><%= orders_by_day(date).count - count_errors(date)%>/<%= orders_by_day(date).count %></p>
+    		<p><strong>Quality: </strong> %<%=100-(count_errors(date)/orders_by_day(date).count.to_f*100).round(2) %></td>
+
   <% end %>
-</table>
-
-
+</div>
 
 
       
@@ -28,5 +14,3 @@
       
       
 
-
-<%= link_to 'New Order', new_order_type_order_path %>

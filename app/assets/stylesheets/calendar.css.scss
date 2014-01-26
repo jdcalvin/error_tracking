@@ -1,11 +1,10 @@
-// Place all the styles related to the Orders controller here.
+// Place all the styles related to the articles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
 #orders .calendar {
   border-collapse: collapse;
-  width: 60%;
+  width: 100%;
 
   td, th {
     font-family: "Lucida Grande", arial, helvetica, sans-serif;
@@ -48,9 +47,4 @@
 #orders ul {
   font-size: 11px;
   padding-left: 20px;
-}
-
-.day {
-  text-align: right;
-  font-size: 17;
 }

@@ -5,6 +5,8 @@ class OrdersController < ApplicationController
     date = Date.today-30
     @order_type = OrderType.find(params[:order_type_id])
     @orders = Order.all
+    @order_by_date = @orders.group_by(&:created_at)
+    @date = Date.today
   end
 
   def show
