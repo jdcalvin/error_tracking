@@ -4,9 +4,29 @@ class OrdersController < ApplicationController
   def index
     date = Date.today-30
     @order_type = OrderType.find(params[:order_type_id])
-    @orders = Order.all
-    @order_by_date = @orders.group_by(&:created_at)
     @date = Date.today
+
+    if Date.valid_date? params[:year].to_i, params[:month].to_i, params[:day].to_i
+      start_date = Date.parse("#{params[:day]}.#{params[:month]}.#{params[:year]}")
+      end_date = start_date + 1
+
+    elsif Date.valid_date? params[:year].to_i, params[:month].to_i, 1
+      start_date = Date.parse("1.#{params[:month]}.#{params[:year]}")
+      end_date = start_date.end_of_month
+
+    elsif params[:year] && Date.valid_date?(params[:year].to_i, 1, 1)
+      start_date = Date.parse("1.1.#{params[:year]}")
+      end_date = start_date.end_of_year + 1
+    end
+
+    if start_date && end_date
+      @order_type.orders = Order.where(created_at: start_date..end_date)
+    else
+      @orders = Order.all
+    end
+    
+    #@order_by_date = @orders.group_by(&:created_at)
+
   end
 
   def show

@@ -1,12 +1,17 @@
-<div id="orders">
-	<h2 id="month"><%= @order_type.title %> for <%= @date.strftime("%B %Y") %> </h2>
-  <%= calendar do |date| %>
-  	<div class="day"><%= date.day %></div>
-    		<p><strong>Correct: </strong><%= orders_by_day(date).count - count_errors(date)%>/<%= orders_by_day(date).count %></p>
-    		<p><strong>Quality: </strong> <%=quality(date)%>%</td>
-  <% end %>
-</div>
+<h1>Listing orders</h1>
 
+  <ol>
+    <% @order_type.orders.each do |order| %>
+      <li> <strong><%= order.order %></strong> :
+        <p><%= order.created_at.strftime("%d - %A") %></p>
+
+        <%= link_to 'Show', 
+            "/order_types/#{order.order_type.id}/orders/#{order.id}" %> |
+        <%= link_to 'Destroy', "/order_types/#{order.order_type.id}/orders/#{order.id}" , method: :delete, data: { confirm: 'Are you sure?' } %> 
+      </p>
+    </li>
+    <% end %>
+  </ol>
 
       
 
@@ -14,3 +19,5 @@
       
       
 
+
+<%= link_to 'New Order', new_order_type_order_path %>
