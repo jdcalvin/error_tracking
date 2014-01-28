@@ -1,8 +1,12 @@
 #RailsCast #213
 module CalendarHelper
   
-  def calendar(date = Date.today, &block)
+  def calendar(date, &block)
     Calendar.new(self, date, block).table
+  end
+
+  def list_months
+    months = "January February March April May June July August September October November December".split(" ")
   end
 
   class Calendar < Struct.new(:view, :date, :callback)
@@ -11,27 +15,6 @@ module CalendarHelper
 
     delegate :content_tag, to: :view
 
-    def count_errors(num)
-    sum = 0
-    orders_by_day(num).each do |x|
-      if x.validations.where(approval:true).count > 0
-        sum = sum + 1
-      else
-        sum
-      end
-    end
-    return sum
-  end
-
-  def orders_by_day(num)
-      return Order.where('created_at >= ? and created_at < ?', num, num+1)
-  end
-
-  def quality(num)
-    errors = count_errors(num)
-    total = orders_by_day(num).count
-    return 100-(errors/total.to_f*100).round(2)
-  end
 
     def table
       content_tag :table, class: "calendar" do
@@ -59,11 +42,11 @@ module CalendarHelper
 
     def day_classes(day)
       classes = []
-      classes << "qc1" if quality(day) >= 90
-      classes << "qc2" if quality(day) >= 80 && quality(day) < 90
-      classes << "qc3" if quality(day) >= 70 && quality(day) < 80 
-      classes << "qc4" if quality(day) >= 60 && quality(day) < 70
-      classes << "qc5" if quality(day) < 60
+      #classes << "qc1" if quality(day) >= 90
+      #classes << "qc2" if quality(day) >= 80 && quality(day) < 90
+      #classes << "qc3" if quality(day) >= 70 && quality(day) < 80 
+      #classes << "qc4" if quality(day) >= 60 && quality(day) < 70
+      #classes << "qc5" if quality(day) < 60
       classes << "notmonth" if day.month != date.month
       classes.empty? ? nil : classes.join(" ")
     end

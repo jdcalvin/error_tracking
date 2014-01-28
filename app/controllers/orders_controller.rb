@@ -5,22 +5,31 @@ class OrdersController < ApplicationController
     date = Date.today-30
     @order_type = OrderType.find(params[:order_type_id])
     @date = Date.today
-
+    @year = params[:year]
+    @month = params[:month]
+    @day = params[:day]    
+    #URL: order_type/1/2014/01/25     FULL DATE
     if Date.valid_date? params[:year].to_i, params[:month].to_i, params[:day].to_i
-      start_date = Date.parse("#{params[:day]}.#{params[:month]}.#{params[:year]}")
-      end_date = start_date + 1
+      @start_date = Date.parse("#{params[:day]}.#{params[:month]}.#{params[:year]}")
+      @end_date = @start_date + 1
+      render 'orders/day'
 
+    #URL: order_type/1/2014/01       YEAR/MONTH
     elsif Date.valid_date? params[:year].to_i, params[:month].to_i, 1
-      start_date = Date.parse("1.#{params[:month]}.#{params[:year]}")
-      end_date = start_date.end_of_month
+      @start_date = Date.parse("1.#{params[:month]}.#{params[:year]}")
+      @end_date = @start_date.end_of_month + 1
+      render 'orders/month'
 
+
+    #URL: order_type/1/2014          YEAR
     elsif params[:year] && Date.valid_date?(params[:year].to_i, 1, 1)
-      start_date = Date.parse("1.1.#{params[:year]}")
-      end_date = start_date.end_of_year + 1
+      @start_date = Date.parse("1.1.#{params[:year]}")
+      @end_date = @start_date.end_of_year + 1
+      render 'orders/year'
     end
 
-    if start_date && end_date
-      @order_type.orders = Order.where(created_at: start_date..end_date)
+    if @start_date && @end_date
+      @order_type.orders = Order.where(created_at: @start_date..@end_date)
     else
       @orders = Order.all
     end
@@ -75,6 +84,17 @@ class OrdersController < ApplicationController
     end
   end
 
+  def only_year
+    #Placeholder for later
+  end
+
+  def year_and_month
+    #Placeholder for later
+  end
+
+  def full_date
+    #Placeholder for
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order

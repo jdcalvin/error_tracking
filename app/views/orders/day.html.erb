@@ -1,10 +1,11 @@
-<h1> Listing Orders for <%= fake_time(day).strftime("%d - %A") %>
-
+<h1> Listing Orders for <%= @start_date.strftime("%x") %></h1>
+<h3> Quality: <%= @order_type.orders.count - 
+  count_errors(@order_type.orders)%>/<%= @order_type.orders.count %>
+  | <%= quality(@order_type.orders) %>%</h3>
 	<ol>
-		<% orders_by_day(day).each do |order| %>
+		<% @order_type.orders.each do |order| %>
       <li> <strong><%= order.order %></strong> :
         <%= order.validations.where(approval: true).count %> Errors
-        <p><%= order.created_at.strftime("%d - %A") %></p>
         <ul>
         <% order.validations.where(approval:true).each do |x| %>
 
@@ -16,8 +17,8 @@
         Note: <%= order.note %></br>
 
         <%= link_to 'Show', 
-            "/order_types/#{order.order_type.id}/orders/#{order.id}" %> |
-        <%= link_to 'Destroy', "/order_types/#{order.order_type.id}/orders/#{order.id}" , method: :delete, data: { confirm: 'Are you sure?' } %> 
+            "/order_types/#{@order_type.id}/orders/#{order.id}" %> |
+        <%= link_to 'Destroy', "/order_types/#{@order_type.id}/orders/#{order.id}" , method: :delete, data: { confirm: 'Are you sure?' } %> 
       </p>
     <% end %>
   </ol>
