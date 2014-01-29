@@ -11,30 +11,12 @@ class OrderType < ActiveRecord::Base
 		orders.each do |order|
 			if order.validations.select {|x| x.approval?}.count > 0
 				sum = sum + 1
-			else
-				sum
 			end
-			sum
 		end
 		return sum
 	end
 
-
-	#def placeholder
-	#	errors = []
-  #	hash = Hash.new{|h,k| h[k] = []}
-	#	orders.each do |order|
-	#		errors = errors.flatten << order.validations.select{ |x| x.approval?}.flatten
-	#	end
-	#	errors = errors.flatten
-	#	errors.each do |x|
-	#		hash[x.task.category.name] << x.task.description
-		#end
-
-	#	return errors
-	#end
-
-	def placeholder
+	def breakdown
 		arr = []
 		new_hash = Hash.new(0)
 		hash = Hash.new{|h, k| h[k] = []}
@@ -50,13 +32,17 @@ class OrderType < ActiveRecord::Base
 		hash.each do |x|
 			new_hash[x[0]] = x[1].flatten
 		end
-			# x[1,1].flatten
+		new_hash.each_pair do |key, value|
+			res = Hash[value.group_by {|x| x}.map {|k, v| [k,v.count]}]
+			new_hash[key] = res
+		end
 
 		return new_hash
 	end
 end
 
-#def placeholder2
-#all errors are in placeholder
-#	placeholder 
-#end
+# data set is saved in app folder - need to apply this to each key value
+# so each key value would be 'arr'
+# arr would be re-inserted in the hash as:
+# {key =>{key=> value}
+#res = Hash[arr, group_by {|x| x}.map {|k, v| [k,v.count]}]
