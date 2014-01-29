@@ -2,40 +2,48 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   
   def index
-    date = Date.today-30
     @order_type = OrderType.find(params[:order_type_id])
-    @date = Date.today
-    @year = params[:year]
-    @month = params[:month]
-    @day = params[:day]    
+    year = params[:year]
+    month = params[:month]
+    day = params[:day]    
     #URL: order_type/1/2014/01/25     FULL DATE
-    if Date.valid_date? params[:year].to_i, params[:month].to_i, params[:day].to_i
-      @start_date = Date.parse("#{params[:day]}.#{params[:month]}.#{params[:year]}")
-      @end_date = @start_date + 1
+    
+    if Date.valid_date? year.to_i, month.to_i, day.to_i
+      start_date = Date.parse("#{day}.#{month}.#{year}")
+      end_date = start_date + 1
+      @date = start_date
+      orders_by_date(start_date, end_date)
       render 'orders/day'
 
-    #URL: order_type/1/2014/01       YEAR/MONTH
-    elsif Date.valid_date? params[:year].to_i, params[:month].to_i, 1
-      @start_date = Date.parse("1.#{params[:month]}.#{params[:year]}")
-      @end_date = @start_date.end_of_month + 1
+    elsif year.nil? && month.nil? && day.nil?
+      start_date = Date.today
+      end_date = start_date + 1
+      @date = start_date
+      orders_by_date(start_date, end_date)
+      render 'orders/day'
+    
+    elsif month.nil? && day.nil?
+      start_date = Date.parse("1.1.#{year}")
+      end_date = start_date.end_of_year + 1
+      @date = start_date
+      orders_by_date(start_date, end_date)
+      render 'orders/year'
+
+    elsif day.nil?  
+      start_date = Date.parse("1.#{month}.#{year}")
+      end_date = start_date.end_of_month + 1
+      @date = start_date
+      orders_by_date(start_date, end_date)
       render 'orders/month'
 
-
-    #URL: order_type/1/2014          YEAR
-    elsif params[:year] && Date.valid_date?(params[:year].to_i, 1, 1)
-      @start_date = Date.parse("1.1.#{params[:year]}")
-      @end_date = @start_date.end_of_year + 1
-      render 'orders/year'
     end
 
-    if @start_date && @end_date
-      @order_type.orders = Order.where(created_at: @start_date..@end_date)
-    else
-      @orders = Order.all
-    end
-    
-    #@order_by_date = @orders.group_by(&:created_at)
+    #orders_by_date(start_date, end_date)
+  
+  end
 
+  def orders_by_date(start_date, end_date)
+    @order_type.orders = Order.where(created_at: start_date..end_date)
   end
 
   def show

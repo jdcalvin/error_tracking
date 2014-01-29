@@ -1,4 +1,4 @@
-<h1> Listing Orders for <%= @start_date.strftime("%x") %></h1>
+<h1> Listing Orders for <%= @date.strftime("%x") %></h1>
 <h3> Quality: <%= @order_type.orders.count - 
   count_errors(@order_type.orders)%>/<%= @order_type.orders.count %>
   | <%= quality(@order_type.orders) %>%</h3>

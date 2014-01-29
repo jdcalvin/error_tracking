@@ -5,6 +5,15 @@ class Order < ActiveRecord::Base
   has_many :tasks, through: :order_type
   accepts_nested_attributes_for :tasks
   accepts_nested_attributes_for :validations
-  default_scope -> { order('created_at ASC') }
+  #default_scope -> { order('created_at ASC') }
 
+  def year_only
+  end
+
+  def year_and_month
+  end
+
+  def full_date
+  end
+  
 end

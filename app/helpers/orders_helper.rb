@@ -26,3 +26,19 @@ def count_errors(orders)
 		return 100-(errors/total.to_f*100).round(2)
 	end
 end
+
+def orders_by_day(date)
+	@order_type.orders.where(created_at: date..date+1)
+end
+
+def errors_by_day(date)
+	sum = 0
+	orders_by_day(date).each do |x|
+		if x.validations.where(approval:true).count > 0
+			sum = sum + 1
+		else
+			sum
+		end
+	end
+	return sum
+end

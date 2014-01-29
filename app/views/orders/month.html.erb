@@ -1,6 +1,15 @@
 <div id="orders">
-	<h2 id="month"><%= @order_type.title %> for <%= @start_date.strftime("%B %Y") %> </h2>
-  <%= calendar(@start_date) do |date| %>
-  	<div class="day"><%= date.day %></div>
+	<h2 id="month"><%= @order_type.title %> for <%= @date.strftime("%B %Y") %> </h2>
+  <%= calendar(@date) do |date| %>
+  	<div class="day"><%= link_to date.day, "#{date.month}/#{date.day}" %></div>
+  	<p><%= orders_by_day(date).count-errors_by_day(date)%>/<%= orders_by_day(date).count %><br>
+  	</p> 
   <% end %>
+</div>
+<div>
+	<h1> Quality: <%= @order_type.orders.count - 
+  count_errors(@order_type.orders)%>/<%= @order_type.orders.count %>
+  | <%= quality(@order_type.orders) %>%</h1>
+  <h2> Breakdown </h2>
+  <ul>By Category</ul>
 </div>
