@@ -7,7 +7,6 @@
       <li> <strong><%= order.order %></strong> :
         <%= order.show_errors.values.flatten.count %> Errors
         <ul>
-        <%# order.validations.where(approval:true).each do |x| %>
          <% order.show_errors.each do |k, v| %>
             <li><%= k %>
               <% v.each do |x| %>

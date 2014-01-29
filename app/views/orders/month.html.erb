@@ -8,8 +8,22 @@
 </div>
 <div>
 	<h1> Quality: <%= @order_type.orders.count - 
-  count_errors(@order_type.orders)%>/<%= @order_type.orders.count %>
+  @order_type.count_total_errors%>/<%= @order_type.orders.count %>
   | <%= quality(@order_type.orders) %>%</h1>
   <h2> Breakdown </h2>
-  <ul>By Category</ul>
+  <p>  <%= @order_type.placeholder.values.flatten.count %> total errors </p>
 </div>
+
+<p> <%#= @order_type.placeholder2 %></p>
+<ol>
+<% @order_type.placeholder.each_pair do |k, v| %>
+  <li><%= k %>
+    <ol>
+    <% v.each do |x| %>
+      <li> <%= x %></li>
+      <% end %>
+    </ol>
+  </li> 
+<% end %>
+           
+          </ol>

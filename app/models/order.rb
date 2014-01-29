@@ -16,6 +16,10 @@ class Order < ActiveRecord::Base
   	end
   	return hash
   end
+  #EXPANDING ON THE ABOVE - to get count totals for a month,
+  # ill need to implement something similar in order_types.rb
+  # essentially the following with nested hashes
+  # hash = { :category => [{:task => total},{:task => total}], :category => [{:task = > total}] }
 
 
 
