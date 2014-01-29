@@ -27,7 +27,6 @@ class OrderType < ActiveRecord::Base
 				end
 			end
 		end
-		counter = 0
 
 		hash.each do |x|
 			new_hash[x[0]] = x[1].flatten
@@ -39,7 +38,17 @@ class OrderType < ActiveRecord::Base
 
 		return new_hash
 	end
+
 end
+
+#hash.each_pair do |key, value|
+	#sum = 0
+	#value.each_pair {|kk, vv| sum = sum + vv}
+	#hash[key] = sum
+#end
+
+
+
 
 # data set is saved in app folder - need to apply this to each key value
 # so each key value would be 'arr'

@@ -11,17 +11,20 @@
   @order_type.count_total_errors%>/<%= @order_type.orders.count %>
   | <%= quality(@order_type.orders) %>%</h1>
   <h2> Breakdown </h2>
-  <p>  <%= @order_type.breakdown.values.flatten.count %> total errors </p>
 </div>
 
+<p><%= chart_errors %></p>
+<p><%= chart_errors.values.sum %> total errors</p>
 <ol>
   <% @order_type.breakdown.each_pair do |key, value| %>
-    <li><%= key %>
+    <li><%= key %> (<%= value.values.sum %> total errors)
       <ol>
         <% value.each_pair do |kk, vv| %>
-          <li><%= kk %> | Total: <%= vv %></li>
+          <li><%= kk %> (<%= vv %> errors)</li>
         <% end %>
       </ol>
     </li>
-    <% end %>
+    <br>
+  <% end %>
+
 </ol>
