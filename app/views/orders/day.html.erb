@@ -5,12 +5,17 @@
 	<ol>
 		<% @order_type.orders.each do |order| %>
       <li> <strong><%= order.order %></strong> :
-        <%= order.validations.where(approval: true).count %> Errors
+        <%= order.show_errors.values.flatten.count %> Errors
         <ul>
-        <% order.validations.where(approval:true).each do |x| %>
-
-        <li> <%= x.task.category.name %> : <%= x.task.description %> </li>
-        <% end %>
+        <%# order.validations.where(approval:true).each do |x| %>
+         <% order.show_errors.each do |k, v| %>
+            <li><%= k %>
+              <% v.each do |x| %>
+                <ul> <%= x %></ul>
+                <% end %>
+              
+            </li>
+            <% end %>
       </ul>
       </li>
       <p>

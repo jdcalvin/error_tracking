@@ -36,10 +36,7 @@ class OrdersController < ApplicationController
       orders_by_date(start_date, end_date)
       render 'orders/month'
 
-    end
-
-    #orders_by_date(start_date, end_date)
-  
+    end  
   end
 
   def orders_by_date(start_date, end_date)

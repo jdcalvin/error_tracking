@@ -7,13 +7,16 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :validations
   #default_scope -> { order('created_at ASC') }
 
-  def year_only
+  def show_errors
+  	#FOR TESTING - USE order = Order.find(502)
+  	errors = validations.to_a.select { |x| x.approval }
+  	hash = Hash.new{|h,k| h[k] = []}
+  	errors.each do |x|
+  		hash[x.task.category.name] << x.task.description
+  	end
+  	return hash
   end
 
-  def year_and_month
-  end
 
-  def full_date
-  end
-  
+
 end
