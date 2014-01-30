@@ -1,10 +1,16 @@
 <div id="orders">
 	<h2 id="month"><%= @order_type.title %> for <%= @date.strftime("%B %Y") %> </h2>
   <%= calendar(@date) do |date| %>
-  	<div class="day"><%= link_to date.day, "#{date.month}/#{date.day}" %></div>
-  	<p><%= orders_by_day(date).count-errors_by_day(date)%>/<%= orders_by_day(date).count %><br>
-  	</p> 
+  	<% if date.month == @date.month %>
+	  	<div class="day"><%= link_to date.day, "#{date.month}/#{date.day}" %></div>
+	  	<p><%= orders_by_day(date).count-errors_by_day(date)%>/<%= orders_by_day(date).count %>
+	  	<br> 
+	  	<strong><%= ((orders_by_day(date).count-errors_by_day(date))/orders_by_day(date).count.to_f*100).round(2) %>%
+	  	</strong>
+	  </p>
+	  <% end %>	
   <% end %>
+
 </div>
 <div>
 	<h1> Quality: <%= @order_type.orders.count - 
@@ -12,6 +18,7 @@
   | <%= quality(@order_type.orders) %>%</h1>
 </div>
 
+<p><%= @order_type.breakdown %></p>
 <div id='chart'>
 <%= render_chart @chart, 'chart' %>
 </div>

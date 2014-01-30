@@ -43,7 +43,7 @@ class OrdersController < ApplicationController
 
   def pie_chart
     @order_type = OrderType.find(params[:order_type_id])
-    errors = @order_type.chart_errors
+    errors = @order_type.breakdown
     data_table = GoogleVisualr::DataTable.new
     data_table.new_column('string', 'Category')
     data_table.new_column('number', 'Number of Errors')
@@ -53,7 +53,7 @@ class OrdersController < ApplicationController
 
     errors.each_pair do |key, value|
       data_table.set_cell(name_cell, 0, key)
-      data_table.set_cell(name_cell, 1, errors[key] )
+      data_table.set_cell(name_cell, 1, errors[key].values.sum )
       name_cell = name_cell + 1
     end
     
