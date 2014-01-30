@@ -18,13 +18,13 @@
     </tr>
     <% @order_type.categories.uniq.each do |cat| %>
       <tr>
-        <td colspan=2><%= cat.name %></td>
+        <td colspan=2 style="background-color:#BAB9B9; padding-left: 1em"><strong><%= cat.name %></strong></td>
       </tr>
         <% cat.tasks.each do |task| %>
 
     <%# @order_type.tasks.each do |task| %>
       <tr class="<%= cycle('line-odd', 'line-even') %>">
-        <td style="text-align: center"><%= f.label task.description %></td>
+        <td style="text-align: left; padding-left: 2em"><%= f.label task.description %></td>
       <%= f.fields_for :validations do |entry| %>
         <td style="text-align: center"><%= entry.check_box :approval %></td> 
           <%= entry.hidden_field(:task_id, :value => task.id) %>

@@ -15,6 +15,8 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 
+
+gem "google_visualr", ">= 2.1"
 #Accessing nested hashes
 #check out hashie - starred
 #gem 'vine', '~> 0.0.2'

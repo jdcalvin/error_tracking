@@ -1,5 +1,7 @@
 module OrdersHelper
-
+	# OLD STUFF - instead of iterating over the databse everytime
+	#utilize the order.rb order_type.rb methods that create 
+	#a separate collection
 	def find_order_type
 		OrderType.find(params[:order_type_id])
 	end
@@ -15,10 +17,6 @@ def count_errors(orders)
 		end
 		return sum
 	end
-
-	#USAGE
-	# find_order_type.title = Title 
-	# find_order_type.id = ID
 
 	def quality(orders)
 		errors = count_errors(orders)

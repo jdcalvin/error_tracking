@@ -15,6 +15,8 @@ class OrderTypesController < ApplicationController
 
   end
 
+  
+
   # GET /order_types/1
   # GET /order_types/1.json
   def show

@@ -1,7 +1,8 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  
+
   def index
+    pie_chart
     @order_type = OrderType.find(params[:order_type_id])
     year = params[:year]
     month = params[:month]
@@ -37,6 +38,28 @@ class OrdersController < ApplicationController
       render 'orders/month'
 
     end  
+  end
+
+
+  def pie_chart
+    @order_type = OrderType.find(params[:order_type_id])
+    errors = @order_type.chart_errors
+    data_table = GoogleVisualr::DataTable.new
+    data_table.new_column('string', 'Category')
+    data_table.new_column('number', 'Number of Errors')
+    data_table.add_rows(errors.count)
+
+    name_cell = 0
+
+    errors.each_pair do |key, value|
+      data_table.set_cell(name_cell, 0, key)
+      data_table.set_cell(name_cell, 1, errors[key] )
+      name_cell = name_cell + 1
+    end
+    
+    opts   = { :width => 600, :height => 400, 
+      :title => 'Error Distribution by Category', :is3D => false }
+    @chart = GoogleVisualr::Interactive::PieChart.new(data_table, opts)   
   end
 
   def orders_by_date(start_date, end_date)

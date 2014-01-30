@@ -39,19 +39,15 @@ class OrderType < ActiveRecord::Base
 		return new_hash
 	end
 
+def chart_errors
+  hash = breakdown
+  hash.each_pair do |key, value|
+    sum = 0
+    value.each_pair { |kk, vv| sum = sum + vv }
+    hash[key] = sum
+  end
+  
+  return hash
 end
 
-#hash.each_pair do |key, value|
-	#sum = 0
-	#value.each_pair {|kk, vv| sum = sum + vv}
-	#hash[key] = sum
-#end
-
-
-
-
-# data set is saved in app folder - need to apply this to each key value
-# so each key value would be 'arr'
-# arr would be re-inserted in the hash as:
-# {key =>{key=> value}
-#res = Hash[arr, group_by {|x| x}.map {|k, v| [k,v.count]}]
+end
