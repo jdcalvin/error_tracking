@@ -10,15 +10,13 @@
 	  </p>
 	  <% end %>	
   <% end %>
-
 </div>
+
 <div>
-	<h1> Quality: <%= @order_type.orders.count - 
-  @order_type.count_total_errors%>/<%= @order_type.orders.count %>
-  | <%= quality(@order_type.orders) %>%</h1>
+	<h1> Quality: <%= @order_type.no_errors %> / <%= @order_type.orders.count %> 
+  | <%= @order_type.quality %>%</h1>
 </div>
 
-<p><%= @order_type.breakdown %></p>
 <div id='chart'>
 <%= render_chart @chart, 'chart' %>
 </div>

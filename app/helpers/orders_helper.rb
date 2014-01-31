@@ -17,12 +17,6 @@ def count_errors(orders)
 		end
 		return sum
 	end
-
-	def quality(orders)
-		errors = count_errors(orders)
-		total = orders.count
-		return 100-(errors/total.to_f*100).round(2)
-	end
 end
 
 def orders_by_day(date)

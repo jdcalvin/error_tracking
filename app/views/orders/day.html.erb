@@ -1,7 +1,7 @@
 <h1> Listing Orders for <%= @date.strftime("%x") %></h1>
 <h3> Quality: <%= @order_type.orders.count - 
   count_errors(@order_type.orders)%>/<%= @order_type.orders.count %>
-  | <%= quality(@order_type.orders) %>%</h3>
+  | <%= @order_type.quality %>%</h3>
 	<ol>
 		<% @order_type.orders.each do |order| %>
       <li> <strong><%= order.order %></strong> :

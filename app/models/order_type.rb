@@ -39,15 +39,21 @@ class OrderType < ActiveRecord::Base
 		return new_hash
 	end
 
-def chart_errors
-  hash = breakdown
-  hash.each_pair do |key, value|
-    sum = 0
-    value.each_pair { |kk, vv| sum = sum + vv }
-    hash[key] = sum
-  end
-  
-  return hash
-end
+def quality
+		return 100-(has_errors.count/orders.count.to_f*100).round(2)
+	end
 
+def has_errors
+	arr = []
+	orders.each do |order|
+		if order.show_errors.any?
+			arr << order
+		end
+	end
+		arr
+	end
+
+def no_errors
+	orders.count - has_errors.count
+end
 end

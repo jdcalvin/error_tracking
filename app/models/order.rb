@@ -5,22 +5,12 @@ class Order < ActiveRecord::Base
   has_many :tasks, through: :order_type
   accepts_nested_attributes_for :tasks
   accepts_nested_attributes_for :validations
-  #default_scope -> { order('created_at ASC') }
 
   def show_errors
-  	#FOR TESTING - USE order = Order.find(502)
   	errors = validations.to_a.select { |x| x.approval }
   	hash = Hash.new{|h,k| h[k] = []}
-  	errors.each do |x|
-  		hash[x.task.category.name] << x.task.description
-  	end
+  	errors.each {|x| hash[x.task.category.name] << x.task.description }
   	return hash
   end
-  #EXPANDING ON THE ABOVE - to get count totals for a month,
-  # ill need to implement something similar in order_types.rb
-  # essentially the following with nested hashes
-  # hash = { :category => [{:task => total},{:task => total}], :category => [{:task = > total}] }
-
-
 
 end
