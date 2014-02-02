@@ -6,16 +6,6 @@ class OrderType < ActiveRecord::Base
 
 	accepts_nested_attributes_for :tasks
 
-	def count_total_errors
-		sum = 0
-		orders.each do |order|
-			if order.validations.select {|x| x.approval?}.count > 0
-				sum = sum + 1
-			end
-		end
-		return sum
-	end
-
 	def breakdown
 		arr = []
 		new_hash = Hash.new(0)
@@ -39,24 +29,16 @@ class OrderType < ActiveRecord::Base
 		return new_hash
 	end
 
-def quality
+	def quality
 		return 100-(has_errors.count/orders.count.to_f*100).round(2)
 	end
 
-def has_errors
-	#arr = []
-	#orders.each do |order|
-	#	if order.show_errors.any?
-	#		arr << order
-	#	end
-	#end
-	#	arr
-
-	orders.select {|order| order.show_errors.any? }
+	def has_errors
+		orders.select {|order| order.show_errors.any? }
 	end
 
-def no_errors
-	orders.reject {|order| order.show_errors.any?}
-end
+	def no_errors
+		orders.reject {|order| order.show_errors.any?}
+	end
 
 end

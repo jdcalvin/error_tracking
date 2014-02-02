@@ -1,21 +1,21 @@
-puts "Creating sample database - this may take awhile..."
+puts "Setting up sample database..."
+
+#Order Type
+order_type = OrderType.create(title:"fnfi errors")
+puts "Setting up template #{order_type.title}:"
+
 #Categories
 cat = ["city lien", "datedown", "documents", "general", "names", "policy", "taxes"]
 cat.each do |x|
-Category.new(name: x).save
+Category.create(name: x)
 end
-
-#Order Type
-order_type = OrderType.new(title:"fnfi errors").save
-
-
 
 #Tasks
 city_lien = ["did not update", "incorrect amount"]
 datedown = ["did not run", "doc is incorrect", "wrong effective date",
 						"missed exceptions", "did not update new vesting"]
 documents = ["did not upload new docs", "labeled incorrectly", 
-							"wrong docs uploaded"]
+						"wrong docs uploaded"]
 general = ["exceptions wrong", "wrong supp version"]
 
 names = ["did not update name", "listing old buyers", "name incorrect", 
@@ -29,7 +29,7 @@ def convert_to_id(cat_name)
 	return cat_name.id.to_i
 end
 
-
+puts "Creating tasks"
 city_lien.each do |x|
 	Task.new(description: x, category_id: convert_to_id("City Lien")).save
 end
@@ -53,7 +53,7 @@ end
 taxes.each do |x|
 	Task.new(description: x, category_id: convert_to_id("Taxes")).save
 end
-
+puts "#{order_type.title} completed"
 
 #Randomizes order number
 def create_order_num
@@ -64,44 +64,56 @@ def create_order_num
 	arr.join
 end
 
-#Validations have an average return of 1-3 errors 
+def rolling
+	rand(20)+1 <= 2 ? true : false
+end
+
 def have_error(order)
 	order.tasks.each do |task|
-		v = Validation.new
-		if rand(20)+1 <= 2 
-			v.approval = true
-		else
-			v.approval = false
-		end
-		v.order_id = order.id
-		v.task_id = task.id
-		v.save
+		Validation.create(
+			approval: rolling,
+			order_id: order.id,
+			task_id: task.id)
 	end
 end
 
 #Validations have no errors
 def no_error(order)
 	order.tasks.each do |task|
-		v = Validation.new
-		v.approval = false
-		v.order_id = order.id
-		v.task_id = task.id
-		v.save
+		Validation.create(
+			approval: false,
+			order_id: order.id,
+			task_id: task.id)
 	end
 end
 
-#Creates 500 orders
+puts "Creating 500 orders for January...this may take awhile"
 500.times do
-	order = Order.new(order_type_id: 1)
-	order.order = create_order_num
+	order = Order.create(
+		order_type_id: 1,
+		order: create_order_num,
+		created_at: "2014-01-#{rand(31)+1}")
 
-	#Randomizes day the order was created
-	order.created_at = "2014-01-#{rand(31)+1} 00:00:00"
-	order.save
-
-	if rand(100)+1 > 70 #Creating 30% chance an error will occur
+	#30% chance an error will occur
+	if rand(100)+1 > 70 
 		have_error(order)
 	else
 		no_error(order)
 	end
 end
+
+
+puts "Creating 500 orders for February...this may take awhile"
+500.times do
+	order = Order.create(
+		order_type_id: 1,
+		order: create_order_num,
+		created_at: "2014-02-#{rand(28)+1}")
+
+	#30% chance an error will occur
+	if rand(100)+1 > 70 
+		have_error(order)
+	else
+		no_error(order)
+	end
+end	

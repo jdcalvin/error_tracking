@@ -5,7 +5,7 @@ class Order < ActiveRecord::Base
   has_many :tasks, through: :order_type
   accepts_nested_attributes_for :tasks
   accepts_nested_attributes_for :validations
-
+  
   def show_errors
   	errors = validations.to_a.select { |x| x.approval }
   	hash = Hash.new{|h,k| h[k] = []}
