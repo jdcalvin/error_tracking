@@ -1,11 +1,10 @@
 <h1> Listing Orders for <%= @date.strftime("%x") %></h1>
-<h3> Quality: <%= @order_type.orders.count - 
-  count_errors(@order_type.orders)%>/<%= @order_type.orders.count %>
+<h3> Quality: <%= @order_type.no_errors.count %>/<%= @order_type.orders.count %>
   | <%= @order_type.quality %>%</h3>
 	<ol>
-		<% @order_type.orders.each do |order| %>
-      <li> <strong><%= order.order %></strong> :
-        <%= order.show_errors.values.flatten.count %> Errors
+		<% @order_type.has_errors.each do |order| %>
+      <li> <strong style="color:red"><%= order.order %>:</strong>
+        <%= order.show_errors.count %> Errors
         <ul>
          <% order.show_errors.each do |k, v| %>
             <li><%= k %>
@@ -15,7 +14,7 @@
               
             </li>
             <% end %>
-      </ul>
+        </ul>
       </li>
       <p>
         Note: <%= order.note %></br>
@@ -25,4 +24,16 @@
         <%= link_to 'Destroy', "/order_types/#{@order_type.id}/orders/#{order.id}" , method: :delete, data: { confirm: 'Are you sure?' } %> 
       </p>
     <% end %>
+
+    <% @order_type.no_errors.each do |order| %>
+      <li> <strong><%= order.order %></strong>
+        <p>
+          Note: <%= order.note %></br>
+
+        <%= link_to 'Show', 
+            "/order_types/#{@order_type.id}/orders/#{order.id}" %> |
+        <%= link_to 'Destroy', "/order_types/#{@order_type.id}/orders/#{order.id}" , method: :delete, data: { confirm: 'Are you sure?' } %> 
+      </p>
+    <% end %>
+
   </ol>

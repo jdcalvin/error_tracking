@@ -44,16 +44,19 @@ def quality
 	end
 
 def has_errors
-	arr = []
-	orders.each do |order|
-		if order.show_errors.any?
-			arr << order
-		end
-	end
-		arr
+	#arr = []
+	#orders.each do |order|
+	#	if order.show_errors.any?
+	#		arr << order
+	#	end
+	#end
+	#	arr
+
+	orders.select {|order| order.show_errors.any? }
 	end
 
 def no_errors
-	orders.count - has_errors.count
+	orders.reject {|order| order.show_errors.any?}
 end
+
 end
