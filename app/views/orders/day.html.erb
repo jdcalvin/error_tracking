@@ -4,7 +4,7 @@
 	<ol>
 		<% @order_type.has_errors.each do |order| %>
       <li> <strong style="color:red"><%= order.order %>:</strong>
-        <%= order.show_errors.count %> Errors
+        <%= order.show_errors.values.sum.count %> Errors
         <ul>
          <% order.show_errors.each do |k, v| %>
             <li><%= k %>
