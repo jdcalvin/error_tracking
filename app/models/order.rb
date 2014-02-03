@@ -13,4 +13,6 @@ class Order < ActiveRecord::Base
   	return hash
   end
 
+  
+
 end

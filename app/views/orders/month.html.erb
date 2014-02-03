@@ -3,10 +3,11 @@
   <%= calendar(@date) do |date| %>
   	<% if date.month == @date.month %>
 	  	<div class="day"><%= link_to date.day, "#{date.month}/#{date.day}" %></div>
-	  	<p><%= orders_by_day(date).count-errors_by_day(date)%>/<%= orders_by_day(date).count %>
+	  <p>
+	  	<%=  @order_type.by_day(date)["Correct"] %> / 
+	  	<%= @order_type.by_day(date)["Total"] %>
 	  	<br> 
-	  	<strong><%= ((orders_by_day(date).count-errors_by_day(date))/orders_by_day(date).count.to_f*100).round(2) %>%
-	  	</strong>
+	  	<strong><%= @order_type.by_day(date)["Pct"] %>%</strong>
 	  </p>
 	  <% end %>	
   <% end %>

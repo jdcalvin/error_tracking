@@ -1,9 +1,6 @@
 class OrderTypesController < ApplicationController
   before_action :set_order_type, only: [:show, :edit, :update, :destroy, :validations]
 
-  # GET /order_types
-  # GET /order_types.json
-
   def validations
     @orders = Order.all
     @tasks = @order_type.tasks
@@ -11,54 +8,40 @@ class OrderTypesController < ApplicationController
   
   def index
     @order_types = OrderType.all
-    @orders = Order.order('created_at')
-
   end
 
-  
-
-  # GET /order_types/1
-  # GET /order_types/1.json
   def show
   end
 
-  # GET /order_types/new
   def new
     @order_type = OrderType.new
   end
 
-  # GET /order_types/1/edit
   def edit
   end
 
-  # POST /order_types
-  # POST /order_types.json
   def create
     @order_type = OrderType.new(order_type_params)
 
     respond_to do |format|
       if @order_type.save
-        format.html { redirect_to @order_type, notice: 'Order type was successfully created.' }
+        format.html { redirect_to @order_type, notice: 'Template was successfully created.' }
       else
         format.html { render action: 'new' }
       end
     end
   end
 
-  # PATCH/PUT /order_types/1
-  # PATCH/PUT /order_types/1.json
   def update
     respond_to do |format|
       if @order_type.update(order_type_params)
-        format.html { redirect_to @order_type, notice: 'Order type was successfully updated.' }
+        format.html { redirect_to @order_type, notice: 'Templatewas successfully updated.' }
       else
         format.html { render action: 'edit' }
       end
     end
   end
 
-  # DELETE /order_types/1
-  # DELETE /order_types/1.json
   def destroy
     @order_type.destroy
     respond_to do |format|
@@ -67,12 +50,10 @@ class OrderTypesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_order_type
       @order_type = OrderType.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def order_type_params
       params.require(:order_type).permit(:title)
     end
