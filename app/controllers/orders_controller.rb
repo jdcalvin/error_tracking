@@ -12,10 +12,8 @@ class OrdersController < ApplicationController
       show_day(year, month, day)
 
     elsif year.nil? && month.nil? && day.nil?
-      @date = Date.today
-      orders_by_date(@date, @date+1)
-      render 'orders/day'
-
+      show_current_day      
+      
     elsif month.nil? && day.nil?
       show_year(year)
 
@@ -25,8 +23,14 @@ class OrdersController < ApplicationController
     end
   end
 
-  def orders_by_date(start_date, end_date)
-    @order_type.orders = Order.where(created_at: start_date..end_date)
+  def show_current_day
+    @date = Date.today.in_time_zone
+    orders_by_date(@date, @date.end_of_day)
+    render 'orders/day'
+  end
+
+  def orders_by_date(time_range)
+    @order_type.orders = Order.where(created_at: time_range)
   end
 
   def show
@@ -48,7 +52,6 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
-        #Needs to be corrected for redirection to current day
         format.html { redirect_to order_type_orders_path, notice: 'Order was successfully created.' }
       else
         format.html { render action: 'new' }
@@ -75,18 +78,16 @@ class OrdersController < ApplicationController
   end
 
   def show_day(year,month,day)
-    start_date = Date.parse("#{day}.#{month}.#{year}")
-    end_date = start_date + 1
-    @date = start_date
-    orders_by_date(start_date, end_date)
+    @date = Date.parse("#{day}.#{month}.#{year}").in_time_zone
+    time_range = (@date..@date.end_of_day)
+    orders_by_date(time_range)
     render 'orders/day'
   end
 
   def show_month(year,month)
-    start_date = Date.parse("1.#{month}.#{year}")
-    end_date = start_date.end_of_month + 1
-    @date = start_date
-    orders_by_date(start_date, end_date)
+    @date = Date.parse("1.#{month}.#{year}")
+    time_range = (@date..@date.end_of_month + 1)
+    orders_by_date(time_range)
     render 'orders/month'
   end
 

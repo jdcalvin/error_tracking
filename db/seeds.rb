@@ -87,12 +87,24 @@ def no_error(order)
 	end
 end
 
+#Generates random date for given month, excluding weekends
+def randomize_day(month)
+	t = Date.parse("1.#{month}.2014")
+	days = (t..t.end_of_month).count
+	date = Date.new(2014, month, rand(days)+1)
+	if date.saturday? || date.sunday?
+		randomize_day(month)
+	else
+		return date
+	end
+end
+
 puts "Creating 500 orders for January...this may take awhile"
 500.times do
 	order = Order.create(
 		order_type_id: 1,
 		order: create_order_num,
-		created_at: "2014-01-#{rand(31)+1}")
+		created_at: randomize_day(1))
 
 	#30% chance an error will occur
 	if rand(100)+1 > 70 
@@ -102,13 +114,12 @@ puts "Creating 500 orders for January...this may take awhile"
 	end
 end
 
-
 puts "Creating 500 orders for February...this may take awhile"
 500.times do
 	order = Order.create(
 		order_type_id: 1,
 		order: create_order_num,
-		created_at: "2014-02-#{rand(28)+1}")
+		created_at: randomize_day(2))
 
 	#30% chance an error will occur
 	if rand(100)+1 > 70 

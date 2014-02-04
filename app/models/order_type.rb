@@ -7,8 +7,9 @@ class OrderType < ActiveRecord::Base
 	accepts_nested_attributes_for :tasks
 
 	def by_day(date)
-		error = has_errors.select {|order| order.created_at >= date && order.created_at < date+1}.count
-		correct = no_errors.select {|order| order.created_at >= date && order.created_at < date+1}.count
+		date = date.in_time_zone
+		error = has_errors.select {|order| order.created_at >= date && order.created_at < date.end_of_day}.count
+		correct = no_errors.select {|order| order.created_at >= date && order.created_at < date.end_of_day}.count
 		hash = Hash.new(0)
 		hash["Error"] = error
 		hash["Correct"] = correct
