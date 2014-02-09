@@ -7,12 +7,10 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :validations
   
   def show_errors
-  	errors = validations.to_a.select { |x| x.approval }
+  	errors = validations.select { |x| x.approval }
   	hash = Hash.new{|h,k| h[k] = []}
-  	errors.each {|x| hash[x.task.category.name] << x.task.description }
+	errors.each {|x| hash[x.task.category.name] << x.task.description }
   	return hash
   end
-
-  
 
 end

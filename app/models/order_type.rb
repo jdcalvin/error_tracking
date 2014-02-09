@@ -8,7 +8,7 @@ class OrderType < ActiveRecord::Base
 
 	def by_day(date)
 		date = date.in_time_zone
-		error = has_errors.select {|order| order.created_at >= date && order.created_at < date.end_of_day}.count
+		error = has_errors.select { |order| order.created_at >= date && order.created_at < date.end_of_day}.count
 		correct = no_errors.select {|order| order.created_at >= date && order.created_at < date.end_of_day}.count
 		hash = Hash.new(0)
 		hash["Error"] = error

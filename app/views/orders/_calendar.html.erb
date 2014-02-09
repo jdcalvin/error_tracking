@@ -1,0 +1,15 @@
+<%= calendar(@date) do |date| %>
+  <% if date.month == @date.month %>
+	  <div class="day"><%= link_to date.day, "#{date.month}/#{date.day}" %></div>
+	  <p>
+	  <% unless @order_type.by_day(date)["Total"] < 1 %>
+	  	<%=  @order_type.by_day(date)["Correct"] %> / 
+	  	<%= @order_type.by_day(date)["Total"] %>
+	  	<br> 
+	  	<strong><%= @order_type.by_day(date)["Pct"] %>%</strong>
+	  <% else %>
+	  	No Orders
+		<% end %>
+	 	</p>
+	<% end %>
+<% end %>
