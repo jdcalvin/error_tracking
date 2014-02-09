@@ -1,8 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @order_type.title %>
+<h2><%= @order_type.title %> </h2>
+	<ol>
+  <% @order_type.categories.uniq.each do |cat| %>
+  	<li><strong><%= cat.name %></strong>
+  		<% cat.tasks.each do |task| %>
+  			<ul><%= task.description %></ul>
+  		<% end %>
+  	</li>
+  <% end %>
+  </ol>
 </p>
 
 <%= link_to 'Edit', edit_order_type_path(@order_type) %> |
