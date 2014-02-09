@@ -111,7 +111,7 @@ class OrdersController < ApplicationController
     render 'orders/month'
   end
 
-  def show_year(year,month,day)
+  def show_year(year)
     render 'orders/year'
   end
 

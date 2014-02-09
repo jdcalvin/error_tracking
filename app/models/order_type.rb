@@ -3,8 +3,7 @@ class OrderType < ActiveRecord::Base
 	has_many :tasks
 	has_many :orders
 	has_many :categories, through: :tasks
-
-	accepts_nested_attributes_for :tasks
+	accepts_nested_attributes_for :categories
 
 	def by_day(date)
 		date = date.in_time_zone
