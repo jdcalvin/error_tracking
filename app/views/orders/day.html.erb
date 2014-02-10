@@ -1,12 +1,19 @@
+<div style="width:100%">
 <h1> Listing Orders for <%= @date.strftime("%x") %></h1>
 <!-- THIS WILL BE A PARTIAL THAT IS SHARED WITH CALENDAR -->
-	<h2> Quality <%= render 'breakdown' %> </h2>
-
-	<ol>
-    <% @with_errors.each do |order| %>
-      <li><%= render order %></li>
-      <% end %>
+<h2> Quality <%= render 'breakdown' %> </h2>
+</div>
+<div class="with_errors">
+		<ol>
+	    <% @with_errors.each do |order| %>
+	      <li><%= render order %></li>
+	    <% end %>
+	  </ol>
+</div>
+<div class="no_errors">
+  <ol>
     <% @no_errors.each do |order| %>
     	<li><%= render order %></li>
-    	<% end %>
+    <% end %>
   </ol>
+</div>

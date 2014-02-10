@@ -23,7 +23,6 @@ class OrdersController < ApplicationController
   end
 
   def pie_chart
-    #@order_type = OrderType.find(params[:order_type_id])
     errors = @order_type.breakdown
     data_table = GoogleVisualr::DataTable.new
     data_table.new_column('string', 'Category')

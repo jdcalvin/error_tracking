@@ -36,4 +36,8 @@ table {
 	textarea {
 		background-color: #FFFAC5;
 }
-		
+
+#container {
+	position: relative;
+}
+

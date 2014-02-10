@@ -9,12 +9,12 @@ class Order < ActiveRecord::Base
   def show_errors
   	errors = validations.select { |x| x.approval }
   	hash = Hash.new{|h,k| h[k] = []}
-	errors.each {|x| hash[x.task.category.name] << x.task.description }
+	  errors.each {|x| hash[x.task.category.name] << x.task.description }
   	return hash
   end
 
   def self.date(date)
-    Order.where(created_at: date)
+  Order.where(created_at: date)
   end
-
+  
 end
