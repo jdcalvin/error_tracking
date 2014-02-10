@@ -4,8 +4,7 @@
 </div>
 
 <div>
-	<h1> Quality: <%= @order_type.no_errors.count %> / <%= @order_type.orders.count %> 
-  | <%= @order_twype.quality %>%</h1>
+	<h1>Quality: <%= render 'breakdown' %> </h1>	
 </div>
 
 <div id='chart'>

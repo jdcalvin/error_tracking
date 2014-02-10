@@ -1,8 +1,7 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:create, :edit, :update, :destroy]
 
   def index
-    pie_chart
     @order_type = OrderType.find(params[:order_type_id])
     year = params[:year]
     month = params[:month]
@@ -17,13 +16,14 @@ class OrdersController < ApplicationController
     elsif month.nil? && day.nil?
       show_year(year)
 
-    elsif day.nil?  
+    elsif day.nil?
+      pie_chart  
       show_month(year, month)
     end
   end
 
   def pie_chart
-    @order_type = OrderType.find(params[:order_type_id])
+    #@order_type = OrderType.find(params[:order_type_id])
     errors = @order_type.breakdown
     data_table = GoogleVisualr::DataTable.new
     data_table.new_column('string', 'Category')
@@ -50,11 +50,9 @@ class OrdersController < ApplicationController
   end
 
   def orders_by_date(time_range)
-    @order_type.orders = Order.where(created_at: time_range)
-  end
-
-  def show
-    @order = Order.find(params[:id])
+    @orders = Order.date(time_range)
+    @with_errors = @orders.select {|order| order.show_errors.any? }
+    @no_errors = @orders.reject {|order| order.show_errors.any? }
   end
 
   def new

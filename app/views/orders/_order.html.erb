@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <h3>Order #<%= order.order %> </h2>
+</p>
+
+
+<% unless order.show_errors.empty? %>
+  <h3><%= order.show_errors.values.flatten.count %> Errors </h3>
+  <ol>
+    <% order.show_errors.each_pair do |key, value| %>
+      <% value.each do |task| %>
+       <li><strong><%= key %>: </strong><%= task %></li>
+      <% end %>
+    <% end %>
+  </ol>
+<% else %>
+  <h3> No Errors </h3>
+<% end %>
+<p>
+  <strong>Note:</strong>
+  <%= order.note %>
+</p>

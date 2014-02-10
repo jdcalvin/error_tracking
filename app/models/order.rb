@@ -13,4 +13,8 @@ class Order < ActiveRecord::Base
   	return hash
   end
 
+  def self.date(date)
+    Order.where(created_at: date)
+  end
+
 end
