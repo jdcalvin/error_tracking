@@ -17,4 +17,12 @@ class Validation < ActiveRecord::Base
 		end
 	end
 
+	def self.show_errors
+		errors = self.select {|x| x.approval }
+  	hash = Hash.new{|h,k| h[k] = []}
+	  errors.each {|x| hash[x.category_name] << x.task_description }
+  	return hash
+  end
+
+
 end

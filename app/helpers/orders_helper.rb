@@ -1,22 +1,16 @@
 module OrdersHelper
 	
 	def quality
-		(@orders.no_errors.count / @orders.count.to_f*100).round(2)
+		clear = @orders.no_errors.count
+		total = @orders.count
+		pct = (clear/total.to_f*100).round(2)
+		
+		hash = Hash.new(0)
+		hash[:clear] = clear
+		hash[:total] = total
+		hash[:pct] = pct
+		return hash
+
 	end
 
-	#def errors_by_date(date)
-	#	date = date.in_time_zone
-	#	@with_errors.select {|order| order.created_at >= date && order.created_at < date.end_of_day}.count
-#	end
-
-	#def clear_by_date(date)
-	#	date = date.in_time_zone
-	#	@no_errors.select { |order| order.created_at >= date && order.created_at < date.end_of_day}.count
-#	end
-
-	#def order_by_date(date)
-	#	date = date.in_time_zone
-	#	Order.date(date..date.end_of_day).count
-	#end
-	
 end
