@@ -6,11 +6,15 @@ class Validation < ActiveRecord::Base
 
 
 	def task_description
-		read_attribute("task_description") || task.description
+		Rails.cache.fetch([:task, task_id, :description], expires_in: 5.minutes) do
+		task.description
+		end
 	end
 
 	def category_name
-		read_attribute("category_name") || category.name
+		Rails.cache.fetch([:category, category.id, :name], expires_in: 5.minutes) do
+			category.name
+		end
 	end
 
 end

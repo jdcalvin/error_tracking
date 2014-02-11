@@ -17,13 +17,12 @@ class OrdersController < ApplicationController
       show_year(year)
 
     elsif day.nil?
-      pie_chart  
       show_month(year, month)
     end
   end
 
   def pie_chart
-    errors = @order_type.breakdown
+    errors = @orders.breakdown
     data_table = GoogleVisualr::DataTable.new
     data_table.new_column('string', 'Category')
     data_table.new_column('number', 'Number of Errors')
@@ -44,14 +43,8 @@ class OrdersController < ApplicationController
 
   def show_current_day
     @date = Date.today.in_time_zone
-    orders_by_date(@date, @date.end_of_day)
+		@orders = Order.date(@date..@date.end_of_day)
     render 'orders/day'
-  end
-
-  def orders_by_date(time_range)
-    @orders = Order.date(time_range)
-    @with_errors = @orders.with_errors
-    @no_errors = @orders.no_errors
   end
 
   def new
@@ -97,14 +90,15 @@ class OrdersController < ApplicationController
   def show_day(year,month,day)
     @date = Date.parse("#{day}.#{month}.#{year}").in_time_zone
     time_range = (@date..@date.end_of_day)
-    orders_by_date(time_range)
+   	@orders = Order.date(time_range)
     render 'orders/day'
   end
 
   def show_month(year,month)
     @date = Date.parse("1.#{month}.#{year}")
     time_range = (@date..@date.end_of_month + 1)
-    orders_by_date(time_range)
+    @orders = Order.date(time_range)
+    pie_chart
     render 'orders/month'
   end
 

@@ -2,11 +2,11 @@
   <% if date.month == @date.month %>
 	  <div class="day"><%= link_to date.day, "#{date.month}/#{date.day}" %></div>
 	  <p>
-	  <% unless order_by_date(date) < 1 %>
-	  	<%=  clear_by_date(date) %> / 
-	  	<%= order_by_date(date) %>
+		<% unless  @orders.date(date..date.end_of_day).count < 1 %>
+			<%=  @orders.date(date..date.end_of_day).no_errors.count %> / 
+			<%= @orders.date(date..date.end_of_day).count %>
 	  	<br> 
-	  	<strong><%= (clear_by_date(date) / order_by_date(date).to_f*100).round(2) %>%</strong>
+			<strong><%#= %>%</strong>
 	  <% else %>
 	  	No Orders
 		<% end %>
