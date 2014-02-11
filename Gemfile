@@ -33,7 +33,7 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-gem 'newrelic_rpm'
+gem 'rack-mini-profiler'
 
 gem 'ruby-prof'
 

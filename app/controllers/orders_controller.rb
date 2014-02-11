@@ -50,8 +50,8 @@ class OrdersController < ApplicationController
 
   def orders_by_date(time_range)
     @orders = Order.date(time_range)
-    @with_errors = @orders.select {|order| order.show_errors.any? }
-    @no_errors = @orders.reject {|order| order.show_errors.any? }
+    @with_errors = @orders.with_errors
+    @no_errors = @orders.no_errors
   end
 
   def new

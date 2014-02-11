@@ -5,14 +5,14 @@
 </div>
 <div class="with_errors">
 		<ol>
-	    <% @with_errors.each do |order| %>
+	    <% @orders.with_errors.each do |order| %>
 	      <li><%= render order %></li>
 	    <% end %>
 	  </ol>
 </div>
 <div class="no_errors">
   <ol>
-    <% @no_errors.each do |order| %>
+    <% @orders.no_errors.each do |order| %>
     	<li><%= render order %></li>
     <% end %>
   </ol>

@@ -1,4 +1,4 @@
-<h1>New order for <%= find_order_type.title %></h1>
+<h1>New order for <%= @order_type.title %></h1>
 <%= form_for [@order_type, @order] do |f| %>
 
 	<%= render 'error' %>
