@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:create, :edit, :update, :destroy]
+  before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   def index
     @order_type = OrderType.find(params[:order_type_id])
@@ -44,6 +44,8 @@ class OrdersController < ApplicationController
   def show_current_day
     @date = Date.today.in_time_zone
 		@orders = Order.date(@date..@date.end_of_day)
+		@correct = @orders.select {|x| x.show_errors.empty? }
+		@errors = @orders.select {|x| x.show_errors.any? }
     render 'orders/day'
   end
 
@@ -62,7 +64,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to order_type_orders_path, notice: 'Order was successfully created.' }
+        format.html { redirect_to order_type_orders_path }
       else
         format.html { render action: 'new' }
       end
@@ -72,7 +74,7 @@ class OrdersController < ApplicationController
   def update
     respond_to do |format|
       if @order.update(order_params)
-        format.html { redirect_to order_type_orders_path, notice: 'Order was successfully updated.' }
+        format.html { redirect_to order_type_orders_path }
       else
         format.html { render action: 'edit' }
       end
@@ -91,6 +93,8 @@ class OrdersController < ApplicationController
     @date = Date.parse("#{day}.#{month}.#{year}").in_time_zone
     time_range = (@date..@date.end_of_day)
    	@orders = Order.date(time_range)
+		@errors = @orders.select {|x| x.show_errors.any? }
+		@correct = @orders.select {|x| x.show_errors.empty? }
     render 'orders/day'
   end
 
@@ -98,6 +102,9 @@ class OrdersController < ApplicationController
     @date = Date.parse("1.#{month}.#{year}")
     time_range = (@date..@date.end_of_month + 1)
     @orders = Order.date(time_range)
+		@errors = @orders.select {|x| x.show_errors.any? }
+		@correct = @orders.select {|x| x.show_errors.empty? }
+
     pie_chart
     render 'orders/month'
   end

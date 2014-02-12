@@ -7,16 +7,12 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :tasks
   accepts_nested_attributes_for :validations
 
-def show_errors
+	def show_errors
   	errors = validations.select {|x| x.approval}
   	hash = Hash.new{|h,k| h[k] = []}
 	  errors.each {|x| hash[x.category_name] << x.task_description }
   	return hash
   end
-
-	def breakdown
-		show_errors.each 
-	end
 
 	def self.date(date)
  	 Order.where(created_at: date)
@@ -27,18 +23,16 @@ def show_errors
 
 	def self.with_errors
 		self.select {|order| order.show_errors.any? }
-		#self.joins(:validations).where(validations: {approval: true})
 	end
 
 	def self.no_errors
 		self.select {|order| order.show_errors.empty? }
-		#self.joins(:validations).where(validations: {approval:false})
 	end
 
   def self.breakdown
     new_hash = Hash.new(0)
     hash = Hash.new{|h, k| h[k] = []}
-    self.with_errors.each do |order|
+		self.with_errors.each do |order|
       order.show_errors.each_pair do |k,v|
         hash[k] << v
       end
@@ -54,5 +48,5 @@ def show_errors
 
     return new_hash
   end
+	
 end
-

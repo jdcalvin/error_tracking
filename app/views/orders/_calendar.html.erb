@@ -1,15 +1,14 @@
 <%= calendar(@date) do |date| %>
   <% if date.month == @date.month %>
 	  <div class="day"><%= link_to date.day, "#{date.month}/#{date.day}" %></div>
-	  <p>
-		<% unless  @orders.date(date..date.end_of_day).count < 1 %>
-			<%=  @orders.date(date..date.end_of_day).no_errors.count %> / 
-			<%= @orders.date(date..date.end_of_day).count %>
-	  	<br> 
-			<strong><%#= %>%</strong>
-	  <% else %>
-	  	No Orders
+		<p style = "padding-left: 25%">
+		<% unless orders_by_date(date).size < 1 %>
+			<%= correct_by_date(date).size %>/<%= orders_by_date(date).size %><br>
+		<strong><%= quality_by_date(date) %>%</strong>
+		<% else %>
+			No Orders
 		<% end %>
-	 	</p>
+
+			</p>
 	<% end %>
 <% end %>
