@@ -5,6 +5,7 @@ Fnfi::Application.routes.draw do
   
   resources :order_types do 
     resources :tasks, only: [:index, :new, :create]
+		resources :categories, only: [:index, :new, :create]
     resources :orders
     get 'date/:year(/:month(/:day))', to: 'orders#index'       
   end

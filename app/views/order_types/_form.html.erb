@@ -12,17 +12,23 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
+   <strong> <%= f.label :title %></strong>:  <%= f.text_field :title %>
+	</div><br>
 
-  <%= fields_for :tasks do |task| %>
-    <fieldset>
-      <%= task.label 'Task Name' %>
-      <%= task.text_field :description %>
-    </fieldset>
-  <% end %>
+	<div class="field">
+	<%= f.fields_for :categories, @order_type.categories.uniq do |c| %>
+		<strong><%= c.label :name, "Category Name:"  %></strong>
+		<%= c.text_field :name %>
+		<fieldset>
+			<strong> Task Descriptions: </strong><br>
+				<%= c.fields_for :tasks do |t| %>
+					<%#= t.label :description, 'Task Description' %>
+					<%= t.text_field :description %><br>
+				<% end %>
+			</fieldset><br>
+		<% end %>
+	</div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Update'  %>
   </div>
 <% end %>

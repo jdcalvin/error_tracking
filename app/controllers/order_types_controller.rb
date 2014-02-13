@@ -1,11 +1,12 @@
 class OrderTypesController < ApplicationController
   before_action :set_order_type, only: [:show, :edit, :update, :destroy, :validations]
 
-  def validations
-    @orders = Order.all
-    @tasks = @order_type.tasks
-  end
   
+	def tasks
+		@categories = @order_type.categories
+		@tasks = @order_type.tasks
+	end
+
   def index
     @order_types = OrderType.all
   end
@@ -18,6 +19,7 @@ class OrderTypesController < ApplicationController
   end
 
   def edit
+		@order_type.tasks.build
   end
 
   def create
@@ -55,7 +57,9 @@ class OrderTypesController < ApplicationController
     end
 
     def order_type_params
-      params.require(:order_type).permit(:title, 
-        :tasks_attributes[:description, :order_type_id, :category_id])
+      params.require(:order_type).permit(:title,
+				categories_attributes: [:id, :name,
+				tasks_attributes: [:id, :description, :order_type_id, :category_id]
+														])
     end
 end

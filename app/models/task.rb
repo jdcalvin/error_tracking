@@ -6,6 +6,5 @@ class Task < ActiveRecord::Base
   has_many :orders, through: :validations
   validates :description, :category_id, presence: true
 
-  accepts_nested_attributes_for :validations
   
 end

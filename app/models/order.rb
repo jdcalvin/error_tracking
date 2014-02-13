@@ -4,7 +4,6 @@ class Order < ActiveRecord::Base
   has_many :validations, dependent: :destroy
   has_many :tasks, through: :validations
 	has_many :categories, through: :tasks
-  accepts_nested_attributes_for :tasks
   accepts_nested_attributes_for :validations
 
 	def show_errors
