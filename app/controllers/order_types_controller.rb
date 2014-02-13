@@ -1,5 +1,5 @@
 class OrderTypesController < ApplicationController
-  before_action :set_order_type, only: [:show, :edit, :update, :destroy, :categories, :tasks]
+  before_action :set_order_type, only: [:show, :edit, :update]
 
   
 	def tasks
@@ -19,7 +19,6 @@ class OrderTypesController < ApplicationController
   end
 
   def edit
-		@order_type.tasks.build
   end
 
   def create
@@ -27,7 +26,8 @@ class OrderTypesController < ApplicationController
 
     respond_to do |format|
       if @order_type.save
-        format.html { redirect_to @order_type, notice: 'Template was successfully created.' }
+        format.html { redirect_to @order_type, 
+          notice: 'Template was successfully created.' }
       else
         format.html { render action: 'new' }
       end
@@ -37,7 +37,8 @@ class OrderTypesController < ApplicationController
   def update
     respond_to do |format|
       if @order_type.update(order_type_params)
-        format.html { redirect_to @order_type, notice: 'Templatewas successfully updated.' }
+        format.html { redirect_to @order_type, 
+          notice: 'Template was successfully updated.' }
       else
         format.html { render action: 'edit' }
       end
@@ -59,7 +60,7 @@ class OrderTypesController < ApplicationController
     def order_type_params
       params.require(:order_type).permit(:title,
 				categories_attributes: [:id, :name,
-				tasks_attributes: [:id, :description, :order_type_id, :category_id]
-														])
+				  tasks_attributes: [:id, :description, 
+                             :order_type_id, :category_id]])
     end
 end
