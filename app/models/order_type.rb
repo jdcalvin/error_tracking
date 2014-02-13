@@ -3,7 +3,6 @@ class OrderType < ActiveRecord::Base
 	has_many :tasks
 	has_many :orders
 	has_many :categories, through: :tasks
-	accepts_nested_attributes_for :tasks
-	accepts_nested_attributes_for :categories
+	accepts_nested_attributes_for :categories, allow_destroy: true
 
 end

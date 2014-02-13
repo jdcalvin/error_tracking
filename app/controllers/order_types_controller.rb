@@ -1,5 +1,5 @@
 class OrderTypesController < ApplicationController
-  before_action :set_order_type, only: [:show, :edit, :update, :destroy, :validations]
+  before_action :set_order_type, only: [:show, :edit, :update, :destroy, :categories, :tasks]
 
   
 	def tasks
