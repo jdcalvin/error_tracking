@@ -1,4 +1,4 @@
-<%= form_for(@order_type) do |f| %>
+<%= form_for @order_type do |f| %>
   <% if @order_type.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@order_type.errors.count, "error") %> prohibited this order_type from being saved:</h2>
@@ -14,9 +14,9 @@
   <div class="field">
    <strong> <%= f.label :title %></strong>:  <%= f.text_field :title %>
 
-	<%= f.fields_for :categories do |c| %>
+	<%= f.fields_for :categories, @order_type.categories.uniq do |c| %>
 
-			<div class="field">
+		<div class="field">
 				<h3 style="padding-left: 1em">	<strong><%= c.label :name, "Category Name:"  %></strong>
 					<%= c.text_field :name %>
 					<%= c.hidden_field :_destroy %>

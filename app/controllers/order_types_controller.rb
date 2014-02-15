@@ -59,8 +59,8 @@ class OrderTypesController < ApplicationController
 
     def order_type_params
       params.require(:order_type).permit(:title,
-				categories_attributes: [:id, :name,
+				categories_attributes: [:id, :name, :_destroy,
 				  tasks_attributes: [:id, :description, 
-                             :order_type_id, :category_id]])
+                             :order_type_id, :category_id, :_destroy]])
     end
 end

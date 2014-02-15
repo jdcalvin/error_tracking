@@ -4,5 +4,5 @@ class OrderType < ActiveRecord::Base
 	has_many :orders
 	has_many :categories, through: :tasks
 	accepts_nested_attributes_for :categories, allow_destroy: true
-
+	accepts_nested_attributes_for :tasks, allow_destroy: true
 end
