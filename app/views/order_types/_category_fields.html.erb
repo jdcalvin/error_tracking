@@ -1,0 +1,14 @@
+<div class="field">
+	<h3 style="padding-left: 1em">	<strong><%= f.label :name, "Category Name:"  %></strong>
+		<%= f.text_field :name %>
+		<%= f.hidden_field :_destroy %>
+		<%= link_to "remove", '#', class: "remove_category" %>
+	</h3>	
+	<fieldset style = "width: 50%">
+		<strong> Task Descriptions: </strong><br>
+		<%= f.fields_for :tasks do |builder| %>
+			<%= render "task_fields", f: builder %>
+		<% end %>
+		<%#= link_to_add_fields "Add Task", f, :tasks %>
+	</fieldset>
+</div>

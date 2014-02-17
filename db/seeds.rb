@@ -16,7 +16,7 @@ total_time = Proc.new do
 	puts "Time: #{'%02d' %  minutes}:#{'%02d' % seconds}:#{%'%02d' % mil}"
 end
 
-Order Type
+#Order Type
 @order_type = OrderType.create(title:"fnfi errors")
 notice @order_type.title
 

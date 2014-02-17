@@ -14,27 +14,10 @@
   <div class="field">
    <strong> <%= f.label :title %></strong>:  <%= f.text_field :title %>
 
-	<%= f.fields_for :categories, @order_type.categories.uniq do |c| %>
-
-		<div class="field">
-				<h3 style="padding-left: 1em">	<strong><%= c.label :name, "Category Name:"  %></strong>
-					<%= c.text_field :name %>
-					<%= c.hidden_field :_destroy %>
-					<%= link_to "remove", '#', class: "remove_category" %>
-				</h3>	
-				<fieldset style = "width: 50%">
-					<strong> Task Descriptions: </strong><br>
-					<%= c.fields_for :tasks do |t| %>
-						<p>
-							<%= t.text_field :description %>
-							<%= t.hidden_field :_destroy %>
-							<%= link_to "remove", '#', class: "remove_task" %>
-
-						</p>
-					<% end %>
-				</fieldset>
-			</div>
-	<% end %>	
+	<%= f.fields_for :categories, @order_type.categories.uniq do |builder| %>
+		<%= render "category_fields", f: builder %>
+	<% end %>
+	<%#= link_to_add_fields "Add Category", f, :categories %>	
 
   <div class="actions">
     <%= f.submit 'Update'  %>
