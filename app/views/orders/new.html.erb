@@ -16,7 +16,7 @@
       <th>Description</th>
       <th>Status</th>
     </tr>
-    <% @order_type.categories.uniq.each do |cat| %>
+    <% @order_type.categories.each do |cat| %>
       <tr>
         <td colspan=2 style="background-color:#BAB9B9; padding-left: 1em"><strong><%= cat.name %></strong></td>
       </tr>

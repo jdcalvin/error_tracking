@@ -14,6 +14,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'rack-mini-profiler'
 gem 'ruby-prof'
+gem 'cocoon'
 
 group :doc do
   gem 'sdoc', require: false

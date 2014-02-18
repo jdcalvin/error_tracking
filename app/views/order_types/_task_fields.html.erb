@@ -1,6 +1,9 @@
-<p>
-	<%= f.text_field :description %>
-	<%= f.hidden_field :_destroy %>
-	<%= link_to "remove", '#', class: "remove_task" %>
-</p>
+<div class="nested-fields">
+	<div class="field">
+		<%= f.text_field :description %>
+		<%= f.hidden_field :_destroy %>
+
+		<%= link_to_remove_association "remove task", f %>
+	</div>
+</div>
 	

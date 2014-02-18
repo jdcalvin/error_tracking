@@ -1,19 +1,7 @@
-def notice(item, b=1)
+def notice(item)
 	puts "-"*60
 	puts "Completed: #{item}"
-	unless b == 1
-	b.call
-	else
-	end
 	puts "-"*60
-end
-
-total_time = Proc.new do
-	time = @end_time - @start_time
-	minutes = time / 60
-	seconds = (minutes % 1*100) * 0.6
-	mil = (seconds % 1*100).to_i
-	puts "Time: #{'%02d' %  minutes}:#{'%02d' % seconds}:#{%'%02d' % mil}"
 end
 
 #Order Type
@@ -31,7 +19,7 @@ collection = {
 	"taxes" => ["did not update", "shown incorrectly", "wrong data"]}
 
 collection.each_pair do |key, values|
-	cat = Category.create(name: key)
+	cat = Category.create(name: key, order_type_id: @order_type.id)
 	values.each do |t|
 		Task.create(description: t, order_type_id: @order_type.id, category_id: cat.id)
 	end
@@ -83,9 +71,8 @@ def randomize_day(month)
 end
 
 def create_orders_for month
-	puts "Creating orders for #{Date::MONTHNAMES[month]}...this may take awhile"
+	puts "Creating 500 orders for #{Date::MONTHNAMES[month]}...this can take up to 5 minutes"
 	puts "..."
-	@start_time = Time.now
 	500.times do
 		order = Order.create(
 			order_type_id: 1,
@@ -99,8 +86,7 @@ def create_orders_for month
 			no_error(order)
 		end
 	end
-	@end_time = Time.now
-	notice("Orders for #{Date::MONTHNAMES[month]}", total_time)
+	notice("Orders for #{Date::MONTHNAMES[month]}")
 end
 
 #Main test database to test load
@@ -113,7 +99,7 @@ cats = {1 => [1,2,3], 2 => [1,2,3], 3 => [1,2,3]}
 test_type = OrderType.create(title: "Test Template")
 
 cats.each_pair do |key, values|
-	cat = Category.create(name: "Category #{key}")
+	cat = Category.create(name: "Category #{key}", order_type_id: test_type.id)
 	values.each do |t|
 		Task.create(description: "Task #{key}-#{t}", category_id: cat.id, order_type_id: test_type.id)
 	end

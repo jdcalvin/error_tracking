@@ -4,8 +4,6 @@ class Task < ActiveRecord::Base
   belongs_to :order_type
   has_many :validations, dependent: :destroy
   has_many :orders, through: :validations
-  validates :description, :category_id, presence: true
-
-
+  validates :description, presence: true
 
 end
