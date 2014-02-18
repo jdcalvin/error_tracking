@@ -43,7 +43,7 @@ class OrdersController < ApplicationController
 
   def show_current_day
     @date = Date.today.in_time_zone
-		@orders = Order.date(@date..@date.end_of_day)
+		@orders = @order_type.orders.date(@date..@date.end_of_day)
 		@correct = @orders.select {|x| x.show_errors.empty? }
 		@errors = @orders.select {|x| x.show_errors.any? }
     render 'orders/day'
@@ -92,7 +92,7 @@ class OrdersController < ApplicationController
   def show_day(year,month,day)
     @date = Date.parse("#{day}.#{month}.#{year}").in_time_zone
     time_range = (@date..@date.end_of_day)
-   	@orders = Order.date(time_range)
+   	@orders = @order_type.orders.date(time_range)
 		@errors = @orders.select {|x| x.show_errors.any? }
 		@correct = @orders.select {|x| x.show_errors.empty? }
     render 'orders/day'
@@ -101,7 +101,7 @@ class OrdersController < ApplicationController
   def show_month(year,month)
     @date = Date.parse("1.#{month}.#{year}")
     time_range = (@date..@date.end_of_month + 1)
-    @orders = Order.date(time_range)
+		@orders = @order_type.orders.date(time_range)
 		@errors = @orders.select {|x| x.show_errors.any? }
 		@correct = @orders.select {|x| x.show_errors.empty? }
 
