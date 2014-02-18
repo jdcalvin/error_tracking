@@ -1,12 +1,6 @@
 class OrderTypesController < ApplicationController
   before_action :set_order_type, only: [:show, :edit, :update]
 
-  
-	def tasks
-		@categories = @order_type.categories
-		@tasks = @order_type.tasks
-	end
-
   def index
     @order_types = OrderType.all
   end
