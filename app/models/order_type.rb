@@ -5,4 +5,5 @@ class OrderType < ActiveRecord::Base
 	has_many :categories
 	accepts_nested_attributes_for :categories, allow_destroy: true,
 		reject_if: lambda {|x| x[:name].blank? }
+	accepts_nested_attributes_for :tasks, allow_destroy: true
 end

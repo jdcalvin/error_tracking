@@ -1,7 +1,8 @@
 <%= form_for @order_type do |f| %>
   <% if @order_type.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@order_type.errors.count, "error") %> prohibited this order_type from being saved:</h2>
+			<h2><%= pluralize(@order_type.errors.count, "error") %> 
+				prohibited this template from being saved:</h2>
 
       <ul>
       <% @order_type.errors.full_messages.each do |msg| %>

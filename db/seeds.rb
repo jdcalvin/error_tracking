@@ -21,7 +21,7 @@ collection = {
 collection.each_pair do |key, values|
 	cat = Category.create(name: key, order_type_id: @order_type.id)
 	values.each do |t|
-		Task.create(description: t, order_type_id: @order_type.id, category_id: cat.id)
+		Task.create(description: t, category_id: cat.id)
 	end
 end
 
@@ -101,7 +101,7 @@ test_type = OrderType.create(title: "Test Template")
 cats.each_pair do |key, values|
 	cat = Category.create(name: "Category #{key}", order_type_id: test_type.id)
 	values.each do |t|
-		Task.create(description: "Task #{key}-#{t}", category_id: cat.id, order_type_id: test_type.id)
+		Task.create(description: "Task #{key}-#{t}", category_id: cat.id)
 	end
 end
 
