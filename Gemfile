@@ -15,6 +15,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'rack-mini-profiler'
 gem 'ruby-prof'
 gem 'cocoon'
+gem 'bootstrap-sass'
 
 group :doc do
   gem 'sdoc', require: false

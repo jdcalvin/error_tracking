@@ -10,7 +10,8 @@
  *
  *= require_self
  *= require_tree .
- */
+*/
+@import "bootstrap";
 
 table {
 	border-collapse: collapse;
@@ -41,3 +42,15 @@ table {
 	position: relative;
 }
 
+#content {
+	position: absolute;
+	width: auto;
+}
+
+#side {
+	float: left;
+	padding: 1em 1em;
+	width: 16em;
+	position: absolute;	
+	border: 1px solid black;
+}

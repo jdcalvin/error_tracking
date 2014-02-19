@@ -9,8 +9,12 @@
 </head>
 <body>
 <div id="container">
-<%= yield %>
+	<div id="side">
+		<%= render 'layouts/sidenav' %>
+	</div>
+	<div id="content">
+		<%= yield %>
+	</div>
 </div>
-
 </body>
 </html>

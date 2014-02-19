@@ -9,6 +9,7 @@ class OrderTypesController < ApplicationController
   end
 
   def new
+		@order_type = OrderType.new
   end
 
   def edit
@@ -39,6 +40,7 @@ class OrderTypesController < ApplicationController
   end
 
   def destroy
+		@order_type = OrderType.find(params[:id])
     @order_type.destroy
     respond_to do |format|
       format.html { redirect_to order_types_url }
@@ -53,7 +55,7 @@ class OrderTypesController < ApplicationController
     def order_type_params
       params.require(:order_type).permit(:title,
 				categories_attributes: [:id, :name, :order_type_id, :_destroy,
-				tasks_attributes: [:id, :description, :order_type_id,
+				tasks_attributes: [:id, :description,
 													 :category_id, :_destroy]])
     end
 end
