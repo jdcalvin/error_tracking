@@ -1,0 +1,75 @@
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+          User Name
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse">
+      <div class="panel-body">
+      <ul class="list-group">
+      			<li class="list-group-item">Organization</li>
+      			<br>
+						<li class="list-group-item">Profile</li>
+						<li class="list-group-item">Settings</li>
+						<li class="list-group-item">Log Out</li>
+					</ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+          <% if @order_type.nil? %>
+						Select Template
+					<% else %>
+						<%= @order_type.title %>
+					<% end %>	
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in">
+      <div class="panel-body">
+	      <ul class="list-group">	
+				<% OrderType.all.each do |x| %>
+				<% unless x == @order_type %>
+					<li class="list-group-item"> <%= x.title %></li>
+				<% end %>
+				<% end %>
+					<li class="list-group-item"> Create new Template </li>
+				</ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+          Search
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse">
+      <div class="panel-body">
+        <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+          By Date
+        </a>
+      </h4>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+	<div class="new_order">
+	<% unless @order_type.nil? %>
+	<%= link_to 'Enter new Order', "/order_types/#{@order_type.id}/orders/new",
+		class: "btn btn-primary" %>
+		<% else %>
+			<button type="button" class="btn btn-primary" disabled="disabled">Enter new Order</button>
+			<% end %>
+	</div>

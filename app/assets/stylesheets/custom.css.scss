@@ -2,10 +2,30 @@
 
 /* universal */
 
+
+.panel {
+	padding: .5em;
+	margin: .5em;
+}
+div {
+label
+{
+	width: auto;
+}
+}
+a:hover {
+text-decoration: none;
+}
 table {
 	border-collapse: collapse;
-	width: 50%;
 	border: 1px solid #CAD1FC;
+	width: 100%;
+	td {
+		label {
+			width: 100%;
+			text-align: left;
+		}
+	}
 }
 	.line-even {
 		background: #D8DDFC;
@@ -18,6 +38,7 @@ table {
 	{
 		background: #3C4AA2;
 		color: white;
+
 }
 .note-field {
 	margin: 1em;
@@ -29,4 +50,49 @@ table {
 
 #container {
 	position: relative;
+	width: auto;
+	margin: auto;
+	max-width: 1000px;
+	min-width: 600px;
+
+}
+
+#side {
+	position: relative;
+	float: left;
+	width: 300px;
+	display: inline;
+}
+#content {
+	float: left;
+	padding-left: 1em;
+	width: 60%;
+}
+
+#footer {
+	clear: both;
+}
+.new_order {
+	padding-left: .5em;
+}
+
+label {
+}
+
+#categories 
+{
+	margin-bottom: 10px;
+}
+
+.form-control {
+	width: auto;
+}
+
+button
+{
+	a:visited {color: white;}
+}
+
+.form-control {
+	margin-bottom: .5em;
 }

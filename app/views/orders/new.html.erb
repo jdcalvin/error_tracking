@@ -5,16 +5,16 @@
   
   <div class="field">
     <%= f.label :order %><br>
-    <%= f.text_field :order %>
+    <%= f.text_field :order, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= f.label 'proofed by: User (model not defined)' %>
   </div>
-    <table>
+    <table class="table">
       <tr class = "order-header">
       <th>Description</th>
-      <th>Status</th>
+      <th style="text-align:center">Status</th>
     </tr>
     <% @order_type.categories.each do |cat| %>
       <tr>
@@ -23,8 +23,8 @@
 				</td>
       </tr>
         <% cat.tasks.each do |task| %>
-      		<tr class="<%= cycle('line-odd', 'line-even') %>">
-						<td style="text-align: left; padding-left: 2em">
+      		<tr class="<%= cycle('line-even', 'line-odd') %>">
+						<td style="text-align: left; padding-left: 1em">
 							<%= f.label task.description %>
 						</td>
       		<%= f.fields_for :validations do |builder| %>
@@ -39,9 +39,9 @@
     </table>
 <div class="note-field">
     <h4><%= f.label :note, "Notes:" %><br><h4>
-    <%= f.text_area :note, rows: 10, cols: 40 %>
+    <%= f.text_area :note, rows: 10, cols: 40, class: "form-control" %>
   </div>
   <div class="actions">
-    <%= f.submit "Submit" %>
+    <%= f.submit "Submit", class: "btn btn-primary" %>
   </div>
 <% end %>

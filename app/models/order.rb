@@ -1,6 +1,7 @@
 class Order < ActiveRecord::Base
   belongs_to :order_type
   validates :order_type, presence: true
+  validates :order, presence: true
   has_many :validations, dependent: :destroy
   has_many :tasks, through: :validations
 	has_many :categories, through: :tasks

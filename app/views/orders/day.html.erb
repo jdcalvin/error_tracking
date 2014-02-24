@@ -1,6 +1,6 @@
 <div style="width:100%">
 <h1> Listing Orders for <%= @date.strftime("%x") %></h1>
-<!-- THIS WILL BE A PARTIAL THAT IS SHARED WITH CALENDAR -->
+<%= link_to 'New Order', new_order_type_order_path %>
 <h2> <%= render 'breakdown' %> </h2>
 </div>
 <div class="with_errors">

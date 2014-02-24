@@ -1,9 +1,9 @@
-<div class="nested-fields">
+<div class="nested-fields panel panel-default">
 	<div class="field">
-		<strong style= "padding-left: .5em"><%= f.label :name, "Category Name:"  %></strong>
-		<%= f.text_field :name %>
+		<label>Category Name</label>
+		<%= f.text_field :name, class: "form-control", style: "width: auto" %>
 		<%= f.hidden_field :_destroy %>
-		<%= link_to_remove_association "Remove Category", f %> 
+		<%= link_to_remove_association '', f, class: "glyphicon glyphicon-remove", style: "color: #d9534f" %> 
 		<fieldset style = "width: 50%">
 			<strong> Task Descriptions: </strong><br>
 			<div id="tasks">

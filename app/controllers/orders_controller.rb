@@ -63,7 +63,7 @@ class OrdersController < ApplicationController
     @order = @order_type.orders.build(order_params)
 
     respond_to do |format|
-      if @order.save
+			if @order.save
         format.html { redirect_to order_type_orders_path }
       else
         format.html { render action: 'new' }

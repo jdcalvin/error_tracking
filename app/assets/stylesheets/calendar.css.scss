@@ -6,16 +6,19 @@
   border-collapse: collapse;
   width: 100%;
 
+  .day {
+    background-color: #DDDDDD;
+    text-align: right;
+    padding-right: .5em;
+  }
   td, th {
     font-family: "Lucida Grande", arial, helvetica, sans-serif;
-    font-size: 10px;
-    padding: 6px;
     border: 1px solid #999;
   }
 
   th {
-    background: #DDD;
-    color: #666;
+    background: #3276b1;
+    color: white;
     text-align: center;
     width: 14.2857142857143%;
   }
@@ -33,9 +36,9 @@
 }
 
 #month {
-  margin: 0;
+  margin: .5em;
   padding-bottom: 10px;
-  text-align: center;
+  text-align: left;
   font-size: 22px;
   a {
     text-decoration: none;

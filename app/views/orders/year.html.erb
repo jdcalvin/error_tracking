@@ -1,6 +1,0 @@
-<p>Testing for year</p>
-
-<% ((@date.month.to_i)..(12)).to_a.each do |month| %>
-	<p><%=link_to list_months[month-1], "#{@date.year}/#{month}" %></p>
-	
-	<% end %>

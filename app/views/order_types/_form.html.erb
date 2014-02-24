@@ -1,6 +1,7 @@
 <%= form_for @order_type do |f| %>
   <% if @order_type.errors.any? %>
     <div id="error_explanation">
+
 			<h2><%= pluralize(@order_type.errors.count, "error") %> 
 				prohibited this template from being saved:</h2>
 
@@ -12,16 +13,17 @@
     </div>
   <% end %>
 
-  <strong> <%= f.label :title %></strong>:  <%= f.text_field :title %>
- 
- 	<div id="categories">
+  <strong> <%= f.label :title %></strong>: <%= f.text_field :title, class: "form-control" %>
+<div class="form-inline" role="form"> 
+ 	
+  <div id="categories">
 		<%= f.fields_for :categories do |builder| %>
 			<%= render "category_fields", f: builder %>
 		<% end %>
 		<%= link_to_add_association "Add Category", f, :categories %>	
 	</div>
-	
   <div class="actions">
-    <%= f.submit  %>
+    <%= f.submit class: "btn btn-primary" %>
   </div>
+</div>
 <% end %>
