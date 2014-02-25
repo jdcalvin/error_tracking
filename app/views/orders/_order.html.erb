@@ -1,12 +1,12 @@
 <!--<p id="notice"><%#= notice %></p>-->
 
 <p>
-  <h3>Order #<%= order.order %> </h2>
+  <h4>Order #<%= order.order %> </h4>
 </p>
 
 
 <% unless order.show_errors.empty? %>
-  <h3><%= pluralize(order.show_errors.values.flatten.count, "Error") %></h3>
+  <%= pluralize(order.show_errors.values.flatten.count, "Error") %>
   <ol>
     <% order.show_errors.each_pair do |key, value| %>
       <% value.each do |task| %>
@@ -15,7 +15,7 @@
     <% end %>
   </ol>
 <% else %>
-  <h3> No Errors </h3>
+  <h4> No Errors </h4>
 <% end %>
 <p>
   <strong>Note:</strong>

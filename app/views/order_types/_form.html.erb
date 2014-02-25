@@ -13,8 +13,8 @@
     </div>
   <% end %>
 
-  <strong> <%= f.label :title %></strong>: <%= f.text_field :title, class: "form-control" %>
-<div class="form-inline" role="form"> 
+<div class="form-inline form-order_type" role="form"> 
+  <strong> <%= f.label :title %></strong>: <%= f.text_field :title, class: "form-control", style: "margin-left: 1em; margin: .5em;" %>
  	
   <div id="categories">
 		<%= f.fields_for :categories do |builder| %>

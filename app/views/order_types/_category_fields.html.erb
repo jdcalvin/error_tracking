@@ -1,16 +1,16 @@
 <div class="nested-fields panel panel-default">
 	<div class="field">
-		<label>Category Name</label>
-		<%= f.text_field :name, class: "form-control", style: "width: auto" %>
+		<label style= "margin-left: 1em;" class="panel-title">Category Name:</label>
+		<%= f.text_field :name, class: "form-control", style: "width: auto; margin-left: 1em; margin-top: 1em;"%>
 		<%= f.hidden_field :_destroy %>
 		<%= link_to_remove_association '', f, class: "glyphicon glyphicon-remove", style: "color: #d9534f" %> 
 		<fieldset style = "width: 50%">
-			<strong> Task Descriptions: </strong><br>
+			<strong style ="margin-left: 1em"> Task Descriptions: </strong><br>
 			<div id="tasks">
 			<%= f.fields_for :tasks do |builder| %>
 				<%= render "task_fields", f: builder %>
 			<% end %>
-			<%= link_to_add_association "Add Task", f, :tasks %>
+			<%= link_to_add_association "Add Task", f, :tasks, style: "margin: .5em" %>
 			</div>
 		</fieldset>
 	</div>

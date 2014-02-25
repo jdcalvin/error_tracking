@@ -3,9 +3,17 @@
 /* universal */
 
 
+.form-order_type {
+}
+#nav_bar {
+	top: 20px;
+}
 .panel {
-	padding: .5em;
+	padding: 0;
 	margin: .5em;
+	margin-top: 1em;
+	.panel-body {
+	}
 }
 div {
 label
@@ -71,9 +79,10 @@ table {
 
 #footer {
 	clear: both;
+	padding-bottom: 2em;
 }
 .new_order {
-	padding-left: .5em;
+padding-left: 1.5em;
 }
 
 label {
