@@ -2,6 +2,9 @@
 
 /* universal */
 
+.calendar {
+	width: 100%;
+}
 
 .form-order_type {
 }
@@ -105,3 +108,29 @@ button
 .form-control {
 	margin-bottom: .5em;
 }
+
+.month {
+	position: relative;
+	width: auto;
+}
+
+#orders ul {
+  font-size: 11px;
+  padding-left: 20px;
+}
+
+
+
+.with_errors {
+  float:left;
+  width: 40%;
+  height:100%;
+}
+
+.no_errors {
+  float:left;
+  width: 40%;
+  height:100%;
+}
+
+

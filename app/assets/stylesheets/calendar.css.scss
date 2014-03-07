@@ -4,7 +4,7 @@
 
 #orders .calendar {
   border-collapse: collapse;
-  width: auto;
+	table-layout: fixed;
 
   .day {
     background-color: #DDDDDD;
@@ -20,7 +20,8 @@
     background: #3276b1;
     color: white;
     text-align: center;
-    width: 14.2857142857143%;
+		width: .14%
+
   }
 
   td {
