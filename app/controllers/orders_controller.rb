@@ -21,6 +21,10 @@ class OrdersController < ApplicationController
     end
   end
 
+	def search
+		@orders = Order.search(params[:search])
+	end
+
   def pie_chart
     errors = @orders.breakdown
     data_table = GoogleVisualr::DataTable.new

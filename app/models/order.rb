@@ -49,4 +49,11 @@ class Order < ActiveRecord::Base
     return new_hash
   end
 	
+	def self.search(search)
+		if search
+			Order.find(:all, :conditions => ['orders.order ILIKE?', "%#{search}%"])
+		else
+			@orders
+		end
+	end
 end
