@@ -48,8 +48,8 @@ class OrdersController < ApplicationController
   def show_current_day
     @date = Date.today.in_time_zone
 		@orders = @order_type.orders.date(@date..@date.end_of_day)
-		@correct = @orders.select {|x| x.show_errors.empty? }
-		@errors = @orders.select {|x| x.show_errors.any? }
+		#@correct = @orders.select {|x| x.show_errors.empty? }
+		#@errors = @orders.select {|x| x.show_errors.any? }
     render 'orders/day'
   end
 
@@ -110,8 +110,11 @@ class OrdersController < ApplicationController
 		@correct = @orders.select {|x| x.show_errors.empty? }
 
     pie_chart
+    
     render 'orders/month'
   end
+
+
 
   def show_year(year)
     render 'orders/year'

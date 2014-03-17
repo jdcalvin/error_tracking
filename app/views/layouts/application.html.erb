@@ -2,7 +2,11 @@
 <html>
 <head>
 	<script src='https://www.google.com/jsapi'></script>
-  <title>Fnfi</title>
+  <title>Error Tracker
+  	<% unless @order_type.nil? %>
+  	| <%= @order_type.title %>
+  	<% end %>
+  </title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>

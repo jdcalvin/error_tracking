@@ -7,18 +7,13 @@ class Order < ActiveRecord::Base
 	has_many :categories, through: :tasks
   accepts_nested_attributes_for :validations
 
-	def show_errors
+  scope :date, lambda {|date| where(created_at: date).includes(:validations).includes(:tasks).includes(:categories)}
+  
+  def show_errors
   	errors = validations.select {|x| x.approval}
   	hash = Hash.new{|h,k| h[k] = []}
 	  errors.each {|x| hash[x.category_name] << x.task_description }
   	return hash
-  end
-
-	def self.date(date)
- 	 Order.where(created_at: date)
-	 .includes(:validations)
-	 .includes(:tasks)
-	 .includes(:categories)
   end
 
 	def self.with_errors
@@ -48,7 +43,9 @@ class Order < ActiveRecord::Base
 
     return new_hash
   end
-	
+
+  
+
 	def self.search(search)
 		if search
 			Order.find(:all, :conditions => ['orders.order ILIKE?', "%#{search}%"])

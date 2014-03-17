@@ -31,10 +31,23 @@ table {
 	border-collapse: collapse;
 	border: 1px solid #CAD1FC;
 	width: 100%;
-	td {
+	tr {
+		padding: 1px;
+	}
+	.td-description{
 		label {
+			font-weight: normal;
 			width: 100%;
 			text-align: left;
+			padding-left: 2em;
+		}
+	}
+	.td-status {
+		text-align: center;
+		div {
+			width: 100%;
+			text-align: right;
+			padding-right: 2em;
 		}
 	}
 }
@@ -47,7 +60,7 @@ table {
 
 	.order-header
 	{
-		background: #3C4AA2;
+		background: #428bca;
 		color: white;
 
 }

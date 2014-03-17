@@ -3,14 +3,13 @@
   <% if date.month == @date.month %>
 	  <div class="day"><%= link_to date.day, "#{date.month}/#{date.day}" %></div>
 		<p style = "padding-left: 25%">
-		<% unless orders_by_date(date).size < 1 %>
-			<%= correct_by_date(date).size %>/<%= orders_by_date(date).size %><br>
+		<% unless total_by_date(date, @orders) < 1 %>
+			<%= total_by_date(date, @correct) %>/<%= total_by_date(date, @orders) %><br>
 		<strong><%= quality_by_date(date) %>%</strong>
 		<% else %>
 			No Orders
 		<% end %>
-
-			</p>
+		</p>
 	<% end %>
 <% end %>
 </div>

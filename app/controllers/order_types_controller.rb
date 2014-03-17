@@ -49,7 +49,7 @@ class OrderTypesController < ApplicationController
 
   private
     def set_order_type
-      @order_type = OrderType.find(params[:id])
+      @order_type = OrderType.find(params[:id]).includes(:categories).includes(:tasks)
     end
 
     def order_type_params
