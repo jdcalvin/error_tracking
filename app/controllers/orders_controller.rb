@@ -48,13 +48,13 @@ class OrdersController < ApplicationController
   def show_current_day
     @date = Date.today.in_time_zone
 		@orders = @order_type.orders.date(@date..@date.end_of_day)
-		#@correct = @orders.select {|x| x.show_errors.empty? }
-		#@errors = @orders.select {|x| x.show_errors.any? }
+		@correct = @orders.select {|x| x.show_errors.empty? }
+		@errors = @orders.select {|x| x.show_errors.any? }
     render 'orders/day'
   end
 
   def new
-    @order_type = OrderType.find(params[:order_type_id])
+    @order_type = OrderType.load_associations(params[:order_type_id])
     @order = Order.new
     @order.validations.build
   end
