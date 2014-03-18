@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy, :archive]
+  before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   def index
     @order_type = OrderType.find(params[:order_type_id])
