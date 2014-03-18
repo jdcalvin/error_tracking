@@ -25,4 +25,13 @@ module OrdersHelper
     return total
   end
 
+  def get_months
+  	arr = []
+		12.times do |month|
+			month = month + 1
+			arr << Date::MONTHNAMES[month]
+		end
+		return arr
+	end
+
 end

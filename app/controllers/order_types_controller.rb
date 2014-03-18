@@ -5,6 +5,12 @@ class OrderTypesController < ApplicationController
     @order_types = OrderType.all
   end
 
+  def archive
+    @order_type = OrderType.find(params[:order_type_id])
+    @oldest_date = @order_type.orders.first.created_at.in_time_zone
+    @current_date = Date.today.in_time_zone
+  end
+
   def show
   end
 
@@ -49,7 +55,7 @@ class OrderTypesController < ApplicationController
 
   private
     def set_order_type
-      @order_type = OrderType.find(params[:id]).includes(:categories).includes(:tasks)
+      @order_type = OrderType.load_associations(params[:id])
     end
 
     def order_type_params

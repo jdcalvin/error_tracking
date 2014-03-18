@@ -10,6 +10,7 @@ gem "google_visualr", ">= 2.1"
 gem 'therubyracer', platforms: :ruby
 gem 'execjs'
 gem 'jquery-rails'
+gem 'jquery-turbolinks'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'rack-mini-profiler'

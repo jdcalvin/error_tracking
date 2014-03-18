@@ -12,15 +12,34 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<div id="container">
-		<div id="side">
-			<%= render 'layouts/navbar' %>
+	<%= render 'layouts/header'  %>
+	<div class="site-container">
+		<div class="wrapper row-offcanvas">
+			<div class="container">
+				<div class="row">
+					<!--NAV-->
+					<div class="col-sm-5 col-md-4 col-lg-3 sidebar-offcanvas">
+						<div id="side">
+							<%= render 'layouts/navbar' %>
+						</div>
+					</div>
+					<!--CONTENT-->
+					<div class="col-xs-12 col-sm-7 col-md-8 col-lg-9" id="content">
+						<div>
+						<%= yield %>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
 		</div>
-		<div id="content">
-			<%= yield %>
-		</div>
-		<div id="footer">
+		<div class="footer">
+			<footer>
+				<%= render 'layouts/footer' %>
+			</footer>
 		</div>
 	</div>
+
 </body>
 </html>

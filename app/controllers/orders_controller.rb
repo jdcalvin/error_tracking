@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :archive]
 
   def index
     @order_type = OrderType.find(params[:order_type_id])
@@ -21,6 +21,9 @@ class OrdersController < ApplicationController
     end
   end
 
+  def show
+  end
+
 	def search
 		@orders = Order.search(params[:search])
 	end
@@ -40,7 +43,7 @@ class OrdersController < ApplicationController
       name_cell = name_cell + 1
     end
     
-    opts   = { :width => 600, :height => 400, 
+    opts   = { :width => 400, :height => 400, 
       :title => 'Error Distribution by Category', :is3D => false }
     @chart = GoogleVisualr::Interactive::PieChart.new(data_table, opts)   
   end

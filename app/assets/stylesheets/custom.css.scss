@@ -1,6 +1,58 @@
 @import "bootstrap";
 
 /* universal */
+.container {
+	margin-top: 1em;
+}
+
+body {
+	padding-top: 20px;
+}
+html {
+	min-width: 550px;
+}
+html, body, .wrapper {
+  height: 100%;
+}
+
+#side_nav_toggle {
+	position: absolute;
+	top: 1em;
+	left: 1em;
+	color: #777;
+	font-weight: bold;
+	z-index: 999999;
+}
+
+#side {
+padding-top: 0px;
+padding-bottom: 1em;
+}
+.header {
+	
+}
+#content {
+
+	padding-left: 1em;
+	padding-right: 1em;
+
+}
+.footer {
+	padding-left:1em;
+	padding-right: 1em;
+	footer {
+	
+	padding-bottom: 2em;
+	padding-top: 2em;
+	
+	
+	div {
+	padding-top: 1em;
+	border-top: 1px solid #ddd;
+	}
+
+}
+}
 
 .calendar {
 	width: 100%;
@@ -72,31 +124,7 @@ table {
 		background-color: #FFFAC5;
 }
 
-#container {
-	position: relative;
-	width: auto;
-	margin: auto;
-	max-width: 1000px;
-	min-width: 600px;
 
-}
-
-#side {
-	position: relative;
-	float: left;
-	width: 300px;
-	display: inline;
-}
-#content {
-	float: left;
-	padding-left: 1em;
-	width: 60%;
-}
-
-#footer {
-	clear: both;
-	padding-bottom: 2em;
-}
 .new_order {
 padding-left: 1.5em;
 }
