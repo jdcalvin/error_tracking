@@ -7,12 +7,15 @@ class Order < ActiveRecord::Base
   has_many :tasks, through: :validations
 	has_many :categories, through: :tasks
   accepts_nested_attributes_for :validations
-  scope :date, lambda {|date| where(created_at: date).includes(:validations).includes(:tasks).includes(:categories)}
   
+  def self.date(date)
+    where(created_at: date)
+    .includes(:validations).includes(:tasks).includes(:categories)
+  end
   def show_errors
-  	errors = validations.select {|x| x.approval}
+  	@show_errors ||= validations.select {|x| x.approval}
   	hash = Hash.new{|h,k| h[k] = []}
-	  errors.each {|x| hash[x.category_name] << x.task_description }
+	  @show_errors.each {|x| hash[x.category_name] << x.task_description }
   	return hash
   end
 

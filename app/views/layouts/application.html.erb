@@ -13,18 +13,18 @@
 </head>
 <body>
 	<%= render 'layouts/header'  %>
-	<div class="site-container">
+	<!--<div class="site-container">-->
 		<div class="wrapper row-offcanvas">
 			<div class="container">
 				<div class="row">
 					<!--NAV-->
-					<div class="col-sm-5 col-md-4 col-lg-4 sidebar-offcanvas">
+					<div class="col-sm-4 col-md-4 col-lg-4 sidebar-offcanvas">
 						<div id="side">
 							<%= render 'layouts/navbar' %>
 						</div>
 					</div>
 					<!--CONTENT-->
-					<div class="col-xs-12 col-sm-7 col-md-8 col-lg-8" id="content">
+					<div class="col-sm-8 col-xs-12 col-md-8 col-lg-8" id="content">
 						<div>
 						<% flash.each do |key, value| %>
 							<%= content_tag(:div, value, class: "alert alert-#{key}") %>
@@ -43,7 +43,7 @@
 		</div>
 
 		
-	</div>
+	<!--</div>-->
 
 </body>
 </html>

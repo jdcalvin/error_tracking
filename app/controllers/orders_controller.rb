@@ -29,22 +29,25 @@ class OrdersController < ApplicationController
 	end
 
   def pie_chart
-    errors = @orders.breakdown
     data_table = GoogleVisualr::DataTable.new
     data_table.new_column('string', 'Category')
     data_table.new_column('number', 'Number of Errors')
-    data_table.add_rows(errors.count)
+    data_table.add_rows(@errors.count)
 
     name_cell = 0
 
-    errors.each_pair do |key, value|
+    @errors.each_pair do |key, value|
       data_table.set_cell(name_cell, 0, key)
-      data_table.set_cell(name_cell, 1, errors[key].values.sum )
+      data_table.set_cell(name_cell, 1, @errors[key].values.sum )
       name_cell = name_cell + 1
     end
     
-    opts   = { :width => 400, :height => 400, 
-      :title => 'Error Distribution by Category', :is3D => false }
+    opts   = 
+    { :width => 400, :height => 300, 
+      chartArea: {top:0, left:0, width: 400, height: 300},
+      colors: ['#0064cd', '#46a546', '#9d261d', '#049cdb', '#555', '#f89406','#7a43b6', '#c3325f', '#7a43b6'],
+      tooltip: {textStyle: {color: '#333333', bold: true}}
+    }
     @chart = GoogleVisualr::Interactive::PieChart.new(data_table, opts)   
   end
 
@@ -110,9 +113,8 @@ class OrdersController < ApplicationController
 		@orders = @order_type.orders.date(time_range)
     @orders_by_day = @orders.group_by {|x| x.created_at.day }
     @order_error_status = @orders.group_by(&:error)
-
+    @errors = @orders.breakdown
     pie_chart
-    
     render 'orders/month'
   end
 

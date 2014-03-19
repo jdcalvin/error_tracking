@@ -12,7 +12,7 @@ notice @order_type.title
 
 #Categories and Tasks
 collection = {
-	"city_lien" => ["did not update", "incorrect amount"],
+	"city lien" => ["did not update", "incorrect amount"],
 	"datedown" => ["did not run", "doc is incorrect", "wrong effective date", "missed exceptions", "did not update new vesting"],
 	"documents" => ["did not upload new docs", "labeled incorrectly", "wrong docs uploaded"],
 	"general" => ["exceptions wrong", "wrong supp version"],
@@ -130,5 +130,6 @@ create_orders_for(2, test_type, 40)
 create_orders_for(3, test_type, 25)
 create_orders_for(2, @order_type, 250)
 create_orders_for(3, @order_type, 300)
+create_orders_for(4, @order_type, 1000)
 
 

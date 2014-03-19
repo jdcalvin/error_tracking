@@ -8,8 +8,20 @@
   </div>
 		<div class="panel-body">
 		<% if @orders.count > 0 %> 
-			<div id='chart'>
-				<%= render_chart @chart, 'chart' %>
+			<div id='chart' style="float:left;">
+					<%= render_chart @chart, 'chart' %>
+			</div>
+			<div class="breakdown" style="float:left">
+				<% @errors.each_pair do |category, tasks| %>
+					<div id="<%= category.downcase.gsub(/ /,"_") %>-container">
+						<%= category %>
+						<ul>
+							<% @errors[category].each_pair do |task, value| %>
+								<li><%= task %> - <%= value %></li>
+							<% end %>
+						</ul>
+					</div>
+				<% end %>
 			</div>
 		<% end %>
 		</div>
