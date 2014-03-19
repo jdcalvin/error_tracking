@@ -6,7 +6,7 @@
 			<% if @orders_by_day[date.day].nil? %>
 				No<br>Orders
 			<% else %>
-				<%= breakdown(date.day)[false] %>/<%= @orders_by_day[date.day].size %>
+				<%= breakdown(date.day)[false] || 0 %>/<%= @orders_by_day[date.day].size %>
 				<br>
 				<strong><%= quality_by(date.day) %>%</strong>
 			</div>

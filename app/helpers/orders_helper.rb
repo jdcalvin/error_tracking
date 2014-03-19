@@ -1,7 +1,11 @@
 module OrdersHelper
 
 	def quality
+		if @order_error_status[false].nil?
+			return 0.00
+		else
 		(@order_error_status[false].size/@orders.size.to_f*100).round(2)
+	end
 	end
 
   def get_months
@@ -17,7 +21,11 @@ module OrdersHelper
 		unless @orders_by_day[date].nil?
 			orders = @orders_by_day[date].group_by {|x| x.error}
 			orders.each_pair do |k,v| 
-				v = v.count
+				if v.nil?
+					v = 0
+				else
+					v = v.count
+				end
 				orders[k] = v
 			end
 		else
@@ -29,6 +37,10 @@ module OrdersHelper
 	end
 
 	def quality_by(date)
+		if breakdown(date)[false].nil?
+			return 0.00
+		else
 		(breakdown(date)[false]/breakdown(date).values.sum.to_f*100).round(2)
+		end
 	end
 end
