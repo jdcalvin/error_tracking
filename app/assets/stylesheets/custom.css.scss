@@ -3,6 +3,11 @@
 /* universal */
 .container {
 	margin-top: 1em;
+	max-width: 950px;
+	position:relative;
+}
+.site-container {
+	min-height: 100%;
 }
 
 body {
@@ -14,6 +19,9 @@ html {
 html, body, .wrapper {
   height: 100%;
 }
+.wrapper {
+	padding-bottom: 50px;
+}
 
 #side_nav_toggle {
 	position: absolute;
@@ -22,6 +30,7 @@ html, body, .wrapper {
 	color: #777;
 	font-weight: bold;
 	z-index: 999999;
+	background-color:white;
 }
 
 #side {
@@ -33,33 +42,24 @@ padding-bottom: 1em;
 }
 #content {
 
-	padding-left: 1em;
 	padding-right: 1em;
 
 }
-.footer {
-	padding-left:1em;
-	padding-right: 1em;
+
 	footer {
-	
 	padding-bottom: 2em;
 	padding-top: 2em;
-	
-	
-	div {
-	padding-top: 1em;
-	border-top: 1px solid #ddd;
+		div {
+		padding-top: 1em;
+		border-top: 1px solid #dddddd;
+		text-align: center;
+		}
 	}
-
-}
-}
 
 .calendar {
 	width: 100%;
 }
 
-.form-order_type {
-}
 #nav_bar {
 	top: 20px;
 }
@@ -84,6 +84,7 @@ table {
 	border: 1px solid #CAD1FC;
 	width: 100%;
 	tr {
+		line-height: 1;
 		padding: 1px;
 	}
 	.td-description{
@@ -160,18 +161,6 @@ button
   padding-left: 20px;
 }
 
-
-
-.with_errors {
-  float:left;
-  width: 40%;
-  height:100%;
+ol {
+	padding-left: -5px;
 }
-
-.no_errors {
-  float:left;
-  width: 40%;
-  height:100%;
-}
-
-

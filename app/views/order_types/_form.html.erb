@@ -1,9 +1,9 @@
 <%= form_for @order_type do |f| %>
   <% if @order_type.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="alert alert-danger custom_flash">
 
-			<h2><%= pluralize(@order_type.errors.count, "error") %> 
-				prohibited this template from being saved:</h2>
+			<h4><%= pluralize(@order_type.errors.count, "error") %> 
+				prohibited this template from being saved:</h4>
 
       <ul>
       <% @order_type.errors.full_messages.each do |msg| %>
@@ -14,8 +14,8 @@
   <% end %>
 
 <div class="form-inline form-order_type" role="form"> 
-  <strong> <%= f.label :title %></strong>: <%= f.text_field :title, class: "form-control", style: "margin-left: 1em; margin: .5em;" %>
- 	
+  <div style="width: 300px"><%= f.label :title %></strong>: <%= f.text_field :title, class: "form-control", style: "margin-left: 1em; margin: .5em;" %>
+ 	</div>
   <div id="categories">
 		<%= f.fields_for :categories do |builder| %>
 			<%= render "category_fields", f: builder %>

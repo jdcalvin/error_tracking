@@ -6,6 +6,7 @@ class OrderType < ActiveRecord::Base
 	accepts_nested_attributes_for :categories, allow_destroy: true,
 		reject_if: lambda {|x| x[:name].blank? }
 	accepts_nested_attributes_for :tasks, allow_destroy: true
+	validates :title, presence: true
 
 	scope :load_associations, lambda {|x| where(id: x).includes(:tasks).includes(:categories).first}
 end

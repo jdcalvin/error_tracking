@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140219030905) do
+ActiveRecord::Schema.define(version: 20140318034454) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20140219030905) do
     t.integer  "order_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "error"
   end
 
   add_index "orders", ["order_type_id"], name: "index_orders_on_order_type_id"

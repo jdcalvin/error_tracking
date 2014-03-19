@@ -51,57 +51,56 @@ class OrdersController < ApplicationController
   def show_current_day
     @date = Date.today.in_time_zone
 		@orders = @order_type.orders.date(@date..@date.end_of_day)
-		@correct = @orders.select {|x| x.show_errors.empty? }
-		@errors = @orders.select {|x| x.show_errors.any? }
+    @order_error_status = @orders.group_by(&:error)
     render 'orders/day'
   end
 
   def new
     @order_type = OrderType.load_associations(params[:order_type_id])
-    @order = Order.new
-    @order.validations.build
+    @order = @order_type.orders.build
   end
 
   def edit
+    @order_type = @order.order_type
   end
 
   def create
     @order_type = OrderType.find(params[:order_type_id])
     @order = @order_type.orders.build(order_params)
-
-    respond_to do |format|
 			if @order.save
-        format.html { redirect_to order_type_orders_path }
+        if @order.errors?
+          @order.update_attributes(error: true)
+        else
+          @order.update_attributes(error:false)
+        end
+        flash[:success] = "Order successfully created"
+        redirect_to order_type_orders_path
       else
-        format.html { render action: 'new' }
+        render action: 'new'
       end
-    end
   end
 
   def update
-    respond_to do |format|
       if @order.update(order_params)
-        format.html { redirect_to order_type_orders_path }
+        flash[:success] = "Order successfully updated"
+        redirect_to order_type_orders_path
       else
-        format.html { render action: 'edit' }
+        render action: 'edit'
       end
-    end
   end
 
   def destroy
     @order.destroy
-    respond_to do |format|
+      flash[:danger] = "Order was successfully deleted"
       format.html { redirect_to order_type_orders_path,
         notice: 'Order has been removed.' }
-    end
   end
 
   def show_day(year,month,day)
     @date = Date.parse("#{day}.#{month}.#{year}").in_time_zone
     time_range = (@date..@date.end_of_day)
    	@orders = @order_type.orders.date(time_range)
-		@errors = @orders.select {|x| x.show_errors.any? }
-		@correct = @orders.select {|x| x.show_errors.empty? }
+    @order_error_status = @orders.group_by(&:error)
     render 'orders/day'
   end
 
@@ -109,15 +108,13 @@ class OrdersController < ApplicationController
     @date = Date.parse("1.#{month}.#{year}")
     time_range = (@date..@date.end_of_month + 1)
 		@orders = @order_type.orders.date(time_range)
-		@errors = @orders.select {|x| x.show_errors.any? }
-		@correct = @orders.select {|x| x.show_errors.empty? }
+    @orders_by_day = @orders.group_by {|x| x.created_at.day }
+    @order_error_status = @orders.group_by(&:error)
 
     pie_chart
     
     render 'orders/month'
   end
-
-
 
   def show_year(year)
     render 'orders/year'
@@ -129,7 +126,7 @@ class OrdersController < ApplicationController
     end
 
     def order_params
-      params.require(:order).permit(:order, :note, :order_type_id,
+      params.require(:order).permit(:order, :note, :order_type_id, :error,
         validations_attributes: [:id, :approval, :order_id, :task_id])
     end
 end

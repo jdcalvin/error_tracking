@@ -3,22 +3,15 @@
   	<%= render 'calendar' %>
 
 </div>
-
 <div style="margin: 0; margin-top: 1em" class="panel panel-default" >
-  <div class="panel-heading"><h4>Data breakdown for <%= @date.strftime("%B %Y") %></h4></div>
-  <% if @orders.count == 0 %>
-	  <div class="panel-body panel-warning">
-	    <p style="color:#a94442; font-weight:700">No data for this month</p>
-	  </div>
-	<% else %>
+  <div class="panel-heading"> <%= render 'breakdown' %>
+  </div>
 		<div class="panel-body">
-			<div>
-				<h4><%= render 'breakdown' %> </h4>	
-			</div>
-
+		<% if @orders.count > 0 %> 
 			<div id='chart'>
 				<%= render_chart @chart, 'chart' %>
 			</div>
-		</div>
 		<% end %>
+		</div>
+		
 </div>

@@ -23,34 +23,28 @@ class OrderTypesController < ApplicationController
 
   def create
     @order_type = OrderType.new(order_type_params)
-
-    respond_to do |format|
-      if @order_type.save
-        format.html { redirect_to @order_type, 
-          notice: 'Template was successfully created.' }
-      else
-        format.html { render action: 'new' }
-      end
+    if @order_type.save
+      flash[:success] = "Template created"
+      redirect_to @order_type
+    else
+      render action: 'new'
     end
   end
 
   def update
-    respond_to do |format|
-      if @order_type.update(order_type_params)
-        format.html { redirect_to @order_type, 
-          notice: 'Template was successfully updated.' }
-      else
-        format.html { render action: 'edit' }
-      end
+    if @order_type.update(order_type_params)
+      flash[:success] = "Template was successfully updated"
+      redirect_to @order_type   
+    else
+      render action: 'edit'
     end
   end
 
   def destroy
 		@order_type = OrderType.find(params[:id])
     @order_type.destroy
-    respond_to do |format|
-      format.html { redirect_to order_types_url }
-    end
+    flash[:danger] = "Template was deleted"
+    redirect_to order_types_url
   end
 
   private

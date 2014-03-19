@@ -1,1 +1,9 @@
-<strong>Quality</strong> <%= @correct.size %>/<%=@orders.size%> | <%= quality %>%
+<h3>
+<% if @orders.count > 0 %>
+	<strong>Quality</strong> 
+	<%= @order_error_status[false].size %>/<%=@orders.size%> | <%= quality %>%
+<% else %>
+	<strong> No Data</strong>
+<% end %>
+</h3>
+

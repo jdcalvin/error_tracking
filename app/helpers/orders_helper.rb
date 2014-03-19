@@ -1,29 +1,8 @@
 module OrdersHelper
 
-	def total_by_date(date, arg)
-		date = date.in_time_zone
-		arg.select {|x| x.created_at >= date.beginning_of_day && x.created_at <=  date.end_of_day }.count
-	end
-
-	def quality_by_date(date)
-		num = total_by_date(date, @correct)/total_by_date(date, @orders).to_f*100
-		num.round(2)
-	end
-
 	def quality
-		(@correct.size/@orders.size.to_f*100).round(2)
+		(@order_error_status[false].size/@orders.size.to_f*100).round(2)
 	end
-
-  def calendar_month(arg)
-    first = @date.beginning_of_month.day
-    last = @date.end_of_month.day
-    total = []
-    last.times do |x|
-      x = x + 1
-      total << by_date(Date.parse("#{x}.#{@date.month}.#{@date.year}"), arg)
-    end
-    return total
-  end
 
   def get_months
   	arr = []
@@ -34,4 +13,22 @@ module OrdersHelper
 		return arr
 	end
 
+	def breakdown(date)
+		unless @orders_by_day[date].nil?
+			orders = @orders_by_day[date].group_by {|x| x.error}
+			orders.each_pair do |k,v| 
+				v = v.count
+				orders[k] = v
+			end
+		else
+			orders = Hash.new
+			orders[true] = 0
+			orders[false] = 0
+		end
+		return orders
+	end
+
+	def quality_by(date)
+		(breakdown(date)[false]/breakdown(date).values.sum.to_f*100).round(2)
+	end
 end

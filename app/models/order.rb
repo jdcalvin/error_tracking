@@ -1,12 +1,12 @@
 class Order < ActiveRecord::Base
   belongs_to :order_type
+  cattr_accessor :skip_callbacks
   validates :order_type, presence: true
   validates :order, presence: true
   has_many :validations, dependent: :destroy
   has_many :tasks, through: :validations
 	has_many :categories, through: :tasks
   accepts_nested_attributes_for :validations
-
   scope :date, lambda {|date| where(created_at: date).includes(:validations).includes(:tasks).includes(:categories)}
   
   def show_errors
@@ -16,12 +16,8 @@ class Order < ActiveRecord::Base
   	return hash
   end
 
-	def self.with_errors
-		self.select {|order| order.show_errors.any? }
-	end
-
-	def self.no_errors
-		self.select {|order| order.show_errors.empty? }
+  def self.with_errors
+		@with_errors ||= self.where(error: true)
 	end
 
   def self.breakdown
@@ -44,8 +40,6 @@ class Order < ActiveRecord::Base
     return new_hash
   end
 
-  
-
 	def self.search(search)
 		if search
 			Order.find(:all, :conditions => ['orders.order ILIKE?', "%#{search}%"])
@@ -53,4 +47,5 @@ class Order < ActiveRecord::Base
 			@orders
 		end
 	end
+
 end

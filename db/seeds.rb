@@ -4,6 +4,8 @@ def notice(item)
 	puts "-"*60
 end
 
+
+
 #Order Type
 @order_type = OrderType.create(title:"fnfi errors")
 notice @order_type.title
@@ -34,6 +36,22 @@ def create_order_num
 	end
 	arr.join
 end
+
+
+#Test database for testing add/remove actions
+cats = {1 => [1,2,3], 2 => [1,2,3], 3 => [1,2,3]}
+
+test_type = OrderType.create(title: "Test Template")
+
+cats.each_pair do |key, values|
+	cat = Category.create(name: "Category #{key}", order_type_id: test_type.id)
+	values.each do |t|
+		Task.create(description: "Task #{key}-#{t}", category_id: cat.id)
+	end
+end
+
+notice "Test Database"
+
 
 def rolling
 	rand(20)+1 <= 2 ? true : false
@@ -70,12 +88,23 @@ def randomize_day(month)
 	end
 end
 
-def create_orders_for month
-	puts "Creating 500 orders for #{Date::MONTHNAMES[month]}...this can take up to 5 minutes"
+def randomize_note
+	arr = "among going manor who did do ye is celebrated it sympathize considered may ecstatic did surprise elegance the ignorant age own her miss cold last it so numerous if he outlived disposal how but sons mrs lady when her especially are unpleasant out alteration continuing unreserved resolution hence hopes noisy may china fully and am it regard stairs branch thirty length afford".split(" ")
+	num = Proc.new {rand(arr.length)}
+	count = rand(10..20)
+	note = []
+	count.times do
+		note << arr[num.call] + " "
+	end
+	note = note.join.capitalize.gsub(/.$/,"") + "."
+end
+
+def create_orders_for(month, type, number)
+	puts "Creating orders for #{type.title} in #{Date::MONTHNAMES[month]}...this may take awhile"
 	puts "..."
-	500.times do
+	number.times do
 		order = Order.create(
-			order_type_id: 1,
+			order_type_id: type.id,
 			order: create_order_num,
 			created_at: randomize_day(month))
 
@@ -85,25 +114,21 @@ def create_orders_for month
 		else
 			no_error(order)
 		end
+
+		if order.errors?
+			order.update_attributes(error: true, note: randomize_note)
+		else
+			order.update_attributes(error:false)
+		end
 	end
 	notice("Orders for #{Date::MONTHNAMES[month]}")
 end
 
 #Main test database to test load
-create_orders_for 1
-create_orders_for 2
+create_orders_for(1, test_type, 20)
+create_orders_for(2, test_type, 40)
+create_orders_for(3, test_type, 25)
+create_orders_for(2, @order_type, 250)
+create_orders_for(3, @order_type, 300)
 
-#Test database for testing add/remove actions
-cats = {1 => [1,2,3], 2 => [1,2,3], 3 => [1,2,3]}
-
-test_type = OrderType.create(title: "Test Template")
-
-cats.each_pair do |key, values|
-	cat = Category.create(name: "Category #{key}", order_type_id: test_type.id)
-	values.each do |t|
-		Task.create(description: "Task #{key}-#{t}", category_id: cat.id)
-	end
-end
-
-notice "Test Database"
 
