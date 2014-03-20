@@ -17,6 +17,7 @@ gem 'rack-mini-profiler'
 gem 'ruby-prof'
 gem 'cocoon'
 gem 'bootstrap-sass'
+gem 'bcrypt-ruby', '3.1.2'
 
 group :doc do
   gem 'sdoc', require: false

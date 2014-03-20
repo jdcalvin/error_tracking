@@ -1,5 +1,9 @@
 Fnfi::Application.routes.draw do
   root 'static_pages#home'
+
+  match 'contact', 	to: 'static_pages#contact', via: 'get'
+  match 'help', 		to: 'static_pages#help', 		via: 'get'
+
   resources :orders, only: [:edit, :show ]
 
   resources :order_types do 
