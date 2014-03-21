@@ -1,9 +1,10 @@
-<div style="top:20px;" class="panel panel-group" id="accordion nav_bar">
+<% if user_signed_in? %>
+  <div style="top:20px;" class="panel panel-group" id="accordion nav_bar">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-          User Name
+          <%= current_user.first_name + " " + current_user.last_name %>
         </a>
       </h4>
     </div>
@@ -12,8 +13,8 @@
         <div class="list-group">
     			<a href="#" class="list-group-item">Organization</a>
           <a href="#" class="list-group-item">Profile</a>
-          <a href="#" class="list-group-item">Settings</a>
-          <a href="#" class="list-group-item">Log Out</a>
+          <%= link_to 'Settings', edit_user_registration_path, class: "list-group-item" %>
+          <%= link_to 'Log Out', destroy_user_session_path, class: "list-group-item", method: :delete %>
         </div>
       </div>
     </div>
@@ -86,3 +87,27 @@
       <button type="button" class="btn btn-primary" disabled="disabled">Enter new Order</button>
       <% end %>
   </div>
+<% else %>
+<div id="login-panels">
+  <div style="top:20px;" class="panel panel-group" id="accordion nav_bar">
+	<div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">Login</h4>
+    </div>
+    <div class="panel-body">
+      <%= render 'devise/sessions/new' %>
+    	<%#= link_to "Login", new_user_session_path %>
+    </div>
+  </div>
+	<div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">Sign Up</h4>
+    </div>
+    <div class="panel-body">
+      <%= render 'devise/registrations/new' %>
+    	<%#= link_to "Sign Up", new_user_registration_path %>
+    </div>
+  </div>
+</div>
+</div>
+<% end %>

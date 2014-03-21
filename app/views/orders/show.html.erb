@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h2><%= @order.order_type.title %> | <%= @order.order%></h2>
+	</div>
+	<div class="panel-body">
+		<p>
+			<label>Proofed by: </label>
+		</p>
+		<p>
+			<label>Date: <%= @order.created_at.strftime("%D")+ " at " + @order.created_at.strftime("%T") %>
+		</p>
+
+			<ol>
+  			<% @order.categories.uniq.each do |cat| %>
+  				<li><strong><%= cat.name %></strong>
+  					<% cat.tasks.each do |task| %>
+  						<ul><%= task.description %></ul>
+  					<% end %>
+  				</li>
+  			<% end %>
+  		</ol>

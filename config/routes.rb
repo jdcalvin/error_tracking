@@ -1,6 +1,8 @@
 Fnfi::Application.routes.draw do
+  devise_for :users
+  get "users/new"
   root 'static_pages#home'
-
+  
   match 'contact', 	to: 'static_pages#contact', via: 'get'
   match 'help', 		to: 'static_pages#help', 		via: 'get'
 
