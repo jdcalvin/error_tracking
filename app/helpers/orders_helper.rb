@@ -43,4 +43,8 @@ module OrdersHelper
 		(breakdown(date)[false]/breakdown(date).values.sum.to_f*100).round(2)
 		end
 	end
+
+
+
+
 end

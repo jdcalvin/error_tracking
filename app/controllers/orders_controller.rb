@@ -28,27 +28,12 @@ class OrdersController < ApplicationController
 		@orders = Order.search(params[:search])
 	end
 
-  def pie_chart
-    data_table = GoogleVisualr::DataTable.new
-    data_table.new_column('string', 'Category')
-    data_table.new_column('number', 'Number of Errors')
-    data_table.add_rows(@errors.count)
-
-    name_cell = 0
-
-    @errors.each_pair do |key, value|
-      data_table.set_cell(name_cell, 0, key)
-      data_table.set_cell(name_cell, 1, @errors[key].values.sum )
-      name_cell = name_cell + 1
+  def pie_chart_data(opt)
+    arr = []
+    opt.each_pair do |key, value|
+      arr << [key, opt[key].values.sum]
     end
-    
-    opts   = 
-    { :width => 400, :height => 300, 
-      chartArea: {top:0, left:0, width: 400, height: 300},
-      colors: ['#0064cd', '#46a546', '#9d261d', '#049cdb', '#555', '#f89406','#7a43b6', '#c3325f', '#7a43b6'],
-      tooltip: {textStyle: {color: '#333333', bold: true}}
-    }
-    @chart = GoogleVisualr::Interactive::PieChart.new(data_table, opts)   
+    return arr
   end
 
   def show_current_day
@@ -66,6 +51,10 @@ class OrdersController < ApplicationController
   def edit
     @order_type = @order.order_type
   end
+
+  def search
+  end
+
 
   def create
     @order_type = OrderType.find(params[:order_type_id])
@@ -95,9 +84,8 @@ class OrdersController < ApplicationController
 
   def destroy
     @order.destroy
-      flash[:danger] = "Order was successfully deleted"
-      format.html { redirect_to order_type_orders_path,
-        notice: 'Order has been removed.' }
+    flash[:danger] = "Order was successfully deleted"
+    redirect_to order_type_orders_path
   end
 
   def show_day(year,month,day)
@@ -115,8 +103,12 @@ class OrdersController < ApplicationController
     @orders_by_day = @orders.group_by {|x| x.created_at.day }
     @order_error_status = @orders.group_by(&:error)
     @errors = @orders.breakdown
-    pie_chart
+    #pie_chart
+    gon.chart_data = pie_chart_data(@errors)
+    gon.date = @date.strftime("%B %Y")
     render 'orders/month'
+    gon.clear
+
   end
 
   def show_year(year)

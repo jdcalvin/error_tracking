@@ -1,13 +1,15 @@
 <div class="panel panel-default">
-  <div class="panel-heading">#<%= link_to order.order, "/order_types/#{@order_type.id}/orders/#{order.id}" %></div>
+  <div class="panel-heading"><%= link_to "##{order.order}", "/order_types/#{@order_type.id}/orders/#{order.id}" %></div>
   <% if order.error == false %>
   <div class="panel-body">
-    <span style="font-weight:700; color: #3c763d">No Errors</span>
+    <span style="font-weight:700; color: #3c763d">
+      <span class="glyphicon glyphicon-ok-circle"></span> No Errors
   </div>
   <% else %>
   <div class="panel-body">
     <table style="border: none">
-      <th style="color:#a94442"><%= pluralize(order.show_errors.values.flatten.count, "Error") %>
+      <th style="color:#a94442"><span class="glyphicon glyphicon-remove-circle"></span>
+        <%= pluralize(order.show_errors.values.flatten.count, "Error") %>
       </th>
       <th>Notes</th>
       <tr>
@@ -30,7 +32,7 @@
   <div class="panel-footer" style="padding: 5px 15px; text-align: right">
     <h6 style="margin:0">
       <%= link_to 'Edit', "/order_types/#{@order_type.id}/orders/#{order.id}/edit" %> | 
-      <%= link_to 'Delete', '#' %></h6>
+      <%= link_to 'Delete', "/order_types/#{@order_type.id}/orders/#{order.id}", method: :delete, data: { confirm: 'Are you sure?' } %></h6>
   </div>
 </div>
   

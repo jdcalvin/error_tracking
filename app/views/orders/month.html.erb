@@ -1,3 +1,4 @@
+<%= include_gon %>
 <div id="orders">
 	<h2 id="month"><strong><%= @order_type.title %></strong> for <%= @date.strftime("%B %Y") %> </h2>
   	<%= render 'calendar' %>
@@ -8,18 +9,21 @@
   </div>
 		<div class="panel-body">
 		<% if @orders.count > 0 %> 
-			<div id='chart' style="float:left;">
-					<%= render_chart @chart, 'chart' %>
-			</div>
-			<div class="breakdown" style="float:left">
+			<div id="chart" style="width:auto; height: 300px;"></div>
+
+			<div class="breakdown well list-group" >
 				<% @errors.each_pair do |category, tasks| %>
 					<div id="<%= category.downcase.gsub(/ /,"_") %>-container">
-						<%= category %>
-						<ul>
+						<a href="#" class="list-group-item active">
+							<%= category %>
+						</a>
 							<% @errors[category].each_pair do |task, value| %>
-								<li><%= task %> - <%= value %></li>
+								<li class="list-group-item">
+									<span class="badge"><%= value %></span>
+									<%= task %>
+								</li>
 							<% end %>
-						</ul>
+					
 					</div>
 				<% end %>
 			</div>

@@ -3,6 +3,18 @@
 
 
 /* universal */
+.breakdown {
+height: 300px;
+overflow: scroll;
+overflow-x: hidden;
+	
+}
+.btn-menu:hover {
+	background-color: #adadad;
+}
+.glyphicon {
+	padding-right: 1em;
+}
 path:hover {
 	cursor: pointer;
 }

@@ -16,4 +16,8 @@
 //= require jquery.turbolinks
 //= require cocoon
 //= require bootstrap
+//= require highcharts
+//= require highcharts/highcharts-more
+//= require highcharts/modules/data
+//= require highcharts/modules/drilldown
 //= require_tree .

@@ -11,10 +11,20 @@
     <div id="collapseOne" class="panel-collapse collapse">
       <div class="panel-body">
         <div class="list-group">
-    			<a href="#" class="list-group-item">Organization</a>
-          <a href="#" class="list-group-item">Profile</a>
-          <%= link_to 'Settings', edit_user_registration_path, class: "list-group-item" %>
-          <%= link_to 'Log Out', destroy_user_session_path, class: "list-group-item", method: :delete %>
+    			<a href="#" class="list-group-item">
+            <span class="glyphicon glyphicon-briefcase"></span>
+            Organization
+          </a>
+          <a href="#" class="list-group-item">
+            <span class="glyphicon glyphicon-user"></span>
+            Profile
+          </a>
+          <a class="list-group-item" href="<%= edit_user_registration_path %>">
+            <span class="glyphicon glyphicon-cog"></span>
+            Settings
+          </a>
+          <%#= link_to 'Settings', edit_user_registration_path, class: "list-group-item" %>
+          <%= link_to '<span class="glyphicon glyphicon-log-out"></span>Log Out'.html_safe, destroy_user_session_path, class: "list-group-item", method: :delete %>
         </div>
       </div>
     </div>
@@ -34,12 +44,15 @@
     <div id="collapseTwo" class="panel-collapse collapse">
       <div class="panel-body">
 	      <div class="list-group">	
-				<% OrderType.all.each do |type| %>
-				<% unless type == @order_type %>
-					<%= link_to type.title, type, class: "list-group-item" %>
-				<% end %>
-				<% end %>
-        <%= link_to 'Create new Template', new_order_type_path, class: "list-group-item" %>
+  				<% OrderType.all.each do |type| %>
+  				<% unless type == @order_type %>
+          <%= link_to "<span class='glyphicon glyphicon-share'></span>#{type.title}".html_safe, type, class: "list-group-item" %>
+  				<% end %>
+  				<% end %>
+          <a class="list-group-item" href="<%= new_order_type_path %>">
+            <span class="glyphicon glyphicon-edit"></span>
+            Create new Template 
+          </a>
 				</div>
       </div>
     </div>
@@ -58,18 +71,23 @@
           <% unless @order_type.nil? || @order_type.id.nil? %>
             <h3 class="panel-title" style="padding-bottom: .5em">Orders by Month</h3>
             <% (Date.today.month).downto(1) do |month| %>
-              <%= link_to "#{Date::MONTHNAMES[month]} #{Date.today.year}", 
-                "/order_types/#{@order_type.id}/date/#{Date.today.year}/#{month}", 
-                class: "list-group-item" %>
+              <a class="list-group-item" href="<%="/order_types/#{@order_type.id}/date/#{Date.today.year}/#{month}"%>">
+                <span class="glyphicon glyphicon-calendar"></span>
+                <%= "#{Date::MONTHNAMES[month]} #{Date.today.year}" %>
+              </a>
             <% end %>
-              <%= link_to "Show Archive", "/order_types/#{@order_type.id}/archive",
-                class: "list-group-item"%>
+              <a class="list-group-item" href="<%="/order_types/#{@order_type.id}/archive"%>">
+                <span class="glyphicon glyphicon-list-alt"></span>
+                Show Archive
+              </a>
           <% end %>
 					<br>
             <div style="postion:relative">
               <form class="" role="form">
-							 <input style="width: 65%; float:left" type="order" class="form-control" placeholder="Enter Order ID">
-                <button style="float:right"type="submit" class="btn btn-default btn-sm">Search</button>
+							 <input style="width: 70%; float:left" type="order" class="form-control" placeholder="Enter Order ID">
+                <button style="width: auto;float:right"type="submit" class="btn btn-default">
+                  <span style="padding-right: 0;" class="glyphicon glyphicon-search"></span>
+                </button>
 						  </form>
             </div>
         </div>
