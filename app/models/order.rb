@@ -1,5 +1,6 @@
 class Order < ActiveRecord::Base
   belongs_to :order_type
+  belongs_to :user
   cattr_accessor :skip_callbacks
   validates :order_type, presence: true
   validates :order, presence: true
@@ -18,7 +19,9 @@ class Order < ActiveRecord::Base
 	  @show_errors.each {|x| hash[x.category_name] << x.task_description }
   	return hash
   end
-
+  def errors?
+    validations.select {|x| x.approval}.any?
+  end
   def self.with_errors
 		@with_errors ||= self.where(error: true)
 	end

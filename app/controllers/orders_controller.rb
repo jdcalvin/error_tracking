@@ -70,6 +70,7 @@ class OrdersController < ApplicationController
   def create
     @order_type = OrderType.find(params[:order_type_id])
     @order = @order_type.orders.build(order_params)
+    @order.user_id = current_user.id
 			if @order.save
         if @order.errors?
           @order.update_attributes(error: true)
@@ -125,10 +126,11 @@ class OrdersController < ApplicationController
   private
     def set_order
       @order = Order.find(params[:id])
+      @order_type = OrderType.find(params[:order_type_id])
     end
 
     def order_params
-      params.require(:order).permit(:order, :note, :order_type_id, :error,
+      params.require(:order).permit(:order, :note, :order_type_id, :error, :user_id,
         validations_attributes: [:id, :approval, :order_id, :task_id])
     end
 end
