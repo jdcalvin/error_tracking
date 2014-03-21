@@ -11,5 +11,7 @@ module Fnfi
     Rack::MiniProfiler.config.position = 'right'
 		config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 
+		config.autoload_paths += %W(#{config.root}/lib)
+
   end
 end
