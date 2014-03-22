@@ -4,6 +4,16 @@ def notice(item)
 	puts "-"*60
 end
 
+#Users
+
+first_names = "John Steve Barry Eugene Darlene".split
+last_names = "Bogart Sleazy Brown Tango Sketty".split
+
+5.times do |x|
+	User.create(first_name: first_names[x], last_name: last_names[x], password: "password", email: "test#{x}@test.com")	
+	x = x + 1
+end
+notice "Users"
 
 
 #Order Type
@@ -106,7 +116,9 @@ def create_orders_for(month, type, number)
 		order = Order.create(
 			order_type_id: type.id,
 			order: create_order_num,
-			created_at: randomize_day(month))
+			created_at: randomize_day(month),
+			user_id: rand(5)+1
+		)
 
 		#30% chance an error will occur
 		if rand(100)+1 > 70 
