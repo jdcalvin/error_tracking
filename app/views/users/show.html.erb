@@ -8,14 +8,16 @@
 	Organizations:
 </p>
 
-	Orders:
+	<h3 style ="text-align:center"><%= "Total Orders Completed By #{@user.first_name} #{@user.last_name}" %></h3>
 	<br>
+
 	<table class="table">
 		<th>#</th>
 		<th>Date</th>
 		<th>Id</th>
 		<th style="text-align:right">Rating</th>
-	<% @orders.each_with_index do |x, i| %>
+<%#= will_paginate @orders, previous_label: h('<span class="glyphicon glyphicon-chevron-left"></span>'.html_safe), next_label: h('<span class="glyphicon glyphicon-chevron-right"></span>'.html_safe) %>
+			<% @orders.each_with_index do |x, i| %>
 	<tr>
 		<td><%= i + 1 %></td>
 		<td>
@@ -36,3 +38,7 @@
 	</tr>
 	<% end %>
 </table>
+	<div style="text-align:center">
+	<%= will_paginate @orders, renderer: BootstrapPagination::Rails,  previous_label: h('<span class="glyphicon glyphicon-chevron-left"></span>'.html_safe), next_label: h('<span class="glyphicon glyphicon-chevron-right"></span>'.html_safe)%>
+</div>
+<div style="text-align:center"><%= page_entries_info @orders %></div>

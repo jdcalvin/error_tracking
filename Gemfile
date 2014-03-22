@@ -20,6 +20,7 @@ gem 'bootstrap-sass'
 gem 'bcrypt-ruby', '~>3.0.0'
 gem 'devise'
 gem 'gon'
+gem 'will_paginate-bootstrap'
 
 group :doc do
   gem 'sdoc', require: false
