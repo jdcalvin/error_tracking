@@ -6,7 +6,7 @@ Fnfi::Application.routes.draw do
   match 'contact', 	to: 'static_pages#contact', via: 'get'
   match 'help', 		to: 'static_pages#help', 		via: 'get'
   match 'about',    to: 'static_pages#about',   via: 'get'
-
+  resources :users, only: [:show]
   resources :orders, only: [:edit, :show, :search ]
 
   resources :order_types do 

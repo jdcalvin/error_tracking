@@ -15,7 +15,7 @@
             <span class="glyphicon glyphicon-briefcase"></span>
             Organization
           </a>
-          <a href="#" class="list-group-item">
+          <a href="/users/<%= current_user.id%>" class="list-group-item">
             <span class="glyphicon glyphicon-user"></span>
             Profile
           </a>
@@ -46,7 +46,7 @@
 	      <div class="list-group">	
   				<% OrderType.all.each do |type| %>
   				<% unless type == @order_type %>
-          <%= link_to "<span class='glyphicon glyphicon-share'></span>#{type.title}".html_safe, type, class: "list-group-item" %>
+          <%= link_to "<span class='glyphicon glyphicon-tasks'></span>#{type.title}".html_safe, type, class: "list-group-item" %>
   				<% end %>
   				<% end %>
           <a class="list-group-item" href="<%= new_order_type_path %>">
@@ -95,7 +95,25 @@
     </div>
 
   </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+    <ul class="list-inline" style="margin-bottom:0">
 
+      <li><button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" dataplacement="bottom" title="Home">
+        <%= link_to '<span style="padding-right:0;"class="glyphicon glyphicon-home"></span>'.html_safe, root_path %>
+      </button></li>
+
+      <li><button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" dataplacement="bottom" title="Help">
+        <%= link_to '<span style="padding-right:0;"class="glyphicon glyphicon-question-sign"></span>'.html_safe, help_path %>
+      </button></li>
+
+      <li><button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" dataplacement="bottom" title="Contact">
+        <%= link_to '<span style="padding-right:0;"class="glyphicon glyphicon-comment"></span>'.html_safe, contact_path %>
+      </button></li>
+
+    </ul>
+    </div>
+  </div>
 </div>
   <div class="new_order">
   <% unless @order_type.nil? || @order_type.id.nil? %>

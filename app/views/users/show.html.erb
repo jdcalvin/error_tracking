@@ -1,0 +1,38 @@
+<p>
+	<%= @user.first_name %> <%= @user.last_name %>
+</p>
+<p>
+<%= @user.email %>
+</p>
+<p>
+	Organizations:
+</p>
+
+	Orders:
+	<br>
+	<table class="table">
+		<th>#</th>
+		<th>Date</th>
+		<th>Id</th>
+		<th style="text-align:right">Rating</th>
+	<% @orders.each_with_index do |x, i| %>
+	<tr>
+		<td><%= i + 1 %></td>
+		<td>
+			<%= link_to x.created_at.strftime("%a %b %d %I:%M" ), 
+			"/order_types/#{x.order_type_id}/date/#{x.created_at.year}/#{x.created_at.month}/#{x.created_at.day}"%>  
+		</td>
+		<td>
+			<%= link_to x.order, "/order_types/#{x.order_type_id}/orders/#{x.id}" %>
+		</td>
+		<td style ="text-align:right">
+			<% if x.error %>
+			<span style="color:red" class="glyphicon glyphicon-remove-circle"></span>
+			<% else %>
+			<span style="color:green" class="glyphicon glyphicon-ok-circle"></span>
+			<% end %>
+		</td>
+
+	</tr>
+	<% end %>
+</table>
