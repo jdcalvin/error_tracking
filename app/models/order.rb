@@ -13,16 +13,19 @@ class Order < ActiveRecord::Base
     where(created_at: date)
     .includes(:validations).includes(:tasks).includes(:categories)
   end
-  def show_errors
+
+	def show_errors
   	@show_errors ||= validations.select {|x| x.approval}
   	hash = Hash.new{|h,k| h[k] = []}
 	  @show_errors.each {|x| hash[x.category_name] << x.task_description }
   	return hash
-  end
-  def errors?
+ 	end
+
+	def errors?
     validations.select {|x| x.approval}.any?
-  end
-  def self.with_errors
+ 	end
+
+	def self.with_errors
 		@with_errors ||= self.where(error: true)
 	end
 
@@ -47,11 +50,6 @@ class Order < ActiveRecord::Base
   end
 
 	def self.search(search)
-		if search
-			Order.find(:all, :conditions => ['orders.order ILIKE?', "%#{search}%"])
-		else
-			@orders
-		end
 	end
 
 end
