@@ -22,6 +22,7 @@ gem 'will_paginate-bootstrap'
 gem 'better_errors'
 gem 'binding_of_caller'
 gem 'meta_request'
+gem 'dalli'
 
 group :doc do
   gem 'sdoc', require: false
