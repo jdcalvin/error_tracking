@@ -1,5 +1,14 @@
+<div id="nav_menu">
+        <%= link_to '<span style="padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-home"></span>'.html_safe, root_path %>
+
+ 
+        <%= link_to '<span style="padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-question-sign"></span>'.html_safe, help_path %>
+
+  
+        <%= link_to '<span style="padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-comment"></span>'.html_safe, contact_path %>
+      </div>
 <% if user_signed_in? %>
-  <div style="top:20px;" class="panel panel-group" id="accordion nav_bar">
+  <div style="" class="panel panel-group" style="margin-top: 0em;" id="accordion nav_bar">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
@@ -95,25 +104,7 @@
     </div>
 
   </div>
-  <div class="panel panel-default">
-    <div class="panel-heading" style="">
-    <ul class="list-inline" style="margin-bottom:0">
 
-      <li><button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" dataplacement="bottom" title="Home">
-        <%= link_to '<span style="padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-home"></span>'.html_safe, root_path %>
-      </button></li>
-
-      <li><button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" dataplacement="bottom" title="Help">
-        <%= link_to '<span style="padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-question-sign"></span>'.html_safe, help_path %>
-      </button></li>
-
-      <li><button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" dataplacement="bottom" title="Contact">
-        <%= link_to '<span style="padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-comment"></span>'.html_safe, contact_path %>
-      </button></li>
-
-    </ul>
-    </div>
-  </div>
 </div>
   <div class="new_order">
   <% unless @order_type.nil? || @order_type.id.nil? %>
@@ -122,6 +113,7 @@
     <% else %>
       <button type="button" class="btn btn-primary" disabled="disabled">Enter new Order</button>
       <% end %>
+
   </div>
 <% else %>
 <div id="login-panels">

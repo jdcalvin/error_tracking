@@ -22,7 +22,10 @@ footer {
        -moz-transition: all .25s ease-out;
             transition: all .25s ease-out;
   }
-  /* outer div */
+  
+  #nav_menu {
+  display:none;
+  }
 
   /* sidebar */
   .sidebar-offcanvas {
@@ -34,9 +37,17 @@ footer {
     padding: 0;
     height: 100%;
   }
-
+  #content {
+  width: 100%;
+  }
   /* content */
   .row-offcanvas.active {
     left: 279px;
+  }
+  .container {
+  padding-top: 1em;
+  }
+  #side {
+  padding-top: 2.5em;
   }
 }

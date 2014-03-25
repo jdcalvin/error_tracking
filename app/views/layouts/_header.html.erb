@@ -1,8 +1,14 @@
-<div class="header">
+<div class="header" style="padding-bottom:1em">
 	<div id="side_nav_toggle" class="pull-left visible-xs" >
 		<button type="button" class="btn btn-default btn-menu" data-toggle="offcanvas" style="background-color:whitesmoke">
 			<span class="glyphicon glyphicon-th-list"</span>
 			Menu
 		</button>
+        <%= link_to '<span style="font-size: 18px; padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-home"></span>'.html_safe, root_path %>
+
+        <%= link_to '<span style="font-size: 18px; padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-question-sign"></span>'.html_safe, help_path %>
+
+        <%= link_to '<span style="font-size: 18px; padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-comment"></span>'.html_safe, contact_path %>
+  
 	</div>
 </div>
