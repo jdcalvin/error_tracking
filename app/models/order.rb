@@ -3,7 +3,7 @@ class Order < ActiveRecord::Base
   belongs_to :user
   cattr_accessor :skip_callbacks
   validates :order_type, presence: true
-  validates :order, presence: true
+  validates :order_name, presence: true
   has_many :validations, dependent: :destroy
   has_many :tasks, through: :validations
 	has_many :categories, through: :tasks
@@ -50,6 +50,10 @@ class Order < ActiveRecord::Base
   end
 
 	def self.search(search)
-	end
-
+    if search
+      where 'order_name LIKE?', "%#{search}%"
+    else
+      scoped
+    end
+  end
 end

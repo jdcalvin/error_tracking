@@ -1,0 +1,9 @@
+<div class="new_order">
+  <% unless @order_type.nil? || @order_type.id.nil? %>
+  <%= link_to 'Enter new Order', "/order_types/#{@order_type.id}/orders/new",
+    class: "btn btn-primary" %>
+  <% else %>
+    <button type="button" class="btn btn-primary" disabled="disabled">Enter new Order</button>
+   <% end %>
+
+</div>

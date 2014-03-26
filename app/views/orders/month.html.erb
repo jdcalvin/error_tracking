@@ -1,7 +1,7 @@
 <%= include_gon %>
 <%= render 'chart' %>
 <div id="orders">
-	<h2 id="month"><strong><%= @order_type.title %></strong> for <%= @date.strftime("%B %Y") %> </h2>
+	<h2 style="padding-top:0;"id="month"><strong><%= @order_type.title %></strong> for <%= @date.strftime("%B %Y") %> </h2>
   	<%= render 'calendar' %>
 
 </div>

@@ -1,0 +1,45 @@
+<div class="panel panel-default"style="border-radius: 0;margin-top: 0">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+        Search
+      </a>
+    </h4>
+  </div>
+  <div id="collapseThree" class="panel-collapse collapse in">
+    <div class="panel-body" style="padding: 0;">
+      <div class="list-group">
+        <% unless @order_type.nil? || @order_type.id.nil? %>
+          <h3 class="panel-title" style="padding: .5em">Orders by Month</h3>
+          <% (@today.month).downto(1) do |month| %>
+            <a class="list-group-item" 
+            href="<%= order_type_date_path(@order_type.id, @today.year, month) %>">
+
+              <span class="glyphicon glyphicon-calendar"></span>
+              <%= "#{Date::MONTHNAMES[month]} #{@today.year}" %>
+            </a>
+          <% end %>
+            <a class="list-group-item" href="<%="/order_types/#{@order_type.id}/archive"%>">
+              <span class="glyphicon glyphicon-list-alt"></span>
+              Show Archive
+            </a>
+        <% end %>
+				<br>
+          <div style="postion:relative">
+            <form class="" role="form" style="padding: .5em" role="search">
+              <%= form_tag(search_results_path, method: :get) do %>
+                <%= text_field_tag :search, params[:search], class:"form-control",
+                style:"width: 70%; float:left", placeholder:"Enter Order ID" %>
+
+                <button style="width: auto;float:right"type="submit" class="btn btn-default">
+                  <span style="padding-right: 0;" class="glyphicon glyphicon-search"></span>
+                </button>
+
+                <% end %>
+              </form>
+
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,141 +1,20 @@
 <div id="nav_menu">
-        <%= link_to '<span style="padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-home"></span>'.html_safe, root_path %>
+  <%= link_to '<span style="padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-home"></span>'.html_safe, root_path %>
+  <%= link_to '<span style="padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-question-sign"></span>'.html_safe, help_path %>
+  <%= link_to '<span style="padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-comment"></span>'.html_safe, contact_path %>
+</div>
 
- 
-        <%= link_to '<span style="padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-question-sign"></span>'.html_safe, help_path %>
-
-  
-        <%= link_to '<span style="padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-comment"></span>'.html_safe, contact_path %>
-      </div>
 <% if user_signed_in? %>
-  <div style="" class="panel panel-group" style="margin-top: 0em;" id="accordion nav_bar">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-          <%= current_user.first_name + " " + current_user.last_name %>
-        </a>
-      </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse">
-      <div class="panel-body">
-        <div class="list-group">
-    			<a href="#" class="list-group-item">
-            <span class="glyphicon glyphicon-briefcase"></span>
-            Organization
-          </a>
-          <a href="/users/<%= current_user.id%>" class="list-group-item">
-            <span class="glyphicon glyphicon-user"></span>
-            Profile
-          </a>
-          <a class="list-group-item" href="<%= edit_user_registration_path %>">
-            <span class="glyphicon glyphicon-cog"></span>
-            Settings
-          </a>
-          <%#= link_to 'Settings', edit_user_registration_path, class: "list-group-item" %>
-          <%= link_to '<span class="glyphicon glyphicon-log-out"></span>Log Out'.html_safe, destroy_user_session_path, class: "list-group-item", method: :delete %>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-          <% if @order_type.nil? || @order_type.id.nil?%>
-						Select Template
-					<% else %>
-						<%= @order_type.title %>
-					<% end %>	
-        </a>
-      </h4>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse">
-      <div class="panel-body">
-	      <div class="list-group">	
-  				<% OrderType.all.each do |type| %>
-  				<% unless type == @order_type %>
-          <%= link_to "<span class='glyphicon glyphicon-tasks'></span>#{type.title}".html_safe, type, class: "list-group-item" %>
-  				<% end %>
-  				<% end %>
-          <a class="list-group-item" href="<%= new_order_type_path %>">
-            <span class="glyphicon glyphicon-edit"></span>
-            Create new Template 
-          </a>
-				</div>
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-          Search
-        </a>
-      </h4>
-    </div>
-    <div id="collapseThree" class="panel-collapse collapse in">
-      <div class="panel-body">
-        <div class="list-group">
-          <% unless @order_type.nil? || @order_type.id.nil? %>
-            <h3 class="panel-title" style="padding-bottom: .5em">Orders by Month</h3>
-            <% (Date.today.month).downto(1) do |month| %>
-              <a class="list-group-item" href="<%="/order_types/#{@order_type.id}/date/#{Date.today.year}/#{month}"%>">
-                <span class="glyphicon glyphicon-calendar"></span>
-                <%= "#{Date::MONTHNAMES[month]} #{Date.today.year}" %>
-              </a>
-            <% end %>
-              <a class="list-group-item" href="<%="/order_types/#{@order_type.id}/archive"%>">
-                <span class="glyphicon glyphicon-list-alt"></span>
-                Show Archive
-              </a>
-          <% end %>
-					<br>
-            <div style="postion:relative">
-              <form class="" role="form">
-							 <input style="width: 70%; float:left" type="order" class="form-control" placeholder="Enter Order ID">
-                <button style="width: auto;float:right"type="submit" class="btn btn-default">
-                  <span style="padding-right: 0;" class="glyphicon glyphicon-search"></span>
-                </button>
-						  </form>
-            </div>
-        </div>
-      </div>
-    </div>
 
+  <div class="panel panel-group" style="margin-top: 0em;" 
+    id="accordion nav_bar">
+    <%= render 'layouts/nav/user' %>  
+    <%= render 'layouts/nav/template' %>
+    <%= render 'layouts/nav/search' %>
   </div>
+    <%= render 'layouts/nav/new_order' %>
 
-</div>
-  <div class="new_order">
-  <% unless @order_type.nil? || @order_type.id.nil? %>
-  <%= link_to 'Enter new Order', "/order_types/#{@order_type.id}/orders/new",
-    class: "btn btn-primary" %>
-    <% else %>
-      <button type="button" class="btn btn-primary" disabled="disabled">Enter new Order</button>
-      <% end %>
-
-  </div>
 <% else %>
-<div id="login-panels">
-  <div style="top:20px;" class="panel panel-group" id="accordion nav_bar">
-	<div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">Login</h4>
-    </div>
-    <div class="panel-body">
-      <%= render 'devise/sessions/new' %>
-    	<%#= link_to "Login", new_user_session_path %>
-    </div>
-  </div>
-	<div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">Sign Up</h4>
-    </div>
-    <div class="panel-body">
-      <%= render 'devise/registrations/new' %>
-    	<%#= link_to "Sign Up", new_user_registration_path %>
-    </div>
-  </div>
-</div>
-</div>
+  <%= render 'layouts/nav/signed_out' %>
+
 <% end %>

@@ -1,0 +1,28 @@
+<div class="panel panel-default"style="border-radius: 0; margin-top: 0">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+        <% if @order_type.nil? || @order_type.id.nil?%>
+					Select Template
+				<% else %>
+					<%= @order_type.title %>
+				<% end %>	
+      </a>
+    </h4>
+  </div>
+  <div id="collapseTwo" class="panel-collapse collapse">
+    <div class="panel-body"style="padding: 0;">
+      <div class="list-group">	
+				<% OrderType.all.each do |type| %>
+				<% unless type == @order_type %>
+        <%= link_to "<span class='glyphicon glyphicon-tasks'></span>#{type.title}".html_safe, type, class: "list-group-item" %>
+				<% end %>
+				<% end %>
+        <a class="list-group-item" href="<%= new_order_type_path %>">
+          <span class="glyphicon glyphicon-edit"></span>
+          Create new Template 
+        </a>
+			</div>
+    </div>
+  </div>
+</div>

@@ -1,14 +1,23 @@
 
 /* universal */
-.breakdown {
-height: 300px;
-overflow: scroll;
-overflow-x: hidden;
+
+/*
+====================================================================
+HTML
+====================================================================
+*/
+body {
+}
+html {
+	min-width: 550px;
+}
+html, body, .wrapper {
+  height: 100%;
+}
+.wrapper {
+	padding-bottom: 50px;
 }
 
-.btn-menu:hover {
-	background-color: #adadad;
-}
 .glyphicon {
 	padding-right: 1em;
 }
@@ -24,69 +33,6 @@ path:hover {
 }
 .site-container {
 	min-height: 100%;
-}
-
-body {
-}
-html {
-	min-width: 550px;
-}
-html, body, .wrapper {
-  height: 100%;
-}
-.wrapper {
-	padding-bottom: 50px;
-}
-
-#side_nav_toggle {
-	position: absolute;
-	top: 1em;
-	left: 1em;
-	margin-bottom: 1em;
-	color: #777;
-	font-weight: bold;
-	z-index: 999999;
-	background: none;
-
-}
-
-#side {
-padding-top: 0px;
-padding-bottom: 1em;
-padding-right: 0em;
-padding-left: 0em;
-max-width: 279px;
-
-
-}
-.header {
-}
-#content {
-
-	padding-right: 1em;
-	margin: 0 auto;
-}
-
-	footer {
-	padding-bottom: 2em;
-	padding-top: 2em;
-		div {
-		padding-top: 1em;
-		border-top: 1px solid #DDDDDD;
-		text-align: center;
-		}
-	}
-
-.calendar {
-	width: 100%;
-}
-
-#nav_menu {
-	padding-left: 1em;
-	font-size: 20px;
-
-}
-#nav_bar {
 }
 .panel {
 	padding: 0;
@@ -136,7 +82,102 @@ table {
 	.line-odd {
 		background: none;
 	}
+	button
+{
+	a:visited {color: white;}
+}
+/*
+====================================================================
+SIDE
+====================================================================
+*/
+.btn-menu:hover {
+	background-color: #adadad;
+}
+#nav_menu {
+	padding-left: 1em;
+	font-size: 20px;
 
+}
+#side {
+padding-top: 0px;
+padding-bottom: 1em;
+padding-right: 0em;
+padding-left: 0em;
+max-width: 279px;
+
+	.panel-heading {
+		border-radius: 0;
+	}
+
+	.panel-group {
+		border-radius: 0;
+	}
+}
+#side_nav_toggle {
+	position: absolute;
+	top: 1em;
+	left: 1em;
+	margin-bottom: 1em;
+	color: #777;
+	font-weight: bold;
+	z-index: 999999;
+	background: none;
+
+}
+/*
+====================================================================
+CONTENT
+====================================================================
+*/
+.panel-body {
+	.list-group {
+		a {
+			border: none;
+			.list-group-item {
+				padding:0;
+			}
+		}
+	}
+}
+
+.breakdown {
+	height: 300px;
+	overflow: scroll;
+	overflow-x: hidden;
+	border-radius: 0;
+	.list-group-item {
+		border-radius: 0;
+	}
+}
+#content {
+
+	padding-right: 1em;
+	margin: 0 auto;
+	margin-top: 1.5em;
+}
+
+/*
+====================================================================
+FOOTER
+====================================================================
+*/
+
+footer {
+padding-bottom: 2em;
+padding-top: 2em;
+	div {
+	padding-top: 1em;
+	border-top: 1px solid #DDDDDD;
+	text-align: center;
+	}
+}
+
+
+
+.calendar {
+	width: 100%;
+}
 	.order-header
 	{
 		background: #428bca;
@@ -168,10 +209,7 @@ label {
 	width: auto;
 }
 
-button
-{
-	a:visited {color: white;}
-}
+
 
 .form-control {
 	margin-bottom: .5em;

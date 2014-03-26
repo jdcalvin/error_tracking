@@ -1,0 +1,33 @@
+<table class="table table-hover">
+		<th>#</th>
+		<th>Date</th>
+		<th>Id</th>
+		<th style="text-align:right">Rating</th>
+			<% @orders.each_with_index do |x, i| %>
+	<tr>
+		<td><%= i + 1 %></td>
+		<td>
+			<%= link_to x.created_at.strftime("%a %b %d %I:%M" ), 
+					order_type_date_path(x.order_type_id, x.created_at.year, x.created_at.month, x.created_at.day) %>  
+		</td>
+		<td>
+			<%= link_to x.order_name, 
+					order_type_order_path(x.order_type_id, x.id) %>
+		</td>
+		<td style ="text-align:right">
+			<% if x.error %>
+			<span style="color:#a94442" class="glyphicon glyphicon-remove-circle"></span>
+			<% else %>
+			<span style="color:#3c763d" class="glyphicon glyphicon-ok-circle"></span>
+			<% end %>
+		</td>
+
+	</tr>
+	<% end %>
+</table>
+	<div style="text-align:center">
+	<%= will_paginate @orders, renderer: BootstrapPagination::Rails,  previous_label: h('<span class="glyphicon glyphicon-chevron-left"></span>'.html_safe), next_label: h('<span class="glyphicon glyphicon-chevron-right"></span>'.html_safe)%>
+</div>
+<div style="text-align:center">
+	<%= page_entries_info @orders %>
+</div>

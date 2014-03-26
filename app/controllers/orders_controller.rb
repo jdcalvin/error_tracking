@@ -24,10 +24,6 @@ class OrdersController < ApplicationController
   def show
   end
 
-	def search
-		@orders = Order.search(params[:search])
-	end
-
   def pie_chart_data(opt)
     arr = []
     opt.each_pair do |key, value|
@@ -122,7 +118,7 @@ class OrdersController < ApplicationController
     end
 
     def order_params
-      params.require(:order).permit(:order, :note, :order_type_id, :error, :user_id,
+      params.require(:order).permit(:order_name, :note, :order_type_id, :error, :user_id,
         validations_attributes: [:id, :approval, :order_id, :task_id])
     end
 end

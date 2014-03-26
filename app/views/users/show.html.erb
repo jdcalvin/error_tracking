@@ -10,35 +10,4 @@
 
 	<h3 style ="text-align:center"><%= "Total Orders Completed By #{@user.first_name} #{@user.last_name}" %></h3>
 	<br>
-
-	<table class="table">
-		<th>#</th>
-		<th>Date</th>
-		<th>Id</th>
-		<th style="text-align:right">Rating</th>
-<%#= will_paginate @orders, previous_label: h('<span class="glyphicon glyphicon-chevron-left"></span>'.html_safe), next_label: h('<span class="glyphicon glyphicon-chevron-right"></span>'.html_safe) %>
-			<% @orders.each_with_index do |x, i| %>
-	<tr>
-		<td><%= i + 1 %></td>
-		<td>
-			<%= link_to x.created_at.strftime("%a %b %d %I:%M" ), 
-			"/order_types/#{x.order_type_id}/date/#{x.created_at.year}/#{x.created_at.month}/#{x.created_at.day}"%>  
-		</td>
-		<td>
-			<%= link_to x.order, "/order_types/#{x.order_type_id}/orders/#{x.id}" %>
-		</td>
-		<td style ="text-align:right">
-			<% if x.error %>
-			<span style="color:red" class="glyphicon glyphicon-remove-circle"></span>
-			<% else %>
-			<span style="color:green" class="glyphicon glyphicon-ok-circle"></span>
-			<% end %>
-		</td>
-
-	</tr>
-	<% end %>
-</table>
-	<div style="text-align:center">
-	<%= will_paginate @orders, renderer: BootstrapPagination::Rails,  previous_label: h('<span class="glyphicon glyphicon-chevron-left"></span>'.html_safe), next_label: h('<span class="glyphicon glyphicon-chevron-right"></span>'.html_safe)%>
-</div>
-<div style="text-align:center"><%= page_entries_info @orders %></div>
+	<%= render 'orders/table' %>

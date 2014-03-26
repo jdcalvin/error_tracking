@@ -1,65 +1,50 @@
 <%= form_for [@order_type, @order] do |f| %>
-    <% if @order.errors.any? %>
-      <div id="error_explanation" class="alert alert-danger custom-flash">
-        <h4><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h4>
-      <ul>
-      <% @order.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render 'error' %>
 
-  
   <div class="form-inline form-order" role="form">
-    <%= f.label :order %><br>
-    <%= f.text_field :order, class: "form-control" %>
+    <%= f.label :order_name %><br>
+    <%= f.text_field :order_name, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= f.label "Proofed by:" %> <%= current_user.first_name + " " + current_user.last_name %>
   </div>
-    <table class="table">
-      <tr class = "order-header">
+
+  <table class="table">
+    <tr class = "order-header">
       <th>Description</th>
       <th style="text-align:right; padding-right: 1em">Status</th>
     </tr>
-    <% @order_type.categories.each do |cat| %>
-      <tr>
-        <td colspan=2 style="background-color:#BAB9B9; padding-left: 1em">
-          <%= cat.name %>
-        </td>
-      </tr>
-        <% cat.tasks.each do |task| %>
-          <tr style="height: 10px" class="<%= cycle('active', '') %>">
-            <td class="td-description" style="padding-left: 2em;">
-              <%= task.description%>
-            </td>
-          <%= f.fields_for :validations, @order.validations.build do |builder| %>
-            <td class="td-status">
-              <div>
-                <%# if @order.created_at == nil %>
-                  <%= builder.check_box :approval %>
-                <%# else %>
-                  <%# if validation.approval %>
-                    <%#= builder.check_box :approval, {checked: true} %>
-                  <%# else %>
-                    <%#= builder.check_box :approval %>
-                  <%# end %>
-                <%# end %>
-                  <%= builder.hidden_field(:task_id, :value => task.id) %>
+  <% @order_type.categories.each do |cat| %>
+    <tr>
+      <td colspan=2 style="background-color:#BAB9B9; padding-left: 1em">
+        <%= cat.name %>
+      </td>
+    </tr>
+      <% cat.tasks.each do |task| %>
+        <tr style="height: 10px" class="<%= cycle('active', '') %>">
+          <td class="td-description" style="padding-left: 2em;">
+            <%= task.description%>
+          </td>
+        <%= f.fields_for :validations, @order.validations.build do |builder| %>
+          <td class="td-status"><div>
+            <%= builder.check_box :approval %>
+            <%= builder.hidden_field(:task_id, :value => task.id) %>
+          </div></td> 
 
-            </div></td> 
-          <% end %>
-         </tr>
-       <% end %>
-    <% end %>
-    </table>
-<div class="note-field">
+        <% end %>
+        </tr>
+      <% end %>
+  <% end %>
+  </table>
+  
+  <div class="note-field">
     <h4><%= f.label :note, "Notes:" %><br><h4>
     <%= f.text_area :note, rows: 5, style:"width:100%; background-color: #fcf8e3", class: "form-control" %>
   </div>
+
   <div class="actions">
     <%= f.submit "Submit", class: "btn btn-primary" %>
   </div>
+
 <% end %>

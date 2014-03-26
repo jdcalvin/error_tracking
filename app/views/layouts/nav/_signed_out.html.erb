@@ -1,0 +1,22 @@
+<div id="login-panels">
+  <div style="top:20px;" class="panel panel-group" id="accordion nav_bar">
+  	<div class="panel panel-default"style="border-radius: 0;margin-top: 0">
+      <div class="panel-heading">
+        <h4 class="panel-title">Login</h4>
+      </div>
+      <div class="panel-body">
+        <%= render 'devise/sessions/new' %>
+      	<%#= link_to "Login", new_user_session_path %>
+      </div>
+    </div>
+  	<div class="panel panel-default"style="border-radius: 0;margin-top: 0">
+      <div class="panel-heading">
+        <h4 class="panel-title">Sign Up</h4>
+      </div>
+      <div class="panel-body">
+        <%= render 'devise/registrations/new' %>
+      	<%#= link_to "Sign Up", new_user_registration_path %>
+      </div>
+    </div>
+  </div>
+</div>
