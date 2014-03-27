@@ -7,6 +7,9 @@ HTML
 ====================================================================
 */
 body {
+background-color:#2C2731;
+opacity: .97;
+height: 100%;
 }
 html {
 	min-width: 550px;
@@ -25,9 +28,9 @@ path:hover {
 	cursor: pointer;
 }
 .container {
-	margin-top: 1em;
 	max-width: 950px;
 	width: auto;
+	margin-top: 2em;
 	
 	min-height: 100%;
 }
@@ -125,6 +128,11 @@ max-width: 279px;
 	background: none;
 
 }
+
+.search-form {
+	padding: .5em;
+	padding-bottom: 1em;
+}
 /*
 ====================================================================
 CONTENT
@@ -151,10 +159,9 @@ CONTENT
 	}
 }
 #content {
-
-	padding-right: 1em;
+	height: 100%;
 	margin: 0 auto;
-	margin-top: 1.5em;
+	margin-top: 2em;
 }
 
 /*
@@ -168,7 +175,7 @@ padding-bottom: 2em;
 padding-top: 2em;
 	div {
 	padding-top: 1em;
-	border-top: 1px solid #DDDDDD;
+	border-top: 1px solid #333333;
 	text-align: center;
 	}
 }
@@ -194,7 +201,7 @@ padding-top: 2em;
 
 
 .new_order {
-padding-left: 1.5em;
+padding-left: .5em;
 }
 
 label {

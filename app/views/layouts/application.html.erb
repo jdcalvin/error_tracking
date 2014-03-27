@@ -7,6 +7,7 @@
   	| <%= @order_type.title %>
   	<% end %>
   </title>
+  <meta name="viewport" content="width:767px">
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
@@ -15,31 +16,32 @@
 	<%= render 'layouts/header'  %>
 		<div class="wrapper row-offcanvas">
 			<div class="container">
-				<div class="row">
+				<div class="row" style="margin-top:0px">
 					<!--NAV-->
 					<div class="sidebar-offcanvas">
-						<div class="col-sm-4 col-md-4 col-lg-4" id="side">			
+						<div class="col-sm-4 col-md-4 col-lg-4" id="side" style="padding-left: 1em">			
 								<%= render 'layouts/navbar' %>
 						</div>
 					</div>
 					<!--CONTENT-->
-					<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" id="content">
+					<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" id="content" style="padding-left: 1em">
 						
+						<div class="panel panel-body" id="content-panel" style="border:1px solid #dddddd; margin: 0px; padding:.5em;">
 							<% flash.each do |key, value| %>
-								<div class="<%="alert alert-#{key}"%>" style="border-radius:0; padding: .5em; margin-top: .5em">
+								<div class="<%="alert alert-#{key}"%>" style="border-radius:0; padding: .5em;">
 									<span class="glyphicon glyphicon-<%=alert_icons[key]%>" style="font-size: 15px"></span>
 									<%= value %>
 								</div>
 							<% end %>
-						
 						<%= yield %>
+					</div>
 					</div>
 				</div>
 			</div>
-
 			<footer>
 				<%= render 'layouts/footer' %>
 			</footer>
+
 	
 			</div>
 

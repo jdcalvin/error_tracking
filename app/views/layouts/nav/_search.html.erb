@@ -1,4 +1,4 @@
-<div class="panel panel-default"style="border-radius: 0;margin-top: 0">
+<div class="panel panel-default"style="border-radius: 0;margin: 0px;margin-top: 0">
   <div class="panel-heading">
     <h4 class="panel-title">
       <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
@@ -10,7 +10,7 @@
     <div class="panel-body" style="padding: 0;">
       <div class="list-group">
         <% unless @order_type.nil? || @order_type.id.nil? %>
-          <h3 class="panel-title" style="padding: .5em">Orders by Month</h3>
+          <h3 class="panel-title" style="padding: .5em;">Orders by Month</h3>
           <% (@today.month).downto(1) do |month| %>
             <a class="list-group-item" 
             href="<%= order_type_date_path(@order_type.id, @today.year, month) %>">
@@ -26,8 +26,7 @@
         <% end %>
 				<br>
           <div style="postion:relative">
-            <form class="" role="form" style="padding: .5em" role="search">
-              <%= form_tag(search_results_path, method: :get) do %>
+              <%= form_tag search_results_path, method: :get, class:"search-form" do %>
                 <%= text_field_tag :search, params[:search], class:"form-control",style:"width: 70%; float:left", placeholder:"Enter Order ID" %>
 
                 <button style="width: auto;float:right"type="submit" class="btn btn-default">
@@ -35,7 +34,6 @@
                 </button>
 
               <% end %>
-            </form>
           </div>
       </div>
     </div>

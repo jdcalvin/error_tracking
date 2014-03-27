@@ -1,4 +1,4 @@
-<div class="new_order">
+<div class="new_order" style="margin-top: .5em">
   <% unless @order_type.nil? || @order_type.id.nil? %>
   <%= link_to 'Enter new Order', "/order_types/#{@order_type.id}/orders/new",
     class: "btn btn-primary" %>

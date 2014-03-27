@@ -1,6 +1,8 @@
-<h3 style="margin-top:0">Search results for "<%= @search %>"</h3>
+<div style="min-height: 400px">
+<h3>Search results for "<%= @search %>"</h3>
 <% unless @orders.nil? %>
 	<%= render 'orders/table' %>
 <% else %>
 	No Results for <%= @search %>
 	<% end %>
+</div>
