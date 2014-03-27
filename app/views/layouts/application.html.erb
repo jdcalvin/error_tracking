@@ -18,26 +18,24 @@
 				<div class="row">
 					<!--NAV-->
 					<div class="sidebar-offcanvas">
-					<div class="col-sm-4 col-md-4 col-lg-4" id="side">
-						
-							<%= render 'layouts/navbar' %>
-				
+						<div class="col-sm-4 col-md-4 col-lg-4" id="side">			
+								<%= render 'layouts/navbar' %>
+						</div>
 					</div>
-				</div>
 					<!--CONTENT-->
 					<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" id="content">
-						<div>
-						<% flash.each do |key, value| %>
-							<div class="<%="alert alert-#{key}"%>" style="border-radius:0; padding: .5em; margin-top: .5em">
-								<span class="glyphicon glyphicon-<%=alert_icons[key]%>" style="font-size: 15px"></span>
+						
+							<% flash.each do |key, value| %>
+								<div class="<%="alert alert-#{key}"%>" style="border-radius:0; padding: .5em; margin-top: .5em">
+									<span class="glyphicon glyphicon-<%=alert_icons[key]%>" style="font-size: 15px"></span>
 									<%= value %>
-							</div>
-						<% end %>
-						</div>
+								</div>
+							<% end %>
+						
 						<%= yield %>
-						</div>
 					</div>
 				</div>
+			</div>
 
 			<footer>
 				<%= render 'layouts/footer' %>
