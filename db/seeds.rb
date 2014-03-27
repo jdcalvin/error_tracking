@@ -115,7 +115,7 @@ def create_orders_for(month, type, number)
 	number.times do
 		order = Order.create(
 			order_type_id: type.id,
-			order: create_order_num,
+			order_name: create_order_num,
 			created_at: randomize_day(month),
 			user_id: rand(5)+1
 		)
