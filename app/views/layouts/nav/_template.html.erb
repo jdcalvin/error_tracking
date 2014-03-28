@@ -13,7 +13,7 @@
   <div id="collapseTwo" class="panel-collapse collapse">
     <div class="panel-body"style="padding: 0;">
       <div class="list-group">	
-				<% OrderType.all.each do |type| %>
+				<% current_user.order_types.each do |type| %>
 				<% unless type == @order_type %>
         <%= link_to "<span class='glyphicon glyphicon-tasks'></span>#{type.title}".html_safe, type, class: "list-group-item" %>
 				<% end %>

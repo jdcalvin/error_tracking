@@ -1,12 +1,15 @@
 class OrganizationsController < ApplicationController
+	before_action :set_organization, only: [:show, :edit, :update, :destroy]
 	def index
-		@organizations = Organization.all
+
 	end
 
 	def edit
 	end
 
 	def show
+		@users = @organization.users.reorder('last_name ASC').page(params[:page]).per_page(10)
+		@order_types = @organization.order_types
 	end
 
 	def new

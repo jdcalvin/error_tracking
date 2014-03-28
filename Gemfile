@@ -23,6 +23,7 @@ gem 'better_errors'
 gem 'binding_of_caller'
 gem 'meta_request'
 gem 'dalli'
+gem 'pundit'
 
 group :doc do
   gem 'sdoc', require: false

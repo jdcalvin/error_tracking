@@ -1,5 +1,7 @@
 class OrderTypesController < ApplicationController
   before_action :set_order_type, only: [:show, :edit, :update]
+  before_action :validate_admin_status, 
+    only: [:edit, :update, :destroy, :new, :create]
 
   def index
     @order_types = OrderType.all
@@ -48,12 +50,19 @@ class OrderTypesController < ApplicationController
   end
 
   private
+
+    def validate_admin_status
+      unless current_user.admin
+        redirect_to root_url
+        flash[:warning] = "You must have adminstrative rights to access that."
+      end
+    end
     def set_order_type
       @order_type = OrderType.load_associations(params[:id])
     end
 
     def order_type_params
-      params.require(:order_type).permit(:title,
+      params.require(:order_type).permit(:title, :organization_id,
 				categories_attributes: [:id, :name, :order_type_id, :_destroy,
 				tasks_attributes: [:id, :description,
 													 :category_id, :_destroy]])

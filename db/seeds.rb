@@ -4,20 +4,41 @@ def notice(item)
 	puts "-"*60
 end
 
+#Organizations
+
+['FNFI', 'Org1', 'Org2'].each do |org|
+	Organization.create(title:org)
+end
+notice "Organizations"
 #Users
+@orgs = Organization.all
 
-first_names = "John Steve Barry Eugene Darlene".split
-last_names = "Bogart Sleazy Brown Tango Sketty".split
+first_names = "John Steve Barry Eugene Darlene Anita Carola Jason Paula Dean Steven Arnie".split
+last_names = "Bogart Sleazy Brown Tango Sketty Wylie Sloane Mone Games Nudey Steed Irvine Zero".split
 
-5.times do |x|
-	User.create(first_name: first_names[x], last_name: last_names[x], password: "password", email: "test#{x}@test.com")	
+def randomize_admin
+	num = rand(100)+1
+	if num > 80
+		return true
+	else
+		return false
+	end
+end
+
+50.times do |x|
+	User.create(first_name: first_names[rand(first_names.count)], 
+		last_name: last_names[rand(last_names.count)], 
+		password: "password", 
+		email: "test.user#{x}@test.com",
+		organization_id: rand(1..3),
+		admin: randomize_admin)	
 	x = x + 1
 end
 notice "Users"
-
+@users = User.all
 
 #Order Type
-@order_type = OrderType.create(title:"fnfi errors")
+@order_type = OrderType.create(title:"Fnfi Errors", organization_id: 1)
 notice @order_type.title
 
 #Categories and Tasks
@@ -49,18 +70,26 @@ end
 
 
 #Test database for testing add/remove actions
-cats = {1 => [1,2,3], 2 => [1,2,3], 3 => [1,2,3]}
 
-test_type = OrderType.create(title: "Test Template")
-
-cats.each_pair do |key, values|
-	cat = Category.create(name: "Category #{key}", order_type_id: test_type.id)
-	values.each do |t|
-		Task.create(description: "Task #{key}-#{t}", category_id: cat.id)
+def test_type_for(org_num)
+	test_type = OrderType.create(title: "Template-#{org_num}-#{rand(1000)+1}", organization_id: org_num)
+	cats = {1 => [1,2,3], 2 => [1,2,3], 3 => [1,2,3]}
+	cats.each_pair do |key, values|
+		cat = Category.create(name: "Category #{org_num}-#{key}", order_type_id: test_type.id)
+		values.each do |t|
+			Task.create(description: "Task #{org_num}-#{key}-#{t}", category_id: cat.id)
+		end
 	end
 end
 
-notice "Test Database"
+test_type_for(1)
+test_type_for(1)
+test_type_for(2)
+test_type_for(2)
+test_type_for(3)
+test_type_for(3)
+
+notice "Test Templates completed"
 
 
 def rolling
@@ -117,7 +146,7 @@ def create_orders_for(month, type, number)
 			order_type_id: type.id,
 			order_name: create_order_num,
 			created_at: randomize_day(month),
-			user_id: rand(5)+1
+			user_id: rand(@users.count)+1
 		)
 
 		#30% chance an error will occur
@@ -137,11 +166,10 @@ def create_orders_for(month, type, number)
 end
 
 #Main test database to test load
-create_orders_for(1, test_type, 20)
-create_orders_for(2, test_type, 40)
-create_orders_for(3, test_type, 25)
-create_orders_for(2, @order_type, 250)
-create_orders_for(3, @order_type, 300)
-create_orders_for(4, @order_type, 1000)
 
+OrderType.all.each do |x|
+	create_orders_for(1, x, rand(20..30))
+	create_orders_for(2, x, rand(20..30))
+	create_orders_for(3, x, rand(20..30))
+end
 
