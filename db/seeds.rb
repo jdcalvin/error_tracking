@@ -139,14 +139,21 @@ def randomize_note
 end
 
 def create_orders_for(month, type, number)
+	org = type.organization
+	org_users = []
+	org.users.each do |x|
+		org_users << x.id
+	end
+
 	puts "Creating orders for #{type.title} in #{Date::MONTHNAMES[month]}...this may take awhile"
 	puts "..."
+
 	number.times do
 		order = Order.create(
 			order_type_id: type.id,
 			order_name: create_order_num,
 			created_at: randomize_day(month),
-			user_id: rand(@users.count)+1
+			user_id: org_users[rand(org_users.length)]
 		)
 
 		#30% chance an error will occur

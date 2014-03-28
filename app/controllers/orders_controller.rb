@@ -1,8 +1,9 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_order_type, only: [:new, :create, :index]
+  before_action :validate_user
+  
   def index
-    @order_type = OrderType.find(params[:order_type_id])
     year = params[:year]
     month = params[:month]
     day = params[:day]    
@@ -40,7 +41,6 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @order_type = OrderType.load_associations(params[:order_type_id])
     @order = @order_type.orders.build
   end
 
@@ -53,7 +53,6 @@ class OrdersController < ApplicationController
 
 
   def create
-    @order_type = OrderType.find(params[:order_type_id])
     @order = @order_type.orders.build(order_params)
     @order.user_id = current_user.id
 			if @order.save
@@ -112,6 +111,17 @@ class OrdersController < ApplicationController
   end
 
   private
+
+    def validate_user
+      unless @order_type.organization == current_user.organization
+        redirect_to root_url
+        flash[:warning] = "You do not have permission to access that"
+      end
+    end
+    
+    def set_order_type
+      @order_type = OrderType.find(params[:order_type_id])
+    end
     def set_order
       @order = Order.find(params[:id])
       @order_type = OrderType.find(params[:order_type_id])

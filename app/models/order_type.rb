@@ -4,6 +4,7 @@ class OrderType < ActiveRecord::Base
 	has_many :orders
 	has_many :categories, dependent: :destroy
 	belongs_to :organization
+	has_many :users, through: :orders
 
 	accepts_nested_attributes_for :categories, allow_destroy: true,
 		reject_if: lambda {|x| x[:name].blank? }

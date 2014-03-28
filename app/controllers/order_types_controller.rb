@@ -1,5 +1,6 @@
 class OrderTypesController < ApplicationController
-  before_action :set_order_type, only: [:show, :edit, :update]
+  before_action :set_order_type, only: [:show, :edit, :update, :destroy]
+  before_action :validate_user
   before_action :validate_admin_status, 
     only: [:edit, :update, :destroy, :new, :create]
 
@@ -43,14 +44,19 @@ class OrderTypesController < ApplicationController
   end
 
   def destroy
-		@order_type = OrderType.find(params[:id])
     @order_type.destroy
     flash[:danger] = "Template was deleted"
     redirect_to order_types_url
   end
 
   private
-
+    def validate_user
+      unless @order_type.organization == current_user.organization
+        redirect_to root_url
+        flash[:warning] = "You do not have permission to access that"
+      end
+    end
+    
     def validate_admin_status
       unless current_user.admin
         redirect_to root_url
