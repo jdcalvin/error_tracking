@@ -24,6 +24,7 @@ class OrdersController < ApplicationController
   end
 
   def show
+    @user = @order.user
   end
 
   def pie_chart_data(opt)

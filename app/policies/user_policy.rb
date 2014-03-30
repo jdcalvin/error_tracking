@@ -18,12 +18,5 @@ class UserPolicy
 		@user.admin?
 	end
 
-	def edit?
-		@user.admin? or @user == current_user
-	end
-
-	def update?
-		edit?
-	end
 
 end

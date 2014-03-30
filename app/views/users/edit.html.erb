@@ -1,3 +1,43 @@
 <h2>Edit <%= @user.email %></h2>
 
-<%= render 'form' %>
+<%= form_for @user do |f| %>
+	<%= render 'layouts/error_messages', object: f.object %>
+
+  <div><%= f.label :first_name %><br />
+  	<%= f.text_field :first_name, autofocus: true, class:"form-control login" %></div>
+  <div><%= f.label :last_name %><br />
+  	<%= f.text_field :last_name, class:"form-control login" %></div>
+
+  <div><%= f.label :email %><br />
+  <%= f.email_field :email, class:"form-control login" %></div>
+
+ <% unless @user == current_user %>
+ 		<table class="table">
+ 			<tr>
+ 				<td>Active?</td>
+ 				<td>
+ 					<%= f.radio_button(:active, "true") %>
+					<%= label_tag(:age_child, "Yes") %>
+					<%= f.radio_button(:active, "false") %>
+					<%= label_tag(:age_child, "No") %>
+ 				</td>
+ 			</tr>
+ 			<tr>
+ 				<td>Admin Status</td>
+ 				<td> 
+ 					<%= f.radio_button(:admin, "true") %>
+					<%= label_tag(:age_child, "Yes") %>
+					<%= f.radio_button(:admin, "false") %>
+					<%= label_tag(:age_child, "No") %>
+				</td>
+ 			</tr>
+ 		</table>
+ <% else %>
+ 		<div><%= f.label :password %><br />
+    <%= f.password_field :password, autocomplete: "off", class:"form-control login" %></div>
+
+  <div><%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off", class:"form-control login" %></div>
+ 	<% end %>
+  <div><%= f.submit class:"btn btn-primary" %></div>
+<% end %>

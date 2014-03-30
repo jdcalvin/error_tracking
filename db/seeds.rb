@@ -29,11 +29,13 @@ end
 	User.create(first_name: first_names[rand(first_names.count)], 
 		last_name: last_names[rand(last_names.count)], 
 		password: "password", 
+		password_confirmation: "password",
 		email: "test.user#{x}@test.com",
 		organization_id: rand(1..3),
 		admin: randomize_admin)	
 	x = x + 1
 end
+
 notice "Users"
 @users = User.all
 

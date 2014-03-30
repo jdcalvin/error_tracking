@@ -3,6 +3,7 @@
 	before_filter :validate_admin, :only => [:new, :create, :cancel]
 	before_filter :logged_in?, :only => [:new, :create, :cancel]
 	before_action :set_user, only: [:show, :edit, :update, :destroy]
+	before_action :validate_org, :except => [:new, :create, :cancel]
 
 	def index
 		if logged_in?
@@ -33,24 +34,29 @@
 			if logged_in?
 				@user.update_attributes(admin:false, 
 					organization_id: current_user.organization_id)
+				redirect_to users_path
+				flash[:notice] = "Successfully created User."
+			else
+				@user.update_attributes(admin: true)
+				redirect_to new_user_session_path
+				flash[:info] = "Please login with your credentials"
 			end
 
-			redirect_to users_path
-			flash[:notice] = "Successfully created User."
 		else
 			render :action => 'new'
 		end
 	end
 
 	def edit
-		@user = User.find(current_user.id)
-		authorize current_user
+		unless @user == current_user
+			validate_admin
+		end
 	end
 
   def update
     @user = User.find(params[:id])
 
-    if @user.update_attributes(params[:user])
+    if @user.update_attributes(user_params)
       sign_in(@user, :bypass => true) if @user == current_user
       redirect_to @user, :flash => { :success => 'User was successfully updated.' }
     else
@@ -59,7 +65,7 @@
   end
 
 	def destory
-		authorize
+		@user.update_attributes(active:false)
 	end
 
 	private
@@ -72,11 +78,19 @@
 		end
 	end
 
+	def validate_org
+		if current_user.organization == nil
+			redirect_to new_organization_path
+			flash[:warning] = "Please create an organization"
+		end
+	end
+
+
 	def validate_admin #Admin can only create users
 		if signed_in?
 			unless current_user.admin?
 				redirect_to organization_path(@organization.id)
-				flash[:info] = "You do not have the required permission"
+				flash[:warning] = "You do not have the required permission"
 			end
 		end
 	end
@@ -86,7 +100,7 @@
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, 
+    params.require(:user).permit(:first_name, :last_name, :active,
     	:email, :organization_id, :password, :password_confirmation, :admin)
   end
 

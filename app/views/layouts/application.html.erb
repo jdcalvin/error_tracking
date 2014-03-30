@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+	<%= favicon_link_tag 'favicon-check.ico' %>
   <title>Error Tracker
   	<% unless @order_type.nil? %>
   	| <%= @order_type.title %>
@@ -25,7 +25,7 @@
 					<!--CONTENT-->
 					<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" id="content" style="padding-left: 1em">
 						
-						<div class="panel panel-body" id="content-panel" style="border:1px solid #dddddd; margin: 0px; padding:.5em;">
+						<div class="panel panel-body" id="content-panel" style="border:1px solid #dddddd; margin: 0px; padding:.5em; min-height: 500px">
 							<% flash.each do |key, value| %>
 								<div class="<%="alert alert-#{key}"%>" style="border-radius:0; padding: .5em;">
 									<span class="glyphicon glyphicon-<%=alert_icons[key]%>" style="font-size: 15px"></span>

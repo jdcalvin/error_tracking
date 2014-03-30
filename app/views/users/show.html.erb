@@ -1,4 +1,8 @@
-<div class="panel panel-primary">
+<% if @user.active %>
+	<div class="panel panel-primary">
+<% else %>
+	<div class="panel panel-default">
+		<% end %>
 	<div class="panel-heading" style="border-radius:0">
 		<h4><%= @user.first_name %> <%= @user.last_name %></h4></div>
 	<div class="panel-body">
@@ -7,6 +11,9 @@
 		</p>
 		<p>
 			Organization: <%= @user.organization.title %>
+		</p>
+		<p>
+			Status: <%= @user.active ? "Active" : "Inactive" %>
 		</p>
 	</div>
 </div>

@@ -146,6 +146,23 @@ max-width: 279px;
 CONTENT
 ====================================================================
 */
+
+/*   ==================
+		 DEVISE
+		 ==================
+*/
+
+.alert-alert {
+	background-color: #d9edf7;
+	border-color: 1px solid #bce8f1;
+	color: #31708f;
+}
+
+.alert-notice {
+	background-color: #d9edf7;
+	border-color: 1px solid #bce8f1;
+	color: #31708f;		
+}
 .panel-body {
 	.list-group {
 		a {

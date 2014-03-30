@@ -1,6 +1,9 @@
 <h3><%= @organization.title %></h3>
 
-<%= link_to 'Admin Panel', '#' %>
+<% if current_user.admin? %>
+	<%= link_to 'Admin Panel', '#' %>
+<% end %>
+
 <h4>Users</h4>
 <%= render 'users/index' %>
 	

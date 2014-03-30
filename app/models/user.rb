@@ -7,7 +7,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :password_confirmation, presence: true
   has_many :orders
   belongs_to :organization
   has_many :order_types, through: :organization
@@ -17,7 +16,20 @@ def self.admins?
 	self.select {|user| user.admin}
 end
 	
+def active_for_authentication?
+  super && self.active
+end
 
+def is_active?
+  if self.active
+    return true
+  else
+    return false
+  end
+end
+    def inactive_message
+  "Sorry, this account has been deactivated."
+end
 end
 
 

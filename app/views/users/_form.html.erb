@@ -15,6 +15,5 @@
   <div><%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off", class:"form-control login" %></div>
 
-  <%= f.hidden_field(:admin, :value => true) %>
   <div><%= f.submit class:"btn btn-primary" %></div>
 <% end %>
