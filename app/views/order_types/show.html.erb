@@ -8,10 +8,9 @@
 			<%= @order_type.orders.count %>
 		<h4>Completed Today</h4>
 			<%= @order_type.orders.date(@today.beginning_of_day..@today.end_of_day).count %>
-		<h4>Admins</h4>
-		<h4>Users</h4>
 	</div>
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+		<h4>Categories/Tasks</h4>
 		<div class="panel-group" id="accordion">
 			<% @order_type.categories.uniq.each do |cat| %>
 		  <div class="panel panel-default" style="border-radius: 0; margin-top: 0">

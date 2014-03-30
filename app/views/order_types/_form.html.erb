@@ -1,31 +1,20 @@
 <%= form_for @order_type do |f| %>
-  <% if @order_type.errors.any? %>
-    <div id="error_explanation" class="alert alert-danger custom_flash">
+  <%= render 'layouts/error_messages', object: f.object %>
 
-			<h4><%= pluralize(@order_type.errors.count, "error") %> 
-				prohibited this template from being saved:</h4>
+  <div class="form-inline form-order_type" role="form"> 
+    <div style="width: 300px"><%= f.label :title %></strong>: <%= f.text_field :title, class: "form-control", style: "margin-left: 1em; margin: .5em;" %>
+   	</div>
 
-      <ul>
-      <% @order_type.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+    <%= f.hidden_field(:organization_id, :value => @organization.id) %>
+    <div id="categories">
+  		<%= f.fields_for :categories do |builder| %>
+  			<%= render "category_fields", f: builder %>
+  		<% end %>
+  		<%= link_to_add_association "Add Category", f, :categories %>	
+  	</div>
+    <div class="actions">
+      <%= f.submit class: "btn btn-primary" %>
     </div>
-  <% end %>
-
-<div class="form-inline form-order_type" role="form"> 
-  <div style="width: 300px"><%= f.label :title %></strong>: <%= f.text_field :title, class: "form-control", style: "margin-left: 1em; margin: .5em;" %>
- 	</div>
-
-  <%= f.hidden_field(:organization_id, :value => @organization.id) %>
-  <div id="categories">
-		<%= f.fields_for :categories do |builder| %>
-			<%= render "category_fields", f: builder %>
-		<% end %>
-		<%= link_to_add_association "Add Category", f, :categories %>	
-	</div>
-  <div class="actions">
-    <%= f.submit class: "btn btn-primary" %>
   </div>
-</div>
+  
 <% end %>

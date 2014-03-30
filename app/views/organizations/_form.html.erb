@@ -1,5 +1,6 @@
 <%= form_for @organization do |f| %>
-
+	<%= render 'layouts/error_messages', object: f.object %>
+	
 	<div class="form-inline form-org" role="form">
     <%= f.label :title %><br>
     <%= f.text_field :title, class: "form-control" %>

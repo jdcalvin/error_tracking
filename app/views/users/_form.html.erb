@@ -1,15 +1,5 @@
 <%= form_for @user do |f| %>
-	<% if @user.errors.any? %>
-    <div class="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-	<% end %>
+	<%= render 'layouts/error_messages', object: f.object %>
 
   <div><%= f.label :first_name %><br />
   	<%= f.text_field :first_name, autofocus: true, class:"form-control login" %></div>
@@ -26,5 +16,5 @@
     <%= f.password_field :password_confirmation, autocomplete: "off", class:"form-control login" %></div>
 
   <%= f.hidden_field(:admin, :value => true) %>
-  <div><%= f.submit "Create", class:"btn btn-primary" %></div>
+  <div><%= f.submit class:"btn btn-primary" %></div>
 <% end %>

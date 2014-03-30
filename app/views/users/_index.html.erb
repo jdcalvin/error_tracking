@@ -7,7 +7,7 @@
 	<tr>
 		<td><%= i + 1 %></td>
 		<td>
-			<%= link_to "#{x.last_name}, #{x.first_name}", user_path(x.id) %>  
+			<%= link_to "#{x.last_name}, #{x.first_name} #{x.admin ? "(Admin)" : ""}", user_path(x.id) %>
 		</td>
 		<td>
 			<%= mail_to x.email %>

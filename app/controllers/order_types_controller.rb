@@ -8,7 +8,7 @@ class OrderTypesController < ApplicationController
   
 
   def index
-    @order_types = OrderType.all
+    redirect_to @organization
   end
 
   def archive
@@ -61,8 +61,7 @@ class OrderTypesController < ApplicationController
       end
     end
     def validate_user
-     
-      unless @order_type.organization == current_user.organization
+      unless @organization.order_types.includes(@order_type)
         redirect_to @organization
         flash[:warning] = "You do not have permission to access that"
       end
@@ -76,7 +75,7 @@ class OrderTypesController < ApplicationController
       end
     end
     def set_order_type
-      @order_type = OrderType.load_associations(params[:id])
+      @order_type = OrderType.find(params[:id])
     end
 
     def order_type_params

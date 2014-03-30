@@ -1,7 +1,7 @@
 def notice(item)
-	puts "-"*60
+	puts "-"*70
 	puts "Completed: #{item}"
-	puts "-"*60
+	puts "-"*70
 end
 
 #Organizations
@@ -25,7 +25,7 @@ def randomize_admin
 	end
 end
 
-50.times do |x|
+40.times do |x|
 	User.create(first_name: first_names[rand(first_names.count)], 
 		last_name: last_names[rand(last_names.count)], 
 		password: "password", 
@@ -97,7 +97,7 @@ def rolling
 end
 
 def have_error(order)
-	@order_type.tasks.each do |task|
+	order.order_type.tasks.each do |task|
 		Validation.create(
 			approval: rolling,
 			order_id: order.id,
@@ -107,7 +107,7 @@ end
 
 #Validations have no errors
 def no_error(order)
-	@order_type.tasks.each do |task|
+	order.order_type.tasks.each do |task|
 		Validation.create(
 			approval: false,
 			order_id: order.id,
@@ -145,7 +145,7 @@ def create_orders_for(month, type, number)
 		org_users << x.id
 	end
 
-	puts "Creating orders for #{type.title} in #{Date::MONTHNAMES[month]}...this may take awhile"
+	puts "Creating #{number} orders for #{type.title} in #{Date::MONTHNAMES[month]}"
 	puts "..."
 
 	number.times do
@@ -169,14 +169,16 @@ def create_orders_for(month, type, number)
 			order.update_attributes(error:false)
 		end
 	end
-	notice("Orders for #{Date::MONTHNAMES[month]}")
+	notice("#{number} orders")
 end
 
 #Main test database to test load
 
 OrderType.all.each do |x|
-	create_orders_for(1, x, rand(20..30))
-	create_orders_for(2, x, rand(20..30))
-	create_orders_for(3, x, rand(20..30))
+	unless x.id == 2
+		create_orders_for(1, x, rand(20..30))
+		create_orders_for(2, x, rand(20..30))
+		create_orders_for(3, x, rand(20..30))
+	end
 end
 

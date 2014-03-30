@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :password_confirmation, presence: true
   has_many :orders
   belongs_to :organization
   has_many :order_types, through: :organization

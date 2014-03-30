@@ -1,13 +1,17 @@
 class OrganizationsController < ApplicationController
 	before_filter :authenticate_user!
 	#before_action :set_organization, only: [:show, :edit, :update, :destroy]
-	before_action :validate_admin, only: [:edit, :update, :new, :create, :destroy]
+	before_action :validate_admin, only: [:edit, :update, :new, :create, :destroy, :admin]
 	before_action :no_org?, only: [:new]
 	
 	def index
 		redirect_to @organization
 	end
 
+	def admin
+
+	end
+	
 	def edit
 	end
 

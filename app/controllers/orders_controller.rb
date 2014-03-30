@@ -49,10 +49,6 @@ class OrdersController < ApplicationController
     @order_type = @order.order_type
   end
 
-  def search
-  end
-
-
   def create
     @order = @order_type.orders.build(order_params)
     @order.user_id = current_user.id
@@ -108,7 +104,7 @@ class OrdersController < ApplicationController
   end
 
   def show_year(year)
-    render 'orders/year'
+    redirect_to order_type_archive_path(@order_type.id)
   end
 
   private
@@ -120,11 +116,12 @@ class OrdersController < ApplicationController
       end
     end
     
-    def set_order_type
-      @order_type = OrderType.find(params[:order_type_id])
-    end
     def set_order
       @order = Order.find(params[:id])
+      @order_type = OrderType.find(params[:order_type_id])
+    end
+
+    def set_order_type
       @order_type = OrderType.find(params[:order_type_id])
     end
 
