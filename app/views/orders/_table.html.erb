@@ -1,6 +1,7 @@
 <table class="table table-hover">
 		<th>#</th>
 		<th>Date</th>
+		<th>Template</th>
 		<th>Id</th>
 		<th style="text-align:right">Rating</th>
 			<% @orders.each_with_index do |x, i| %>
@@ -9,6 +10,9 @@
 		<td>
 			<%= link_to x.created_at.strftime("%a %b %d %I:%M" ), 
 					order_type_date_path(x.order_type_id, x.created_at.year, x.created_at.month, x.created_at.day) %>  
+		</td>
+		<td>
+			<%= x.order_type.title %>
 		</td>
 		<td>
 			<%= link_to x.order_name, 

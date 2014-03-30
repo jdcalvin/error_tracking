@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   before_action :set_order_type, only: [:new, :create, :index]
   before_action :validate_user

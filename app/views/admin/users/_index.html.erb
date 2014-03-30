@@ -1,0 +1,23 @@
+<table class="table table-hover" style="width: 100%">
+		<th>#</th>
+		<th>User</th>
+		<th>Email</th>
+
+			<% @users.each_with_index do |x, i| %>
+	<tr>
+		<td><%= i + 1 %></td>
+		<td>
+			<%= link_to "#{x.last_name}, #{x.first_name}", user_path(x.id) %>  
+		</td>
+		<td>
+			<%= mail_to x.email %>
+		</td>
+	</tr>
+	<% end %>
+</table>
+	<div style="text-align:center">
+	<%= will_paginate @users, renderer: BootstrapPagination::Rails,  previous_label: h('<span class="glyphicon glyphicon-chevron-left"></span>'.html_safe), next_label: h('<span class="glyphicon glyphicon-chevron-right"></span>'.html_safe)%>
+</div>
+<div style="text-align:center">
+	<%= page_entries_info @users %>
+</div>

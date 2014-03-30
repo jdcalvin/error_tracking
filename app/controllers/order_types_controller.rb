@@ -1,8 +1,11 @@
 class OrderTypesController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_order_type, only: [:show, :edit, :update, :destroy]
-  before_action :validate_user
+  before_action :validate_org
+  before_action :validate_user, except: [:new, :create]
   before_action :validate_admin_status, 
     only: [:edit, :update, :destroy, :new, :create]
+  
 
   def index
     @order_types = OrderType.all
@@ -19,6 +22,7 @@ class OrderTypesController < ApplicationController
 
   def new
 		@order_type = OrderType.new
+    @order_type.title = "New Template"
   end
 
   def edit
@@ -50,16 +54,24 @@ class OrderTypesController < ApplicationController
   end
 
   private
+    def validate_org
+      if @organization.nil?
+        redirect_to new_organization_path
+        flash[:info] = "Please create an organization before continuing"
+      end
+    end
     def validate_user
+     
       unless @order_type.organization == current_user.organization
-        redirect_to root_url
+        redirect_to @organization
         flash[:warning] = "You do not have permission to access that"
       end
+    
     end
     
     def validate_admin_status
       unless current_user.admin
-        redirect_to root_url
+        redirect_to @organization
         flash[:warning] = "You must have adminstrative rights to access that."
       end
     end
