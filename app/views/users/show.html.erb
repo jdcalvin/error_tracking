@@ -1,7 +1,7 @@
 <% if @user.active %>
 	<div class="panel panel-primary">
 <% else %>
-	<div class="panel panel-default">
+	<div class="panel panel-danger">
 		<% end %>
 	<div class="panel-heading" style="border-radius:0">
 		<h4><%= @user.first_name %> <%= @user.last_name %></h4></div>
@@ -15,9 +15,9 @@
 		<p>
 			Status: <%= @user.active ? "Active" : "Inactive" %>
 		</p>
-	</div>
-</div>
 	
 	<h4 style ="text-align:center"><%= "Total Orders Completed By #{@user.first_name} #{@user.last_name}" %></h4>
 	<br>
 	<%= render 'orders/table' %>
+	</div>
+</div>

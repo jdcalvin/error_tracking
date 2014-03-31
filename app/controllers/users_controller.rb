@@ -11,6 +11,7 @@
 		else
 			redirect_to root_path
 		end
+		redirect_to organization_path(@organization)
 	end
 
 	def show	

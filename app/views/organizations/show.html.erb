@@ -1,12 +1,20 @@
-<h3><%= @organization.title %></h3>
+<div class="panel panel-primary">
+	<div class="panel-heading" style="border-radius:0">
+		<h4><%= @organization.title %></h4>
+	</div>
 
-<% if current_user.admin? %>
-	<%= link_to 'Admin Panel', '#' %>
-<% end %>
+	<div class="panel-body">
+		<% if current_user.admin? %>
+			<%= link_to 'Admin Controls', organization_admin_panel_path(@organization) %>
+		<% end %>
 
-<h4>Users</h4>
-<%= render 'users/index' %>
-	
-	
+		<h4>Users</h4>
+			<%= render 'users/index' %>
 
-<h4>Templates</h4>
+		<h4>Templates</h4>		
+			<% @organization.order_types.each do |type| %>
+				<%= link_to type.title, order_type_path(type) %><br>
+			<% end %>
+
+	</div>
+</div>

@@ -96,7 +96,7 @@ class OrdersController < ApplicationController
     @orders_by_day = @orders.group_by {|x| x.created_at.day }
     @order_error_status = @orders.group_by(&:error)
     @errors = @orders.breakdown
-    #pie_chart
+
     gon.chart_data = pie_chart_data(@errors)
     gon.date = @date.strftime("%B %Y")
     render 'orders/month'

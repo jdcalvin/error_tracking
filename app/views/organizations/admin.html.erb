@@ -1,0 +1,38 @@
+<div class="panel panel-primary">
+	<div class="panel-heading" style="border-radius:0">
+		<h4>Administrative Controls</h4>
+	</div>
+<div class="panel-body">
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#admin-all" data-toggle="tab">All</a></li>
+  <li><a href="#admin-org" data-toggle="tab">Organization</a></li>
+  <li><a href="#admin-temp" data-toggle="tab">Templates</a></li>
+  <li><a href="#admin-users" data-toggle="tab">Users</a></li>
+
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="admin-all">
+  	<p style="padding-top:1em">Modify elements of your organization. Change or remove templates or users, and rename your organization.</p>
+
+  	<%= render 'organizations/admin/org' %><br>
+  	<%= render 'organizations/admin/templates' %><br>
+    <%= render 'organizations/admin/users' %><br>
+	
+  </div>
+  <div class="tab-pane" id="admin-org">
+  	<%= render 'organizations/admin/org' %>
+
+  </div>
+  <div class="tab-pane" id="admin-temp">
+  	<%= render 'organizations/admin/templates' %>
+
+  </div>
+  <div class="tab-pane" id="admin-users">
+  	  	<%= render 'organizations/admin/users' %>
+
+  </div>
+</div>
+</div>
+</div>

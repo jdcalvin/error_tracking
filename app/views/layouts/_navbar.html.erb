@@ -2,8 +2,9 @@
   <%= link_to '<span style="padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-home"></span>'.html_safe, root_path %>
   <%= link_to '<span style="padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-question-sign"></span>'.html_safe, help_path %>
   <%= link_to '<span style="padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-comment"></span>'.html_safe, contact_path %>
-  <%= link_to '<span style="padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-dashboard"></span>'.html_safe, '#' %>
-  
+  <% if user_signed_in? %>
+  <%= link_to '<span style="padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-dashboard"></span>'.html_safe, organization_admin_panel_path(@organization) %>
+  <% end %>
 </div>
 
 <% if user_signed_in? %>

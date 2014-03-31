@@ -1,4 +1,4 @@
-<%if current_user.admin? %>
+<%if current_user && curent_user.admin? %>
 <h2>Create New User</h2>
 <% else %>
 <h2>Sign Up</h2>

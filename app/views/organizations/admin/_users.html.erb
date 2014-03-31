@@ -1,0 +1,6 @@
+<h4>Add New User</h4>
+<%= link_to 'Add User', new_user_path %>
+<h4>Edit Users</h4>
+<% @organization.users.each do |user| %>
+	<%= link_to user.email, edit_user_path(user) %></br>
+	<% end %>

@@ -1,0 +1,4 @@
+<h4>Edit Templates</h4>
+<% @organization.order_types.each do |type| %>
+<%= link_to type.title, edit_order_type_path(type) %><br>
+<% end %>
