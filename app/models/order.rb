@@ -51,9 +51,9 @@ class Order < ActiveRecord::Base
 
 	def self.search(search)
     if search
-      where 'order_name LIKE?', "%#{search}%"
+      where("order_name ilike :q", q: "%#{search}%").order('order_name ASC')
     else
       scoped
-    end
+    end  
   end
 end

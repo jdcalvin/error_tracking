@@ -31,7 +31,7 @@ end
 
 
 group :development do
-	gem 'sqlite3'
+	gem 'pg', '0.15.1'
 	gem 'rspec-rails'
 end
 
