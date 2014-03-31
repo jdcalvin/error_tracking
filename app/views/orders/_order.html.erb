@@ -23,13 +23,13 @@
           </ol>
         </td>
         <td style="width: 50%">
-          <p style="border: 1px solid #8a6d3b; border-radius: 3px; margin-top: 1em; padding: .5em; background-color:#fcf8e3; color: #8a6d3b"> 
+          <div style="border: 1px solid #8a6d3b; border-radius: 3px; margin-top: 1em; padding: .5em; background-color:#fcf8e3; color: #8a6d3b"> 
             <% if order.note.empty? %>
-              N/A
+              <p>N/A</p>
             <% else %>
-              <%= order.note %>
+              <%= simple_format order.note %>
             <% end %>
-          </p>
+          </div>
         </td>
       </tr>
     </table>
