@@ -1,0 +1,34 @@
+<div style="padding:1em; padding-top:0">
+<strong><h2>About</h2></strong>
+	<p>
+		This application is intended for companies that do large scale production, and utilize qa/qc review of thier products, or with some modifications could be utlized as a survey application. I had originally intended to utilize and implement this application at a title company, where we weere responsible for writing up reports on property title, and designed this application with them in mind.
+	</p> 
+	<p>
+		Part of my job was training, and overseeing quality of reports of our offshore India branch, and my in house team was tasked with reviewing the reports they sent out for errors. I had identified and created a list of categories and tasks that encompassed all errors that could happen on a report. Proofers then utilized this list in a spreadsheet to aggregate error data for the purpose of providing daily/monthly statistical breakdowns of errors, with a focus on drilling down "problem areas."
+	</p>
+
+<strong><h3>Login</h3></strong>
+	<p>
+		To see how an organization could utilize this application, you can log into a current admin user for the "Title Co" company.
+	</p>
+	<p>
+		<label style="padding-left:1em;width:100px">User:</label>test.user32@test.com
+	</p>
+	<p>
+		<label style="padding-left:1em;width:100px">Password:</label>password
+	</p>
+
+	<p>
+		Once logged in, you can navigate to <%= link_to 'Organization', organization_path(@organization) %> to see an overview of users, and templates. you can modify elements of the organization through the <%= link_to 'admin panel', organization_admin_panel_path(@organization) %> including creating users or modifying permissions.
+	</p>
+
+	<strong><h3>Create a New Organization</h3></strong>
+	<p>
+		To create a new organization, you must first <%= link_to 'create', new_user_path %> a new user that will default to admin. At this time, users can only be created for a specific organization through admin controls. Their is no ability to transfer users through the UI.
+	</p>
+
+	<strong><h3>Need help?</h3></strong>
+	<p>
+		For further details on using the application go <%= link_to 'here', help_path %>.
+	</p>
+</div>
