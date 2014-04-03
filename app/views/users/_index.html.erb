@@ -8,9 +8,9 @@
 		<td><%= i + 1 %></td>
 		<td>
 			<% if x.active %>
-				<%= link_to "#{x.last_name}, #{x.first_name} #{x.admin ? "(Admin)" : ""}", user_path(x.id) %>
+				<%= link_to "#{x.reverse_name} #{x.admin ? "(Admin)" : ""}", user_path(x.id) %>
 			<% else %>
-			<%= link_to "#{x.last_name}, #{x.first_name} #{x.active ? "" : "(Inactive)"}", user_path(x.id), style:"color:gray; font-style:oblique" %>
+			<%= link_to "#{x.reverse_name} #{x.active ? "" : "(Inactive)"}", user_path(x.id), style:"color:gray; font-style:oblique" %>
 			<% end %>
 		</td>
 		<td>

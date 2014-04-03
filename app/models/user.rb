@@ -11,25 +11,26 @@ class User < ActiveRecord::Base
   belongs_to :organization
   has_many :order_types, through: :organization
 
-
-def self.admins?
-	self.select {|user| user.admin}
-end
-	
-def active_for_authentication?
-  super && self.active
-end
-
-def is_active?
-  if self.active
-    return true
-  else
-    return false
+  def full_name
+    return "#{first_name} #{last_name}"
   end
-end
-    def inactive_message
-  "Sorry, this account has been deactivated."
-end
+
+  def reverse_name
+    return "#{last_name}, #{first_name}"
+  end
+
+  def self.admins?
+  	self.select {|user| user.admin}
+  end
+  	
+  def active_for_authentication?
+    super && self.active
+  end
+
+  def inactive_message
+    "Sorry, this account has been deactivated."
+  end
+
 end
 
 

@@ -24,18 +24,25 @@ gem 'binding_of_caller'
 gem 'meta_request'
 gem 'dalli'
 gem 'pundit'
+gem 'pg', '0.15.1'
  
 group :doc do
   gem 'sdoc', require: false
 end
 
 
-group :development do
-	gem 'pg', '0.15.1'
+group :development, :test do	
 	gem 'rspec-rails'
+	gem 'factory_girl_rails'
+end
+
+group :test do
+	gem 'faker'
+	gem 'capybara'
+	gem 'database_cleaner'
+	gem 'launchy'
 end
 
 group :production do
-	gem 'pg', '0.15.1'
 	gem 'rails_12factor', '0.0.2'
 end

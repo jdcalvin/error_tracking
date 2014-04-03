@@ -31,7 +31,10 @@ Fnfi::Application.routes.draw do
   resources :order_types do 
   	match 'archive', 	   to: 'order_types#archive',   via: 'get'
     resources :orders
-    	get 'date/:year(/:month(/:day))', to: 'orders#index', as: 'date'   	 
+    resources :date, only: [:show_year, :show_month, :show_day]
+    	get 'date/:year/:month/:day', to: 'orders#show_day', as: 'show_day' 
+      get 'date/:year/:month', to: 'orders#show_month', as: 'show_month'
+      get 'date/:year', to: 'orders#show_year', as: 'show_year'
   end
 
 end

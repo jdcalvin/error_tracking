@@ -1,69 +1,65 @@
 class OrdersController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  before_action :set_order_type, only: [:new, :create, :index]
+  before_action :set_order_type
   before_action :validate_user
-  
+  before_action :set_date, only: [:index,:show_year, :show_month, :show_day]
+
+#=============================NAVIGATION=======================================
+
   def index
-    year = params[:year]
-    month = params[:month]
-    day = params[:day]    
-
-    if Date.valid_date? year.to_i, month.to_i, day.to_i
-      show_day(year, month, day)
-
-    elsif year.nil? && month.nil? && day.nil?
-      show_current_day      
-      
-    elsif month.nil? && day.nil?
-      show_year(year)
-
-    elsif day.nil?
-      show_month(year, month)
-    end
+    redirect_to order_type_show_day_path(
+      @order_type, @date.year, @date.month, @date.day)   
   end
+
+  def show_day
+    time_range = (@date..@date.end_of_day)
+    @orders = @order_type.orders.date(time_range)
+    @order_error_status = @orders.group_by(&:error)
+    render 'orders/day'
+  end
+
+  def show_month
+    time_range = (@date.beginning_of_month..@date.end_of_month)
+    @orders = @order_type.orders.date(time_range)
+    @orders_by_day = @orders.group_by {|x| x.created_at.day }
+    @order_error_status = @orders.group_by(&:error)
+    @errors = @orders.breakdown
+
+    gon.chart_data = pie_chart_data(@errors)
+    gon.date = @date.strftime("%B %Y")
+    render 'orders/month'
+    gon.clear
+  end
+
+  def show_year
+    redirect_to order_type_archive_path(@order_type.id)
+  end
+
+
+  #=============================CRUD===========================================
 
   def show
     @user = @order.user
-  end
-
-  def pie_chart_data(opt)
-    arr = []
-    opt.each_pair do |key, value|
-      arr << [key, opt[key].values.sum]
-    end
-    return arr
-  end
-
-  def show_current_day
-    @date = Date.today.in_time_zone
-		@orders = @order_type.orders.date(@date..@date.end_of_day)
-    @order_error_status = @orders.group_by(&:error)
-    render 'orders/day'
   end
 
   def new
     @order = @order_type.orders.build
   end
 
-  def edit
-    @order_type = @order.order_type
-  end
-
   def create
     @order = @order_type.orders.build(order_params)
     @order.user_id = current_user.id
-			if @order.save
-        if @order.errors?
-          @order.update_attributes(error: true)
-        else
-          @order.update_attributes(error:false)
-        end
-        flash[:success] = "Order successfully created"
-        redirect_to order_type_orders_path
-      else
-        render action: 'new'
-      end
+    if @order.save
+      @order.errors?
+      flash[:success] = "Order successfully created"
+      redirect_to order_type_orders_path
+    else
+      render action: 'new'
+    end
+  end
+
+  def edit
   end
 
   def update
@@ -81,34 +77,30 @@ class OrdersController < ApplicationController
     redirect_to order_type_orders_path
   end
 
-  def show_day(year,month,day)
-    @date = Date.parse("#{day}.#{month}.#{year}").in_time_zone
-    time_range = (@date..@date.end_of_day)
-   	@orders = @order_type.orders.date(time_range)
-    @order_error_status = @orders.group_by(&:error)
-    render 'orders/day'
-  end
-
-  def show_month(year,month)
-    @date = Date.parse("1.#{month}.#{year}")
-    time_range = (@date..@date.end_of_month + 1)
-		@orders = @order_type.orders.date(time_range)
-    @orders_by_day = @orders.group_by {|x| x.created_at.day }
-    @order_error_status = @orders.group_by(&:error)
-    @errors = @orders.breakdown
-
-    gon.chart_data = pie_chart_data(@errors)
-    gon.date = @date.strftime("%B %Y")
-    render 'orders/month'
-    gon.clear
-
-  end
-
-  def show_year(year)
-    redirect_to order_type_archive_path(@order_type.id)
-  end
-
+  #=============================PRIVATE=======================================
   private
+
+    def set_date
+      if params[:year].nil? && params[:month].nil? && params[:day].nil?
+        @date = Date.today.in_time_zone
+      else
+        date = [params[:year], params[:month], params[:day]]
+              .map {|p| p ||= '1' }
+        if Date.valid_date? date[0].to_i, date[1].to_i, date[2].to_i
+          @date = Date.parse("#{date[2]}.#{date[1]}.#{date[0]}").in_time_zone
+        else
+          @date = Date.today.in_time_zone
+        end
+      end
+    end
+
+    def pie_chart_data(opt)
+      arr = []
+      opt.each_pair do |key, value|
+        arr << [key, opt[key].values.sum]
+      end
+      return arr
+    end
 
     def validate_user
       unless @order_type.organization == current_user.organization
@@ -119,7 +111,6 @@ class OrdersController < ApplicationController
     
     def set_order
       @order = Order.find(params[:id])
-      @order_type = OrderType.find(params[:order_type_id])
     end
 
     def set_order_type

@@ -13,7 +13,7 @@
           <h3 class="panel-title" style="padding: .5em;">Orders by Month</h3>
           <% (@today.month).downto(1) do |month| %>
             <a class="list-group-item" 
-            href="<%= order_type_date_path(@order_type.id, @today.year, month) %>">
+            href="<%= order_type_show_month_path(@order_type.id, @today.year, month) %>">
 
               <span class="glyphicon glyphicon-calendar"></span>
               <%= "#{Date::MONTHNAMES[month]} #{@today.year}" %>

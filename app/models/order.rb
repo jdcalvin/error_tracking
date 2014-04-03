@@ -6,7 +6,7 @@ class Order < ActiveRecord::Base
   validates :order_name, presence: true
   has_many :validations, dependent: :destroy
   has_many :tasks, through: :validations
-	has_many :categories, through: :tasks
+  has_many :categories, through: :tasks
   accepts_nested_attributes_for :validations
   
   def self.date(date)
@@ -14,25 +14,32 @@ class Order < ActiveRecord::Base
     .includes(:validations).includes(:tasks).includes(:categories)
   end
 
-	def show_errors
-  	@show_errors = validations.select {|x| x.approval}
+  def show_errors
+  	show_errors = validations.select {|x| x.approval}
   	hash = Hash.new{|h,k| h[k] = []}
-	  @show_errors.each {|x| hash[x.category_name] << x.task_description }
+	  show_errors.each {|x| hash[x.category_name] << x.task_description }
   	return hash
- 	end
+  end
 
-	def errors?
-    validations.select {|x| x.approval}.any?
- 	end
+  def errors?
+    if validations.select {|x| x.approval}.any?
+      update_attributes(error:true)
+    else
+      unless self.error == false
+        update_attributes(error:false)
+      end
+    end
+    return error
+  end
 
-	def self.with_errors
-		@with_errors = self.where(error: true)
-	end
+  def self.with_errors
+    with_errors = self.where(error: true)
+  end
 
   def self.breakdown
     new_hash = Hash.new(0)
     hash = Hash.new{|h, k| h[k] = []}
-		self.with_errors.each do |order|
+    self.with_errors.each do |order|
       order.show_errors.each_pair do |k,v|
         hash[k] << v
       end
@@ -49,7 +56,7 @@ class Order < ActiveRecord::Base
     return new_hash
   end
 
-	def self.search(search)
+  def self.search(search)
     if search
       where("order_name ilike :q", q: "%#{search}%").order('order_name ASC')
     else

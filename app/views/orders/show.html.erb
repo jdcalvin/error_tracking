@@ -4,7 +4,7 @@
 	</div>
 	<div class="panel-body">
 		<p>
-			<label>Proofed by: </label> <%= "#{@order.user.first_name} #{@order.user.last_name}" %>
+			<label>Proofed by: </label> <%= @order.user.full_name %>
 		</p>
 		<p>
 			<label>Date: <%= @order.created_at.strftime("%D")+ " at " + @order.created_at.strftime("%T") %>

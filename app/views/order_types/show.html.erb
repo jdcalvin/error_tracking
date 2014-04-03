@@ -8,7 +8,7 @@
 			<%= @order_type.orders.count %>
 		<h4>Completed Today</h4>
 			<%= link_to @order_type.orders.date(@today.beginning_of_day..@today.end_of_day).count,
-					order_type_date_path(@order_type, @today.year, @today.month, @today.day) %>
+					order_type_show_day_path(@order_type, @today.year, @today.month, @today.day) %>
 	</div>
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 		<h4>Categories/Tasks</h4>

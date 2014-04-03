@@ -1,12 +1,12 @@
 <div class="panel panel-default">
   <div class="panel-heading"><%= link_to "##{order.order_name}", order_type_order_path(@order_type.id, order.id) %></div>
-  <% if order.error == false %>
   <div class="panel-body">
+    <div style="padding-bottom:.5em">Proofed: <%= order.user.full_name %></div>
+  <% if order.error == false %>
     <span style="font-weight:700; color: #3c763d">
       <span class="glyphicon glyphicon-ok-circle"></span> No Errors
   </div>
   <% else %>
-  <div class="panel-body">
     <table style="border: none">
       <th style="color:#a94442"><span class="glyphicon glyphicon-remove-circle"></span>
         <%= pluralize(order.show_errors.values.flatten.count, "Error") %>

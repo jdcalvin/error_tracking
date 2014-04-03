@@ -9,7 +9,7 @@
 		<td><%= i + 1 %></td>
 		<td>
 			<%= link_to x.created_at.strftime("%a %b %d %I:%M" ), 
-					order_type_date_path(x.order_type_id, x.created_at.year, x.created_at.month, x.created_at.day) %>  
+					order_type_show_day_path(x.order_type_id, x.created_at.year, x.created_at.month, x.created_at.day) %>  
 		</td>
 		<td>
 			<%= x.order_type.title %>
