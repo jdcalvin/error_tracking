@@ -1,12 +1,10 @@
 
 /* universal */
-
 /*
 ====================================================================
 HTML
 ====================================================================
 */
-
 .field_with_errors {
 	display: inline;
 	color: #a94442;
@@ -49,10 +47,19 @@ path:hover {
 	padding: 0;
 	margin: .5em;
 	margin-top: 0em;
-	
+	.panel-heading {
+		border-radius: 0px;
+	}
 	.panel-body {
+		border-radius: 0px;
 	}
 }
+
+.form-control {
+	width: auto;
+	margin-bottom: .5em;
+}
+
 div {
 label
 {
@@ -62,6 +69,7 @@ label
 a:hover {
 text-decoration: none;
 }
+
 table {
 	border-collapse: collapse;
 	border: 1px solid #CAD1FC;
@@ -108,8 +116,7 @@ SIDE
 #nav_menu {
 	padding-left: .5em;
 	padding-right: .5em;
-	padding-bottom: .2em;
-
+	padding-bottom: .5em;
 	text-align: center;
 	font-size: 20px;
 	a {
@@ -119,12 +126,18 @@ SIDE
 	}
 }
 
+#login-panels {
+	.login {
+		width: 100%;
+	}
+}
+
 #side {
 padding-top: 0px;
 padding-bottom: 1em;
 padding-right: 0em;
-padding-left: 0em;
-max-width: 279px;
+padding-left: 1em;
+max-width: 250px;
 
 	.panel-heading {
 		border-radius: 0;
@@ -140,14 +153,16 @@ max-width: 279px;
 	margin-bottom: 1em;
 	color: #777;
 	font-weight: bold;
-	z-index: 999999;
+	z-index: 999;
 	background-color: #2C2731;
 	width: 100%;
-	opacity: .9;
+	opacity: .95;
 	display: none;
+	overflow: auto;
 
 	.btn {
-		background-color:whitesmoke;
+		background-color: whitesmoke;
+		margin-left: 1.5em;
 	}
 	a {
 		padding-top: .5em;
@@ -168,12 +183,6 @@ max-width: 279px;
 CONTENT
 ====================================================================
 */
-
-/*   ==================
-		 DEVISE
-		 ==================
-*/
-
 .alert-alert {
 	background-color: #d9edf7;
 	border-color: 1px solid #bce8f1;
@@ -208,7 +217,8 @@ CONTENT
 #content {
 	height: 100%;
 	margin: 0 auto;
-	margin-top: .5em;
+	margin-top: 2.35em;
+	padding-left: 1em;
 }
 
 textarea {
@@ -219,62 +229,33 @@ textarea {
 FOOTER
 ====================================================================
 */
-
 footer {
-padding-bottom: 2em;
-padding-top: 2em;
+	padding-bottom: 2em;
+	padding-top: 2em;
 	div {
-	padding-top: 1em;
-	border-top: 1px solid #333333;
-	text-align: center;
+		padding-top: 1em;
+		border-top: 1px solid #333333;
+		text-align: center;
 	}
 }
 
-
-
-.calendar {
-	width: 100%;
-}
-	.order-header
-	{
-		background: #428bca;
-		color: white;
-
-}
-.note-field {
-	margin: 1em;
+.order-header {
+	background: #428bca;
+	color: white;
 }
 
-	textarea {
-		background-color: #FFFAC5;
+textarea {
+	background-color: #FFFAC5;
 }
-
 
 .new_order {
 padding-left: .5em;
-}
-
-label {
+padding-right: .5em;;
 }
 
 #categories 
 {
 	margin-bottom: 10px;
-}
-
-.form-control {
-	width: auto;
-}
-
-
-
-.form-control {
-	margin-bottom: .5em;
-}
-
-.month {
-	position: relative;
-	width: auto;
 }
 
 #orders ul {
@@ -284,10 +265,4 @@ label {
 
 ol {
 	padding-left: -5px;
-}
-
-#login-panels {
-	.login {
-		width: 100%;
-	}
 }

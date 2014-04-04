@@ -8,15 +8,6 @@ module OrdersHelper
 	end
 	end
 
-  def get_months
-  	arr = []
-		12.times do |month|
-			month = month + 1
-			arr << Date::MONTHNAMES[month]
-		end
-		return arr
-	end
-
 	def breakdown(date)
 		unless @orders_by_day[date].nil?
 			orders = @orders_by_day[date].group_by {|x| x.error}

@@ -1,11 +1,11 @@
-// Place all the styles related to the articles controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
-#orders .calendar {
+.month {
+  position: relative;
+  width: auto;
+}
+.calendar {
   border-collapse: collapse;
 	table-layout: fixed;
-
+  width: 100%;
   .day {
     background-color: #DDDDDD;
     text-align: right;
@@ -40,7 +40,7 @@
     }
   }
 
-  .notmonth, .notmonth a { color: #CCC; }
+  .notmonth, .notmonth a { background-color: white; }
   .today { background-color: #D7F2FF; }
 }
 #orders ul {

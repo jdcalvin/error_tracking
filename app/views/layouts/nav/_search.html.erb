@@ -19,7 +19,7 @@
               <%= "#{Date::MONTHNAMES[month]} #{@today.year}" %>
             </a>
           <% end %>
-            <a class="list-group-item" href="<%="/order_types/#{@order_type.id}/archive"%>">
+            <a class="list-group-item" href="<%= order_type_archive_path(@order_type)%>">
               <span class="glyphicon glyphicon-list-alt"></span>
               Show Archive
             </a>

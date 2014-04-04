@@ -5,6 +5,7 @@
 html,
 body {
   overflow-x: hidden; /* Prevent scroll on narrow devices */
+
 }
 body {
 }
@@ -31,9 +32,10 @@ footer {
 
   #side_nav_toggle {
     display: block;
+    right: 1.5em;
   }
   #content {
-    margin-top: 1em;
+    margin-top: 2.5em;
   }
   .row-offcanvas-left {
     left: 0;
@@ -41,18 +43,18 @@ footer {
 
   .row-offcanvas-left
   .sidebar-offcanvas {
-    left: -279px; /* 6 columns */
+    left: -250px; /* 6 columns */
     margin-top: 2.5em;
   }
 
   .row-offcanvas-left.active {
-    left: 279px; /* 6 columns */
+    left: 250px; /* 6 columns */
   }
 
   .sidebar-offcanvas {
-    left: -279px;
-    max-width: 279px;
-    min-width: 279px;
+    left: -250px;
+    max-width: 250px;
+    min-width: 250px;
     position: absolute;
     top: 0;
     padding: 0;
