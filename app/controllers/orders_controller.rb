@@ -13,14 +13,14 @@ class OrdersController < ApplicationController
   end
 
   def show_day
-    time_range = (@date..@date.end_of_day)
+    time_range = (@date.beginning_of_day.in_time_zone..@date.end_of_day.in_time_zone)
     @orders = @order_type.orders.date(time_range)
     @order_error_status = @orders.group_by(&:error)
     render 'orders/day'
   end
 
   def show_month
-    time_range = (@date.beginning_of_month..@date.end_of_month)
+    time_range = (@date.beginning_of_month.to_date..@date.end_of_month.to_date + 1)
     @orders = @order_type.orders.date(time_range)
     @orders_by_day = @orders.group_by {|x| x.created_at.day }
     @order_error_status = @orders.group_by(&:error)
@@ -82,14 +82,14 @@ class OrdersController < ApplicationController
 
     def set_date
       if params[:year].nil? && params[:month].nil? && params[:day].nil?
-        @date = Date.today.in_time_zone
+        @date = Date.today
       else
         date = [params[:year], params[:month], params[:day]]
               .map {|p| p ||= '1' }
         if Date.valid_date? date[0].to_i, date[1].to_i, date[2].to_i
-          @date = Date.parse("#{date[2]}.#{date[1]}.#{date[0]}").in_time_zone
+          @date = Date.parse("#{date[2]}.#{date[1]}.#{date[0]}")
         else
-          @date = Date.today.in_time_zone
+          @date = Date.today
         end
       end
     end

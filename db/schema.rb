@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20140330223834) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "categories", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -20,7 +23,7 @@ ActiveRecord::Schema.define(version: 20140330223834) do
     t.integer  "order_type_id"
   end
 
-  add_index "categories", ["order_type_id"], name: "index_categories_on_order_type_id"
+  add_index "categories", ["order_type_id"], name: "index_categories_on_order_type_id", using: :btree
 
   create_table "order_types", force: true do |t|
     t.string   "title"
@@ -29,7 +32,7 @@ ActiveRecord::Schema.define(version: 20140330223834) do
     t.integer  "organization_id"
   end
 
-  add_index "order_types", ["organization_id"], name: "index_order_types_on_organization_id"
+  add_index "order_types", ["organization_id"], name: "index_order_types_on_organization_id", using: :btree
 
   create_table "orders", force: true do |t|
     t.string   "order_name"
@@ -41,8 +44,8 @@ ActiveRecord::Schema.define(version: 20140330223834) do
     t.integer  "user_id"
   end
 
-  add_index "orders", ["order_type_id"], name: "index_orders_on_order_type_id"
-  add_index "orders", ["user_id"], name: "index_orders_on_user_id"
+  add_index "orders", ["order_type_id"], name: "index_orders_on_order_type_id", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "organizations", force: true do |t|
     t.string   "title"
@@ -57,7 +60,7 @@ ActiveRecord::Schema.define(version: 20140330223834) do
     t.datetime "updated_at"
   end
 
-  add_index "tasks", ["category_id"], name: "index_tasks_on_category_id"
+  add_index "tasks", ["category_id"], name: "index_tasks_on_category_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false
@@ -79,9 +82,9 @@ ActiveRecord::Schema.define(version: 20140330223834) do
     t.boolean  "active",                 default: true
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["organization_id"], name: "index_users_on_organization_id"
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["organization_id"], name: "index_users_on_organization_id", using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "validations", force: true do |t|
     t.integer  "task_id"
@@ -91,7 +94,7 @@ ActiveRecord::Schema.define(version: 20140330223834) do
     t.datetime "updated_at"
   end
 
-  add_index "validations", ["order_id"], name: "index_validations_on_order_id"
-  add_index "validations", ["task_id"], name: "index_validations_on_task_id"
+  add_index "validations", ["order_id"], name: "index_validations_on_order_id", using: :btree
+  add_index "validations", ["task_id"], name: "index_validations_on_task_id", using: :btree
 
 end
