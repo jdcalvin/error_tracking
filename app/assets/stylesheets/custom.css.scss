@@ -106,10 +106,19 @@ SIDE
 	background-color: #adadad;
 }
 #nav_menu {
-	padding-left: 1em;
-	font-size: 20px;
+	padding-left: .5em;
+	padding-right: .5em;
+	padding-bottom: .2em;
 
+	text-align: center;
+	font-size: 20px;
+	a {
+		span {
+		width: 20px;
+		}
+	}
 }
+
 #side {
 padding-top: 0px;
 padding-bottom: 1em;
@@ -127,14 +136,27 @@ max-width: 279px;
 }
 #side_nav_toggle {
 	position: absolute;
-	top: 1em;
-	left: 1em;
+	padding: 1em;
 	margin-bottom: 1em;
 	color: #777;
 	font-weight: bold;
 	z-index: 999999;
-	background: none;
+	background-color: #2C2731;
+	width: 100%;
+	opacity: .9;
+	display: none;
 
+	.btn {
+		background-color:whitesmoke;
+	}
+	a {
+		padding-top: .5em;
+		span {
+		font-size: 18px;
+		padding-left: .5em;
+		padding-right: .5em;
+		}
+	}
 }
 
 .search-form {
@@ -186,7 +208,7 @@ CONTENT
 #content {
 	height: 100%;
 	margin: 0 auto;
-	margin-top: 2em;
+	margin-top: .5em;
 }
 
 textarea {

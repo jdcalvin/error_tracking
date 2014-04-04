@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
 	<%= favicon_link_tag 'favicon-check.ico' %>
   <title>Error Tracker
   	<% unless @order_type.nil? %>
@@ -13,17 +15,17 @@
 </head>
 <body>
 	<%= render 'layouts/header'  %>
-		<div class="wrapper row-offcanvas">
+		<!--<div class="wrapper row-offcanvas">-->
 			<div class="container">
-				<div class="row" style="margin-top:0px">
+				<div class="row row-offcanvas row-offcanvas-left" style="margin-top:0px">
 					<!--NAV-->
-					<div class="sidebar-offcanvas">
-						<div class="col-sm-4 col-md-4 col-lg-4" id="side" style="padding-left: 1em">			
+					<!--<div class="sidebar-offcanvas">-->
+						<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="side" style="padding-left: 1em">			
 								<%= render 'layouts/navbar' %>
 						</div>
-					</div>
+					<!---->/div>
 					<!--CONTENT-->
-					<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" id="content" style="padding-left: 1em">
+					<div class="col-xs-12 col-sm-9" id="content" style="padding-left: 1em">
 						
 						<div class="panel panel-body" id="content-panel" style="border:1px solid #dddddd; margin: 0px; padding:.5em; min-height: 500px">
 							<% flash.each do |key, value| %>
@@ -44,7 +46,7 @@
 	
 			</div>
 
-		</div>
+		<!--</div>-->
 
 		
 	<!--</div>-->

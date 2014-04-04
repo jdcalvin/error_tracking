@@ -1,10 +1,16 @@
 <div id="nav_menu">
-  <%= link_to '<span style="padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-home"></span>'.html_safe, root_path %>
-  <%= link_to '<span style="padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-question-sign"></span>'.html_safe, help_path %>
-  <%= link_to '<span style="padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-comment"></span>'.html_safe, contact_path %>
-  <% if user_signed_in? %>
-  <%= link_to '<span style="padding-left:.5em; padding-right:.5em;"class="glyphicon glyphicon-dashboard"></span>'.html_safe, organization_admin_panel_path(@organization) %>
-  <% end %>
+  <table style="border:none">
+    <tr>
+      <td>
+  <%= link_to '<span class="glyphicon glyphicon-home"></span>'.html_safe, root_path %></td>
+  <td>
+  <%= link_to '<span class="glyphicon glyphicon-question-sign"></span>'.html_safe, help_path %></td>
+  <td>
+  <%= link_to '<span class="glyphicon glyphicon-comment"></span>'.html_safe, contact_path %></td>
+  <td>
+  <%= link_to '<span class="glyphicon glyphicon-dashboard"></span>'.html_safe, organization_admin_panel_path(@organization) %></td>
+</tr>
+</table>
 </div>
 
 <% if user_signed_in? %>
