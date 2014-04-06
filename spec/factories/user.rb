@@ -3,7 +3,7 @@ FactoryGirl.define do
 		first_name "Test"
 		last_name "User"
 		sequence(:email) {|n| "user-#{n}@test.com"}
-		organization
+		association :organization
 		password "password"
 		admin false
 		active true

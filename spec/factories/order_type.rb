@@ -1,7 +1,7 @@
 FactoryGirl.define do
 	factory :order_type do
 		sequence(:title) {|n| "Type #{n}" }
-		organization
+		association :organization
 	end
 end
 

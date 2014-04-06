@@ -5,4 +5,5 @@ class Task < ActiveRecord::Base
   has_many :orders, through: :validations
   validates :description, presence: true
 	delegate :order_type, :to => :category
+  validates :category_id, presence: true
 end

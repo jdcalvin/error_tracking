@@ -5,6 +5,8 @@ class Order < ActiveRecord::Base
   validates :order_type, presence: true
   validates :order_name, presence: true
 	validates :user, presence: true
+  validates_presence_of :note, :if => :error,
+    :message => "can't be empty if errors are present"
   has_many :validations, dependent: :destroy
   has_many :tasks, through: :validations
   has_many :categories, through: :tasks
@@ -24,7 +26,9 @@ class Order < ActiveRecord::Base
 
   def errors?
     if validations.select {|x| x.approval}.any?
-      update_attributes(error:true)
+      unless self.error
+        update_attributes(error:true)
+      end
     else
       unless self.error == false
         update_attributes(error:false)
@@ -63,5 +67,11 @@ class Order < ActiveRecord::Base
     else
       scoped
     end  
+  end
+
+  def should_validate_note?
+    if errors?
+      return true
+    end
   end
 end

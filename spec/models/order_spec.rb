@@ -2,13 +2,8 @@ require 'spec_helper'
 
 describe Order do
 	it "has a valid factory" do
-		expect(FactoryGirl.build(:order)).to be_valid
+		expect(build(:order)).to be_valid
 	end
-	org = Organization.create(title: "test_org")
-	type = org.order_types.create(title:"test")
-	user = org.users.create(first_name:"test", last_name:"user", 
-													password:"password", email:"email1@email.com")
-	order1 = type.orders.create(order_name:"test", user_id: 1)
 
 	it "is invalid without an order_name" do
 		expect(Order.new(order_name: nil)).to have(1).errors_on(:order_name)
@@ -17,11 +12,24 @@ describe Order do
 		expect(Order.new(order_type: nil)).to have(1).errors_on(:order_type)
 	end
 	it "is invalid without a user" do
-		expect(Order.new(user: nil)).to have(1).errors_on(:user)
+		expect(build(:order, user: nil)).to have(1).errors_on(:user)
 	end
 	it "is valid with user, order_type, and order_name" do
-		expect(order1).to be_valid
+		expect(build(:order, order_type: build(:order_type), user: build(:user))).to be_valid
 	end
-
-
+  
+  describe "with errors" do
+      it "should validate to true" do
+        expect(build(:order, :with_error).error).to eq true
+      end
+      it "note should be present" do
+        pending("Check Validations / controller")
+      end
+  end
+  
+  describe "without errors" do
+    it "status should return false" do
+      expect(build(:order).error).to eq false
+    end
+  end
 end

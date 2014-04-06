@@ -3,6 +3,10 @@ class Validation < ActiveRecord::Base
   belongs_to :order
 	delegate :category, :to => :task
   validates :approval, inclusion: [true, false]
+  validates :order_id, presence: true
+  validates :task_id, presence: true
+  validates_uniqueness_of :order_id, :scope => :task_id
+  validates_uniqueness_of :task_id, :scope => :order_id
 
 
 	def task_description
@@ -23,6 +27,5 @@ class Validation < ActiveRecord::Base
 	  errors.each {|x| hash[x.category_name] << x.task_description }
   	return hash
   end
-
-
+  
 end
