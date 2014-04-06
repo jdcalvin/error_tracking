@@ -4,6 +4,7 @@ class Order < ActiveRecord::Base
   cattr_accessor :skip_callbacks
   validates :order_type, presence: true
   validates :order_name, presence: true
+	validates :user, presence: true
   has_many :validations, dependent: :destroy
   has_many :tasks, through: :validations
   has_many :categories, through: :tasks

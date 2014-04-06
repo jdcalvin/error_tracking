@@ -1,20 +1,22 @@
 def notice(item)
-	puts "-"*70
+	puts "-"*80
 	puts "Completed: #{item}"
-	puts "-"*70
+	puts "-"*80
 end
 
 #Organizations
 
-['FNFI', 'Org1', 'Org2'].each do |org|
+['Title Company', 'Org1', 'Org2'].each do |org|
 	Organization.create(title:org)
 end
 notice "Organizations"
 #Users
 @orgs = Organization.all
 
-first_names = "John Steve Barry Eugene Darlene Anita Carola Jason Paula Dean Steven Arnie".split
-last_names = "Bogart Sleazy Brown Tango Sketty Wylie Sloane Mone Games Nudey Steed Irvine Zero".split
+first_names = 
+	"John Steve Barry Eugene Darlene Anita Carola Jason Paula Dean Steven Arnie".split
+last_names = 
+	"Bogart Sleazy Brown Tango Sketty Wylie Sloane Mone Games Nudey Steed Irvine Zero".split
 
 def randomize_admin
 	num = rand(100)+1
@@ -26,7 +28,8 @@ def randomize_admin
 end
 
 40.times do |x|
-	User.create(first_name: first_names[rand(first_names.count)], 
+	User.create(
+		first_name: first_names[rand(first_names.count)], 
 		last_name: last_names[rand(last_names.count)], 
 		password: "password", 
 		email: "test.user#{x}@test.com",
@@ -39,7 +42,7 @@ notice "Users"
 @users = User.all
 
 #Order Type
-@order_type = OrderType.create(title:"Fnfi Errors", organization_id: 1)
+@order_type = OrderType.create(title:"Title Errors", organization_id: 1)
 notice @order_type.title
 
 #Categories and Tasks
@@ -130,11 +133,9 @@ end
 
 def randomize_note
 	arr = "among going manor who did do ye is celebrated it sympathize considered may ecstatic did surprise elegance the ignorant age own her miss cold last it so numerous if he outlived disposal how but sons mrs lady when her especially are unpleasant out alteration continuing unreserved resolution hence hopes noisy may china fully and am it regard stairs branch thirty length afford".split(" ")
-	num = Proc.new {rand(arr.length)}
-	count = rand(10..20)
 	note = []
-	count.times do
-		note << arr[num.call] + " "
+	(rand(10..20)).times do
+		note << arr[rand(arr.length)] + " "
 	end
 	note = note.join.capitalize.gsub(/.$/,"") + "."
 end

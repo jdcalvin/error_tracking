@@ -37,7 +37,7 @@ class OrdersController < ApplicationController
   end
 
 
-  #=============================CRUD===========================================
+#===============================CRUD===========================================
 
   def show
     @user = @order.user
@@ -63,12 +63,12 @@ class OrdersController < ApplicationController
   end
 
   def update
-      if @order.update(order_params)
-        flash[:success] = "Order successfully updated"
-        redirect_to order_type_orders_path
-      else
-        render action: 'edit'
-      end
+		if @order.update(order_params)
+			flash[:success] = "Order successfully updated"
+			redirect_to order_type_orders_path
+		else
+			render action: 'edit'
+		end
   end
 
   def destroy
@@ -77,19 +77,19 @@ class OrdersController < ApplicationController
     redirect_to order_type_orders_path
   end
 
-  #=============================PRIVATE=======================================
+#================================PRIVATE=======================================
   private
 
     def set_date
       if params[:year].nil? && params[:month].nil? && params[:day].nil?
-        @date = Date.today
+        @date = Date.today.in_time_zone
       else
         date = [params[:year], params[:month], params[:day]]
               .map {|p| p ||= '1' }
         if Date.valid_date? date[0].to_i, date[1].to_i, date[2].to_i
           @date = Date.parse("#{date[2]}.#{date[1]}.#{date[0]}")
         else
-          @date = Date.today
+          @date = Date.today.in_time_zone
         end
       end
     end
@@ -118,7 +118,8 @@ class OrdersController < ApplicationController
     end
 
     def order_params
-      params.require(:order).permit(:order_name, :note, :order_type_id, :error, :user_id,
-        validations_attributes: [:id, :approval, :order_id, :task_id])
+      params.require(:order)
+			.permit(:order_name, :note, :order_type_id, :error, :user_id,
+							validations_attributes: [:id, :approval, :order_id, :task_id])
     end
 end
