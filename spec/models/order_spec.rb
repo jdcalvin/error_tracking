@@ -18,18 +18,21 @@ describe Order do
 		expect(build(:order, order_type: build(:order_type), user: build(:user))).to be_valid
 	end
   
-  describe "with errors" do
-      it "should validate to true" do
-        expect(build(:order, :with_error).error).to eq true
-      end
-      it "note should be present" do
-        pending("Check Validations / controller")
-      end
+  describe "with errors" do  		
+    it "status should return true" do
+      expect(build(:order, :with_error).error).to eq true
+    end
+
+    it "note is required" do
+ 			expect(build(:order, :with_error, note: nil)).to have(1).errors_on(:note)
+    end
   end
-  
   describe "without errors" do
     it "status should return false" do
       expect(build(:order).error).to eq false
+    end
+    it "note isn't required" do
+    	expect(build(:order, note:nil)).to be_valid
     end
   end
 end

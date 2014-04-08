@@ -45,13 +45,17 @@ class OrdersController < ApplicationController
 
   def new
     @order = @order_type.orders.build
+    #@order.order_type.tasks.each do |task|
+     # @order.validations.build(task: task)
+    #end
   end
 
   def create
     @order = @order_type.orders.build(order_params)
     @order.user_id = current_user.id
+    @order.error = @order.errors?
     if @order.save
-      @order.errors?
+       #implemented in model
       flash[:success] = "Order successfully created"
       redirect_to order_type_orders_path
     else
@@ -63,7 +67,11 @@ class OrdersController < ApplicationController
   end
 
   def update
+    
 		if @order.update(order_params)
+      @order.error = @order.errors?
+      @order.save
+
 			flash[:success] = "Order successfully updated"
 			redirect_to order_type_orders_path
 		else
@@ -119,7 +127,8 @@ class OrdersController < ApplicationController
 
     def order_params
       params.require(:order)
-			.permit(:order_name, :note, :order_type_id, :error, :user_id,
-							validations_attributes: [:id, :approval, :order_id, :task_id])
+			.permit(:order_name, :note, :order_type_id, :user_id, :error,
+							:validations_attributes => [:id, :approval, :order_id, :task_id])
     end
+
 end

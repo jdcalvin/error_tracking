@@ -27,13 +27,16 @@ describe User do
     expect(user_nil).to have(1).errors_on(:email)
   end
   it "must have a unique email address" do
-    expect(User.new(email: user1.email)).to have(1).errors_on(:email)
+    expect(User.new(email: 'test1@test.com')).to have(1).errors_on(:email)
   end
   it "is invalid without a password" do
     expect(user_nil).to have(1).errors_on(:password)
   end
   it "must have a valid email address" do
     expect(User.new(email: 'sdfsfd')).to have(1).errors_on(:email)
+  end
+  it "capitalizes name before saving" do
+    expect(create(:user, first_name: 'test', last_name: 'user').full_name).to eq 'Test User'
   end
 
   describe "password" do

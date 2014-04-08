@@ -5,12 +5,13 @@ class Order < ActiveRecord::Base
   validates :order_type, presence: true
   validates :order_name, presence: true
 	validates :user, presence: true
-  validates_presence_of :note, :if => :error,
+  validates_presence_of :note, :if => :require_note,
     :message => "can't be empty if errors are present"
-  has_many :validations, dependent: :destroy
+  has_many :validations, dependent: :destroy, inverse_of: :order
   has_many :tasks, through: :validations
   has_many :categories, through: :tasks
   accepts_nested_attributes_for :validations
+  
   
   def self.date(date)
     where(created_at: date)
@@ -25,16 +26,7 @@ class Order < ActiveRecord::Base
   end
 
   def errors?
-    if validations.select {|x| x.approval}.any?
-      unless self.error
-        update_attributes(error:true)
-      end
-    else
-      unless self.error == false
-        update_attributes(error:false)
-      end
-    end
-    return error
+    validations.select {|x| x.approval }.any?  
   end
 
   def self.with_errors
@@ -69,9 +61,11 @@ class Order < ActiveRecord::Base
     end  
   end
 
-  def should_validate_note?
-    if errors?
-      return true
+  def require_note
+    if new_record?
+      error
+    else
+      errors?
     end
   end
 end

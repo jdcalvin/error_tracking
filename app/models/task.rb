@@ -1,9 +1,9 @@
 class Task < ActiveRecord::Base
 	before_save {self.description = description.capitalize}
-  belongs_to :category 
+  belongs_to :category, inverse_of: :tasks
+	delegate :order_type, :to => :category
   has_many :validations, dependent: :destroy
   has_many :orders, through: :validations
   validates :description, presence: true
-	delegate :order_type, :to => :category
-  validates :category_id, presence: true
+  validates :category, presence: true
 end

@@ -1,3 +1,57 @@
 <h3>Editing <%= @order.order_name %></h3>
 
-<%= render 'form' %>
+<%= form_for [@order_type, @order] do |f| %>
+  <%= render 'layouts/error_messages', object: f.object %>
+
+  <div class="form-inline form-order" role="form">
+
+    <div class="field">
+      <%= f.label :order_name, "Order ID:", style:"width: 100px" %> 
+      <%= f.text_field :order_name, class: "form-control" %>
+    </div>
+
+    <div class="field" style="padding-top: .5em;">
+      <%= f.label "Proofed By:", style:"width: 100px" %> 
+      <%= @order.user.full_name %> on <strong><%= @order.created_at.strftime("%a, %B %e") %></strong>
+    </div>
+
+    <table class="table">
+      <tr class = "order-header">
+        <th>Description</th>
+        <th style="text-align:right; padding-right: 1em">Status</th>
+      </tr>
+    <% @order_type.categories.each do |cat| %>
+      <tr>
+        <td colspan=2 style="background-color:#BAB9B9; padding-left: 1em">
+          <%= cat.name %>
+        </td>
+      </tr>
+        <% cat.tasks.each do |task| %>
+          <tr style="height: 10px" class="<%= cycle('active', '') %>">
+            <td class="td-description" style="padding-left: 2em;">
+              <%= task.description%>
+            </td>
+           
+            <%= f.fields_for :validations, task.validations.where(order: @order) do |builder| %>
+					  <td class="td-status">
+					  	<div>
+						    <%= builder.check_box :approval %>
+					  	</div>
+						</td> 
+						<% end %>
+           
+          </tr>
+        <% end %>
+    <% end %>
+    </table>
+  
+    <div class="note-field">
+      <h4><%= f.label :note, "Notes:" %><br><h4>
+      <%= f.text_area :note, rows: 5, style:"width:100%; background-color: #fcf8e3", class: "form-control" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Submit", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

@@ -1,7 +1,7 @@
 FactoryGirl.define do
 	factory :validation do
-		task
-		order
+		association :task
+		association :order
 		trait :has_error do
 			approval true
 		end

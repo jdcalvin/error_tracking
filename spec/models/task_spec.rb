@@ -10,7 +10,7 @@ describe Task do
   end
 
   it "must have a category" do
-    expect(build(:task, category_id: nil)).to have(1).errors_on(:category_id)
+    expect(build(:task, category: nil)).to have(1).errors_on(:category)
   end
 
 
