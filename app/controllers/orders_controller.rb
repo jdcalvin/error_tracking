@@ -3,13 +3,13 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   before_action :set_order_type
   before_action :validate_user
-  before_action :set_date, only: [:index,:show_year, :show_month, :show_day]
+  before_action :set_date, only: [:show_year, :show_month, :show_day]
 
 #=============================NAVIGATION=======================================
 
   def index
     redirect_to order_type_show_day_path(
-      @order_type, @date.year, @date.month, @date.in_time_zone.day)   
+      @order_type, @today.year, @today.month, @today.in_time_zone.day)   
   end
 
   def show_day

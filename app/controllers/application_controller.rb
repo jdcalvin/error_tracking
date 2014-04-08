@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
 
   def today
-    @today = Date.today.in_time_zone
+    @today = Time.now.in_time_zone
   end
   
   protected

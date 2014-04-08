@@ -11,7 +11,7 @@
       <div class="list-group">
         <% unless @order_type.nil? || @order_type.id.nil? %>
           <h3 class="panel-title" style="padding: .5em;">Orders by Month</h3>
-          <% (@today.month).downto(1) do |month| %>
+          <% (@today.month).downto(@today.month-2) do |month| %>
             <a class="list-group-item" 
             href="<%= order_type_show_month_path(@order_type.id, @today.year, month) %>">
 

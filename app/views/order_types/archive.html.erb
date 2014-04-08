@@ -1,11 +1,13 @@
 <% (@oldest_date.year..@current_date.year).each do |year| %>
 	<h3><%= year %></h3>
 	<ul class="list-group">
-		<% get_months.each do |month| %>
+		<% Date::MONTHNAMES.each do |month| %>
+		<% unless month == nil %>
 			<li class="list-group-item">
 				<%= link_to "#{month}", 
 						"/order_types/#{@order_type.id}/date/#{year}/#{month}" %>
 			</li>
+			<% end %>
 		<% end %>
 	</ul>
 	<% end %>
