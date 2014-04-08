@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
 
   def index
     redirect_to order_type_show_day_path(
-      @order_type, @date.year, @date.month, @date.day)   
+      @order_type, @date.year, @date.month, @date.in_time_zone.day)   
   end
 
   def show_day
@@ -57,7 +57,8 @@ class OrdersController < ApplicationController
     if @order.save
        #implemented in model
       flash[:success] = "Order successfully created"
-      redirect_to order_type_orders_path
+        redirect_to order_type_show_day_path(@order_type, 
+        @order.created_at.year, @order.created_at.month, @order.created_at.day)
     else
       render action: 'new'
     end
@@ -73,7 +74,8 @@ class OrdersController < ApplicationController
       @order.save
 
 			flash[:success] = "Order successfully updated"
-			redirect_to order_type_orders_path
+			redirect_to order_type_show_day_path(@order_type, 
+        @order.created_at.year, @order.created_at.month, @order.created_at.day)
 		else
 			render action: 'edit'
 		end

@@ -2,9 +2,21 @@ require 'spec_helper'
 
 describe OrderType do
 
-	it "has a valid factory" do
-		expect(FactoryGirl.build(:order_type)).to be_valid
+	describe "factory" do
+
+		it "is valid" do
+			expect(FactoryGirl.build(:order_type)).to be_valid
+		end
+
+		it "recognizes categories" do
+			expect(create(:order_type).categories.count).to eq 2
+		end
+
+		it "recognizes tasks through categories" do
+			expect(create(:order_type).tasks.count).to eq 4
+		end
 	end
+
 
 	org_type = Organization.create(title:"blah")
 	it "is invalid without an organization" do

@@ -19,6 +19,5 @@ module ApplicationHelper
 		hash[:danger] = "exclamation-sign"
 		return hash
 	end
-
 end
 

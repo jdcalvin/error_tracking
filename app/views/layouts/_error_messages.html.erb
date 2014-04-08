@@ -1,7 +1,8 @@
 <% if object.errors.any? %>
 	<div id="error explanation">
 		<div class = "alert alert-danger" style="background-color:transparent; border-radius: 0; border:none; margin-bottom: 0; padding-left: 0px;">
-			<h4><span class="glyphicon glyphicon-exclamation-sign"></span>This <%= object.class.name.downcase %> form contains <%= pluralize(object.errors.count, "error") %></h4>
+			<h4><span style ="width:20px"class="glyphicon glyphicon-exclamation-sign"></span>
+				Could not <%= params[:action] %> this <%= object.class.name.downcase %> due to  <%= pluralize(object.errors.count, "error") %>:</h4>
 			<ul style="margin-left: 1em">
 			<% object.errors.full_messages.each do |msg| %>
 				<li> <%= msg %></li>

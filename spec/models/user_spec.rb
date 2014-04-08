@@ -2,15 +2,21 @@ require 'spec_helper'
 
 describe User do
 
-  it "has a valid factory" do
-    expect(build(:user)).to be_valid
-  end
+  describe "factory" do
 
-  user1 = User.create(first_name: 'Test', last_name: 'User',
-                  email: 'test1@test.com', password: 'password')
-  user2 = User.new(first_name: 'User', last_name: 'Test',
-                  email: 'test2@test.com', password: 'password')
-  user_nil = User.new
+    it "builds valid user" do
+      expect(build(:user)).to be_valid
+    end
+
+    it "builds valid admin" do
+      expect(build(:admin).admin).to eq true
+    end
+
+    it "builds valid inactive user" do
+      expect(build(:inactive).active).to eq false
+    end
+  end
+  
 
   it "is valid with a firstname, lastname, email, and password" do
     expect(User.new(first_name:"test", last_name:"user", 
@@ -18,19 +24,20 @@ describe User do
     .to be_valid
   end
   it "is invalid without a first_name" do
-    expect(user_nil).to have(1).errors_on(:first_name)
+    expect(build(:user, first_name: nil)).to have(1).errors_on(:first_name)
   end
   it 'is invalid without a last_name' do
-    expect(user_nil).to have(1).errors_on(:last_name)
+    expect(build(:user, last_name: nil)).to have(1).errors_on(:last_name)
   end
   it "is invalid without an email" do
-    expect(user_nil).to have(1).errors_on(:email)
+    expect(build(:user, email: nil)).to have(1).errors_on(:email)
   end
   it "must have a unique email address" do
-    expect(User.new(email: 'test1@test.com')).to have(1).errors_on(:email)
+    user = FactoryGirl.create(:user)
+    expect(User.new(email: user.email)).to have(1).errors_on(:email)
   end
   it "is invalid without a password" do
-    expect(user_nil).to have(1).errors_on(:password)
+    expect(build(:user, password: nil)).to have(1).errors_on(:password)
   end
   it "must have a valid email address" do
     expect(User.new(email: 'sdfsfd')).to have(1).errors_on(:email)
