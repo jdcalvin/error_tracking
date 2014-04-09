@@ -1,17 +1,28 @@
-<div class="nested-fields panel panel-default">
-	<div class="field">
-		<label style= "margin-left: 1em;" class="panel-title">Category Name:</label>
-		<%= f.text_field :name, class: "form-control", style: "width: auto; margin-left: 1em; margin-top: 1em;"%>
-		<%= f.hidden_field :_destroy %>
-		<%= link_to_remove_association '', f, class: "glyphicon glyphicon-remove", style: "color: #d9534f" %> 
-		<fieldset style = "width: 50%">
-			<strong style ="margin-left: 1em"> Task Descriptions: </strong><br>
-			<div id="tasks">
-			<%= f.fields_for :tasks do |builder| %>
-				<%= render "task_fields", f: builder %>
-			<% end %>
-			<%= link_to_add_association "Add Task", f, :tasks, style: "margin: .5em" %>
+<div class="nested-fields">
+	<div class="panel panel-default" >
+		<div class="panel-heading">
+			<div style="float:left; padding-top: .5em; margin-right: 1em;">
+				<label>Category Name:</label>
 			</div>
-		</fieldset>
+			<div style="float:left">
+				<table style="border:none">
+					<th><%= f.text_field :name, class: "form-control"%></th>
+				<th>
+					<%= link_to_remove_association '', f, class: "glyphicon glyphicon-remove", style: "padding:0;padding-left: .5em;color: #a94442", data: { confirm: "Are you sure?"+"\n"+"\n"+"Removing category will also remove all associated tasks" } %>
+					<%= f.hidden_field :_destroy %>
+				</th>
+				</table>
+			</div>
+			<div style="clear:both"></div>		
+		</div>
+		<div class="panel-body">
+			<h4>Tasks</h4>
+				<div id="tasks">
+					<%= f.fields_for :tasks do |builder| %>
+						<%= render "task_fields", f: builder %>
+					<% end %>
+					<%= link_to_add_association "Add Task", f, :tasks, style: "margin: .5em" %>
+				</div>
+		</div>
 	</div>
 </div>

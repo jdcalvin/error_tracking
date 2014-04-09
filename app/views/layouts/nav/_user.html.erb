@@ -12,7 +12,7 @@
         <% if current_user.organization.nil? %>
         <%= link_to '<span class="glyphicon glyphicon-briefcase"></span>Create Organization'.html_safe, new_organization_path, class: "list-group-item" %>
         <% else %>
-  			<%= link_to '<span class="glyphicon glyphicon-briefcase"></span>Organization'.html_safe, organization_path(current_user.organization.id), class: "list-group-item" %>
+  			<%= link_to '<span class="glyphicon glyphicon-briefcase"></span>Organization'.html_safe, current_user.organization, class: "list-group-item" %>
         <% end %>
   
         <a href="/users/<%= current_user.id%>" class="list-group-item">

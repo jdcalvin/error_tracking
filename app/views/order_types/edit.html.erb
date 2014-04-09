@@ -1,3 +1,6 @@
 <h1>Editing <%= @order_type.title %></h1>
-
+<div class="panel panel body alert-danger" style="border: 1px solid #a94442; padding-left: 1em; background-color: #dddddd; margin: 0; margin-bottom: 1em">
+<h4><strong>WARNING:</strong> Modifying template elements will retroactively effect all associated orders. You may want to consider deactivating this template and creating a new one.
+</div>
+</h4>
 <%= render 'form' %>

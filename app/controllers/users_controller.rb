@@ -8,10 +8,11 @@
 	def index
 		if logged_in?
 			@users = current_user.organization.users.page(params[:page]).per_page(10)	
+			redirect_to @organization
 		else
 			redirect_to root_path
 		end
-		redirect_to organization_path(@organization)
+		
 	end
 
 	def show	
@@ -90,7 +91,7 @@
 	def validate_admin #Admin can only create users
 		if signed_in?
 			unless current_user.admin?
-				redirect_to organization_path(@organization.id)
+				redirect_to @organization
 				flash[:warning] = "You do not have the required permission"
 			end
 		end

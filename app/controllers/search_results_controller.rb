@@ -25,7 +25,7 @@ require 'will_paginate/array'
 	def validate_org
     if @organization.nil?
       redirect_to new_organization_path
-      flash[:info] = "Please create an organization before continuing"
+      flash[:warning] = "Please create an organization"
     end
   end
 end

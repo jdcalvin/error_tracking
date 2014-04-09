@@ -36,7 +36,6 @@ class OrdersController < ApplicationController
     redirect_to order_type_archive_path(@order_type.id)
   end
 
-
 #===============================CRUD===========================================
 
   def show
@@ -45,9 +44,6 @@ class OrdersController < ApplicationController
 
   def new
     @order = @order_type.orders.build
-    #@order.order_type.tasks.each do |task|
-     # @order.validations.build(task: task)
-    #end
   end
 
   def create
@@ -55,7 +51,6 @@ class OrdersController < ApplicationController
     @order.user_id = current_user.id
     @order.error = @order.errors?
     if @order.save
-       #implemented in model
       flash[:success] = "Order successfully created"
         redirect_to order_type_show_day_path(@order_type, 
         @order.created_at.year, @order.created_at.month, @order.created_at.day)
@@ -67,12 +62,10 @@ class OrdersController < ApplicationController
   def edit
   end
 
-  def update
-    
+  def update   
 		if @order.update(order_params)
       @order.error = @order.errors?
       @order.save
-
 			flash[:success] = "Order successfully updated"
 			redirect_to order_type_show_day_path(@order_type, 
         @order.created_at.year, @order.created_at.month, @order.created_at.day)
@@ -90,47 +83,49 @@ class OrdersController < ApplicationController
 #================================PRIVATE=======================================
   private
 
-    def set_date
-      if params[:year].nil? && params[:month].nil? && params[:day].nil?
-        @date = Date.today.in_time_zone
-      else
-        date = [params[:year], params[:month], params[:day]]
-              .map {|p| p ||= '1' }
-        if Date.valid_date? date[0].to_i, date[1].to_i, date[2].to_i
-          @date = Date.parse("#{date[2]}.#{date[1]}.#{date[0]}")
-        else
-          @date = Date.today.in_time_zone
-        end
-      end
+  def set_date
+    if params[:year].nil? || params[:year].to_i == 0
+      params[:year] = @today.year
+      flash[:warning] = "Invalid date"
+    elsif params[:month].to_i < 1 || params[:month].to_i > 12
+      params[:month] = @today.month
+        flash[:warning] = "Invalid date"
     end
+    date = [params[:year], params[:month], params[:day]]
+          .map {|p| p ||= '1' }
+    if Date.valid_date? date[0].to_i, date[1].to_i, date[2].to_i
+      @date = Date.parse("#{date[2]}.#{date[1]}.#{date[0]}")
+    else
+      @date = @today
+      flash[:warning] = "Invalid date"
+    end
+  end
 
-    def pie_chart_data(opt)
-      arr = []
-      opt.each_pair do |key, value|
-        arr << [key, opt[key].values.sum]
-      end
-      return arr
-    end
+  def pie_chart_data(opt)
+    arr = []
+    opt.each_pair { |key, value| arr << [key, opt[key].values.sum] }
+    return arr
+  end
 
-    def validate_user
-      unless @order_type.organization == current_user.organization
-        redirect_to root_url
-        flash[:warning] = "You do not have permission to access that"
-      end
+  def validate_user
+    unless @order_type.organization == current_user.organization
+      redirect_to root_url
+      flash[:warning] = "You do not have permission to access that"
     end
-    
-    def set_order
-      @order = Order.find(params[:id])
-    end
+  end
+  
+  def set_order
+    @order = Order.find(params[:id])
+  end
 
-    def set_order_type
-      @order_type = OrderType.find(params[:order_type_id])
-    end
+  def set_order_type
+    @order_type = OrderType.find(params[:order_type_id])
+  end
 
-    def order_params
-      params.require(:order)
-			.permit(:order_name, :note, :order_type_id, :user_id, :error,
-							:validations_attributes => [:id, :approval, :order_id, :task_id])
-    end
+  def order_params
+    params.require(:order)
+		.permit(:order_name, :note, :order_type_id, :user_id, :error,
+						:validations_attributes => [:id, :approval, :order_id, :task_id])
+  end
 
 end

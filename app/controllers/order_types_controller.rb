@@ -1,12 +1,11 @@
 class OrderTypesController < ApplicationController
-  before_filter :authenticate_user!
+  #before_filter :authenticate_user!
   before_action :set_order_type, only: [:show, :edit, :update, :destroy]
-  before_action :validate_org
-  before_action :validate_user, except: [:new, :create]
-  before_action :validate_admin_status, 
-    only: [:edit, :update, :destroy, :new, :create]
+  #before_action :validate_org
+  #before_action :validate_user, except: [:new, :create]
+  #before_action :validate_admin_status, 
+   #             except: [:index, :archive, :show]
   
-
   def index
     redirect_to @organization
   end
@@ -22,7 +21,7 @@ class OrderTypesController < ApplicationController
 
   def new
 		@order_type = OrderType.new
-    @order_type.title = "New Template"
+    @order_type.title = 'New Template'
   end
 
   def edit
@@ -54,34 +53,34 @@ class OrderTypesController < ApplicationController
   end
 
   private
-    def validate_org
-      if @organization.nil?
-        redirect_to new_organization_path
-        flash[:info] = "Please create an organization before continuing"
-      end
-    end
-    def validate_user
-      unless @organization.order_types.includes(@order_type)
-        redirect_to @organization
-        flash[:warning] = "You do not have permission to access that"
-      end
-    
-    end
-    
-    def validate_admin_status
-      unless current_user.admin
-        redirect_to @organization
-        flash[:warning] = "You must have adminstrative rights to access that."
-      end
-    end
-    def set_order_type
-      @order_type = OrderType.find(params[:id])
-    end
 
-    def order_type_params
-      params.require(:order_type).permit(:title, :organization_id,
-				categories_attributes: [:id, :name, :order_type_id, :_destroy,
-				tasks_attributes: [:id, :description,
-													 :category_id, :_destroy]])
+  def validate_org
+    if @organization.nil?
+      redirect_to new_organization_path
+      flash[:warning] = "Please create an organization"
     end
+  end
+  def validate_user
+    unless @organization.order_types.includes(@order_type)
+      redirect_to @organization
+      flash[:warning] = "You do not have permission to access that"
+    end
+  
+  end
+  
+  def validate_admin_status
+    unless current_user.admin
+      redirect_to @organization
+      flash[:warning] = "You must have adminstrative rights to access that."
+    end
+  end
+  def set_order_type
+    @order_type = OrderType.find(params[:id])
+  end
+
+  def order_type_params
+    params.require(:order_type).permit(:title, :organization_id,
+			categories_attributes: [:id, :name, :order_type_id, :_destroy,
+			tasks_attributes: [:id, :description,:category_id, :_destroy]])
+  end
 end

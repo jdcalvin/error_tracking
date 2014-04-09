@@ -1,15 +1,14 @@
 class OrganizationsController < ApplicationController
 	before_filter :authenticate_user!
-	#before_action :set_organization, only: [:show, :edit, :update, :destroy]
-	before_action :validate_admin, only: [:edit, :update, :new, :create, :destroy, :admin]
+	before_action :validate_admin, except: [:index, :show]
 	before_action :no_org?, only: [:new]
+	before_action :validate_org, except: [:new, :create]
 	
 	def index
 		redirect_to @organization
 	end
 
 	def admin
-
 	end
 	
 	def edit
@@ -25,6 +24,9 @@ class OrganizationsController < ApplicationController
   end
 
 	def show
+		if @organization.nil?
+			redirect_to new_organization_path
+		end
 		@users = @organization.users.reorder('last_name ASC').page(params[:page]).per_page(10)
 		@order_types = @organization.order_types
 	end
@@ -39,7 +41,6 @@ class OrganizationsController < ApplicationController
     		current_user.update_attributes(organization_id: @organization.id)
     		flash[:success] = "Organization created"
       	redirect_to @organization
-
     	else
       render action: 'new'
     end
@@ -51,9 +52,16 @@ class OrganizationsController < ApplicationController
 	private
 
 	def no_org?
-		if current_user.organization != nil
+		if @organization != nil
 			redirect_to root_path
 			flash[:warning] = "You already belong to an organization"
+		end
+	end
+
+	def validate_org
+		if signed_in? && @organization.nil?
+			redirect_to new_organization_path
+			flash[:warning] = "Please create an organization"
 		end
 	end
 
@@ -64,12 +72,7 @@ class OrganizationsController < ApplicationController
 		end
 	end
 
-	def set_organization
-		@organization = Organization.find(params[:id])
-	end
-
 	def organization_params
 		params.require(:organization).permit(:title)
 	end
-
 end

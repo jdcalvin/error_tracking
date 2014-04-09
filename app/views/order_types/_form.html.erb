@@ -1,15 +1,18 @@
 <%= form_for @order_type do |f| %>
   <%= render 'layouts/error_messages', object: f.object %>
 
-  <div class="form-inline form-order_type" role="form"> 
-    <div style="width: 300px"><%= f.label :title %></strong>: <%= f.text_field :title, class: "form-control", style: "margin-left: 1em; margin: .5em;" %>
+  <div class="form-order_type" role="form"> 
+    <div>
+      <h3>Template Title</h3>
+      <%= f.text_field :title, class: "form-control", style:"max-width:200px; margin-left: 1em; margin: .5em;" %>
    	</div>
 
     <%= f.hidden_field(:organization_id, :value => @organization.id) %>
+    <h4>Categories</h4>
     <div id="categories">
-  		<%= f.fields_for :categories do |builder| %>
-  			<%= render "category_fields", f: builder %>
-  		<% end %>
+      <%= f.fields_for :categories do |builder| %>
+        <%= render "category_fields", f: builder %>
+      <% end %>
   		<%= link_to_add_association "Add Category", f, :categories %>	
   	</div>
     <div class="actions">

@@ -5,7 +5,7 @@ describe OrderType do
 	describe "factory" do
 
 		it "is valid" do
-			expect(FactoryGirl.build(:order_type)).to be_valid
+			expect(build(:order_type)).to be_valid
 		end
 
 		it "recognizes categories" do

@@ -15,13 +15,13 @@ describe Order do
 		expect(Order.new(user:nil)).to have(1).errors_on(:user)
 	end
 	it "is valid with user, order_type, and order_name" do
-		expect(build(:order, order_type: build(:order_type), user: build(:user))).to be_valid
+		expect(build(:order, :with_error)).to be_valid
 	end
 
   it "has valid template associations" do
     order_type = create(:order_type)
     order = create(:order, :no_error, :order_type => order_type)
-    expect(order.tasks == order_type.tasks).to eq true
+    expect(order.tasks.count == order_type.tasks.count).to eq true
   end
 
   describe "with errors" do  		
@@ -48,6 +48,20 @@ describe Order do
     end
     it "checks validations for errors" do
     	expect(order.errors?).to eq false
+    end
+  end
+
+  describe "search method" do
+    before :each do
+    order1 = FactoryGirl.create(:order, order_name: 'testing1')
+    order2 = FactoryGirl.create(:order, order_name: 'testing2')
+    order3 = FactoryGirl.create(:order, order_name: 'testing3')
+    end
+    it 'returns specific search criteria' do
+      expect(Order.search("testing1").count).to eq 1
+    end
+    it 'returns broad search criteria' do
+      expect(Order.search("testing").count).to eq 3
     end
   end
 end
