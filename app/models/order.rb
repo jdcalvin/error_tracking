@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  belongs_to :order_type
+  belongs_to :order_type, inverse_of: :orders
   belongs_to :user
   cattr_accessor :skip_callbacks
   validates :order_type, presence: true

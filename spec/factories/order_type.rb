@@ -8,7 +8,12 @@ FactoryGirl.define do
 				order_type.categories <<  build(:category, :order_type => order_type)
 			end
 		end
+	end
 
+	factory :invalid_order_type, class: OrderType do
+		title nil
+		association :organization
 	end
 end
+
 

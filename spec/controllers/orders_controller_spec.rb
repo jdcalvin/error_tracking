@@ -1,7 +1,11 @@
 require "spec_helper"
 
 describe OrdersController do
-
+		let(:user) {FactoryGirl.create(:admin)}
+		before :each do
+			sign_in user
+			@order_type = FactoryGirl.create(:order_type, :organization => user.organization)
+		end
 	describe "GET #index" do
 		it "redirects to the current day of orders"
 	end
@@ -60,14 +64,18 @@ describe OrdersController do
 	end
 
 	describe "GET #new" do
-		it "renders the :new template"
-		describe "associations/nested attributes" do
-			it "builds new validation data"
+		it "renders the :new template" do
+			get :new, {:order_type_id => @order_type.id}
+			expect(response).to render_template :new
+		end
+		it 'assigns a new Order to @order' do
+			get :new, {:order_type_id => @order_type.id}
+			expect(assigns(:order)).to be_a_new(Order)
 		end
 	end
 
 	describe "POST #create" do
-		context "if successful" do
+		context "if successful" do 
 			it "saves order"
 			it "redirects to #show_day w/ order.created_at.day"
 			context "validations" do

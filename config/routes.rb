@@ -11,8 +11,9 @@ Fnfi::Application.routes.draw do
     delete "/logout" => "devise/sessions#destroy",  :as => :destroy_user_session
   end
   resources :organizations do
-    match 'admin_panel', to: 'organizations#admin', via: 'get'
+    get 'admin_panel', to: 'organizations', action: 'admin'
   end
+
 	
   #===============================================================
   #         STATIC

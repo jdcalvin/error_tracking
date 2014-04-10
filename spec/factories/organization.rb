@@ -8,4 +8,9 @@ FactoryGirl.define do
 			create(:order_type, :organization => organization)
 		end
 	end
+
+	factory :invalid_organization, class: Organization do
+		title nil
+	end
+	
 end
