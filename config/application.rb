@@ -5,7 +5,7 @@ require 'sprockets/railtie'
 
 Bundler.require(:default, Rails.env)
 
-module Fnfi
+module Tracker
   class Application < Rails::Application
     config.time_zone = 'Pacific Time (US & Canada)'
     Rack::MiniProfiler.config.position = 'right'

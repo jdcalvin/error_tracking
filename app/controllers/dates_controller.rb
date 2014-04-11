@@ -34,7 +34,9 @@ class DatesController < ApplicationController
   def clear_gon
     gon.clear
   end
+
 private
+
 	def set_order_type
     @order_type = OrderType.find(params[:order_type_id])
   end

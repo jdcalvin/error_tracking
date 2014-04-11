@@ -1,4 +1,4 @@
-Fnfi::Application.routes.draw do
+Tracker::Application.routes.draw do
   
   #===============================================================
   #       DEVISE/USERS 

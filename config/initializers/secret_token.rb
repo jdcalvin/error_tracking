@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Fnfi::Application.config.secret_key_base = 'eab869ddbec85f67030876d4043867b122cfc3dba9a3cf38cf6799f5cc3597da884c62a3f1bf223478d170e1b227fae7cfb20d291e6492bb6a4985e57ae7f7ed'
+Tracker::Application.config.secret_key_base = 'eab869ddbec85f67030876d4043867b122cfc3dba9a3cf38cf6799f5cc3597da884c62a3f1bf223478d170e1b227fae7cfb20d291e6492bb6a4985e57ae7f7ed'

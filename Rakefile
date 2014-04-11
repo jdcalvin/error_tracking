@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Fnfi::Application.load_tasks
+Tracker::Application.load_tasks
