@@ -6,60 +6,12 @@ describe OrdersController do
 			sign_in user
 			@order_type = FactoryGirl.create(:order_type, :organization => user.organization)
 		end
+		
 	describe "GET #index" do
-		it "redirects to the current day of orders"
-	end
-
-	describe "GET dates" do
-		describe "date parameters" do
-			describe ":year" do
-				context "when invalid" do
-					it "@date assigns to current year"
-					it "flash message 'Invalid Date'"
-				end
-				context "when valid" do
-					it "@date assigns year if valid"
-				end
-			end
-			describe ":month" do
-				context "when invalid" do
-					it "@date assigns to current month"
-					it "flash message 'Invalid Date'"
-				end
-				context "when valid" do
-					it "@date assigns month if valid"
-				end
-			end
-			describe ":day" do
-				context "when invalid" do
-					it "@date assigns to current day"
-					it "flash message 'Invalid Date'"
-				end
-				context "when valid" do
-					it "@date assigns year if valid"
-				end
-			end
-		end
-		describe "#show_day" do
-			it 'renders :day template'
-			it 'collects orders by order_type for that day'
-			it 'date parameters return correct time range'
-		end
-		describe "#show_month" do
-			describe "with valid params" do
-				it 'renders :month template'
-				it 'date parameters return time range for orders'
-				it 'collects orders by month'
-				it 'groups orders by day'
-				context 'breakdown method' do
-					it 'organizes order data for chart'
-					it 'initialze gon variable for javascript'
-				end
-			end
-		end
-		describe "#show_year" do
-			it 'redirects to archive for current year'
-			it 'renders :archive template'
+		before{@date = Time.now.in_time_zone}
+		it "redirects to the current day of orders" do
+			get :index, order_type_id: @order_type.id
+			expect(response).to redirect_to order_type_show_day_path(@order_type, @date.year, @date.month, @date.day)
 		end
 	end
 
@@ -76,58 +28,143 @@ describe OrdersController do
 
 	describe "POST #create" do
 		context "if successful" do 
-			it "saves order"
-			it "redirects to #show_day w/ order.created_at.day"
-			context "validations" do
-				it "saves new validations"
-				it "validations.count == order_type.tasks.count"
-				it "order.tasks == order_type.tasks"
+			it "saves order" do 
+				expect do
+					xhr :post, :create, order_type_id: @order_type.id, order: attributes_for(:order, :no_error) 
+				end.to change(Order, :count).by(1)
+			end
+			it "redirects to #show_day w/ order.created_at.day" do
+				xhr :post, :create, order_type_id: @order_type.id, order: attributes_for(:order, :no_error) 
+				expect(response).to redirect_to order_type_show_day_path(@order_type, 
+					assigns[:order].created_at.year, assigns[:order].created_at.month, assigns[:order].created_at.day)
 			end
 		end
 		context "IF errors" do
-			it "does not save order"
-			it "renders :new template"
-			it "shows form errors"
+			it "does not save order" do
+				expect do
+					xhr :post, :create, order_type_id: @order_type.id, order: attributes_for(:order, :no_error, order_name: nil) 
+				end.to change(Order, :count).by(0)
+			end
+			it "renders :new template" do
+				xhr :post, :create, order_type_id: @order_type.id, order: attributes_for(:order, :no_error, order_name: nil) 
+				expect(response).to render_template :new
+			end
 		end
 	end
 	
-	describe "PUT #update" do
+	describe "PATCH #update" do
+		before :each do
+			@order = FactoryGirl.create(:order, :no_error, :user => user, :order_type => @order_type)
+			@validation = @order.validations.find_by(task: @order_type.tasks.first)
+		end
 		context "IF successful" do
-			it "saves order"
-			it "redirects #show_day w/ order.created_at.day"
+			it 'locates the requested resource' do
+				patch :update, order_type_id: @order_type.id, id: @order, order: attributes_for(:order)
+				expect(assigns(:order)).to eq(@order)
+			end
+			it "saves order" do
+				patch :update, order_type_id: @order_type.id, id: @order, order: attributes_for(:order, order_name: "Spec Test")
+				@order.reload
+				expect(@order.order_name).to eq("Spec Test")
+			end
+			it "redirects #show_day w/ order.created_at.day" do 
+				patch :update, order_type_id: @order_type.id, id: @order, order: attributes_for(:order)
+				expect(response).to redirect_to order_type_show_day_path(@order_type, 
+					@order.created_at.year, @order.created_at.month, @order.created_at.day)
+			end
 			describe "validations" do
 				context "error status" do
-					it "if changed to true returns false"
-					it "if changed to false returns true"
 					context "validates order.errors?" do
-						it "if errors present changes to true"
-						it "if errors n/a changes to false"
+						it "if errors present changes to true" do
+							@validation.update_attributes(approval:true)
+							patch :update, order_type_id: @order_type.id, id: @order, 
+							order: attributes_for(:order)
+							@order.reload
+							expect(@order.error).to eq true
+						end
+						it "if errors n/a changes to false" do
+							@validation.update_attributes(approval:true)
+							@order.reload
+							expect(@order.errors?).to eq true
+							@validation.update_attributes(approval:false)
+							patch :update, order_type_id: @order_type.id, id: @order, 
+							order: attributes_for(:order)
+							@order.reload
+							expect(@order.error).to eq false
+						end
 					end
 				end
-				it "validations.count == order_type.tasks.count"
-				it "order.tasks == order_type.tasks"
+				it "validations.count == order_type.tasks.count" do
+					expect(@order.validations.count).to eq @order_type.tasks.count
+				end
+				it "order.tasks == order_type.tasks" do
+					expect(@order.tasks.count).to eq @order_type.tasks.count
+				end
 			end
 		end
 		context "IF errors" do 
-			it "does not save order"
-			it "renders :edit template"
-			it "shows form errors"
+			it "does not save order" do 
+				patch :update, order_type_id: @order_type.id, id: @order, 
+							order: attributes_for(:order, :order_name => nil)
+				@order.reload
+				expect(@order.order_name).to_not eq nil
+			end
+			it "renders :edit template" do
+				patch :update, order_type_id: @order_type.id, id: @order, 
+							order: attributes_for(:order, :order_name => nil)
+				expect(response).to render_template :edit
+			end
+			it "shows form errors" do
+				@order.update_attributes(order_name: nil)
+				@order.valid?
+				@order.errors.messages[:order_name].should include("can't be blank")
+			end
 		end
 	end
 
 	describe "GET #edit" do
-		it "renders :edit template"
+		it "renders :edit template" do
+			order = FactoryGirl.create(:order, :order_type_id => @order_type.id)
+			get :edit, :order_type_id => @order_type.id, id: order
+			expect(response).to render_template :edit
+		end
+		it 'assigns params to order' do
+			order = FactoryGirl.create(:order, :order_type_id => @order_type.id)
+			get :edit, :order_type_id => @order_type.id, id: order
+			expect(assigns(:order)).to eq order
+		end
+
 		describe "associations/nested attributes" do
-			it "loads current validation data"
+			it "loads current validation data" do
+				order = FactoryGirl.create(:order, :no_error, :user => user, :order_type_id => @order_type.id)
+				get :edit, :order_type_id => @order_type.id, id: order
+				expect(assigns(:order).validations.count).to eq order.validations.count
+			end
 		end
 	end
 
 	describe "DELETE #destroy" do
+		before :each do
+			@order = FactoryGirl.create(:order, :no_error, :user => user, :order_type_id => @order_type.id)
+		end
 		context "if successful" do
-			it "deletes order"
-			it "deletes nested validation attributes"
-			it "does not destroy other validations"
-			it "does not destroy tasks"
+			it "deletes order" do
+				expect do
+					xhr :delete, :destroy, :order_type_id => @order_type.id, id: @order
+				end.to change(Order, :count).by(-1)
+			end
+
+			it "deletes nested validation attributes" do
+				expect do
+				xhr :delete, :destroy, :order_type_id => @order_type.id, id: @order
+				end.to change(Validation, :count).by(-4) 
+				#:order_type factory creates 4 tasks, so should reduce it by 4 validations
+			end
+			it "does not destroy tasks" do
+				expect do
+				xhr :delete, :destroy, :order_type_id => @order_type.id, id: @order
+				end.to change(Task, :count).by(0) 
+			end
 		end
 	end
 

@@ -1,0 +1,14 @@
+<h3>
+<% if @orders.count > 0 %>
+	<strong>Quality</strong> 
+	<% if @order_error_status[false].nil? %>
+	0
+	<% else %>
+	<%= @order_error_status[false].size %>
+	<% end %>
+	/<%=@orders.size%> | <%= quality %>%
+<% else %>
+	<strong> No Data</strong>
+<% end %>
+</h3>
+

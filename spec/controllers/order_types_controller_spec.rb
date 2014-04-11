@@ -96,6 +96,12 @@ describe OrderTypesController do
 				patch :update, id: @order_type, order_type: attributes_for(:order_type)
 				expect(assigns(:order_type)).to eq(@order_type)
 			end
+			it 'saves order_type' do
+				patch :update, id: @order_type, order_type: attributes_for(:order_type, title: 'Spec Test')
+				@order_type.reload
+				expect(@order_type.title).to_not eq nil
+				expect(@order_type.title).to eq "Spec Test"
+			end
 			it 'redirects to order_type' do
 				patch :update, id: @order_type, order_type: attributes_for(:order_type)
 				expect(response).to redirect_to order_type_path(@order_type)

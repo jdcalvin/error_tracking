@@ -1,10 +1,10 @@
 class OrderTypesController < ApplicationController
-  #before_filter :authenticate_user!
+  before_filter :authenticate_user!
   before_action :set_order_type, only: [:show, :edit, :update, :destroy]
-  #before_action :validate_org
-  #before_action :validate_user, except: [:new, :create]
-  #before_action :validate_admin_status, 
-   #             except: [:index, :archive, :show]
+  before_action :validate_org
+  before_action :validate_user, except: [:new, :create]
+  before_action :validate_admin_status, 
+                except: [:index, :archive, :show]
   
   def index
     redirect_to @organization
