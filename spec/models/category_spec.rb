@@ -4,6 +4,7 @@ describe Category do
 	it "has a valid factory" do
 		expect(FactoryGirl.build(:category)).to be_valid
 	end
+	
 	it "is valid with a name and order_type" do
 		expect(Category.new(name: "test", order_type: build(:order_type))).to be_valid
 	end

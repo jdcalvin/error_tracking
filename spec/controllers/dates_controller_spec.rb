@@ -8,13 +8,18 @@ describe DatesController do
 	end
 	
 	describe "GET #show_year" do
-		it 'redirects to archive for current year'
-		it 'renders :archive template'
+		it 'redirects to archive for current year' do
+			get :show_year, order_type_id: @order_type.id, year: 2014
+			expect(response).to redirect_to order_type_archive_path(@order_type, assigns(:year))
+		end
 	end
 	
 	describe "GET #show_month" do
 
-		it 'renders the :show_month template'
+		it 'renders the :show_month template' do
+			get :show_month, order_type_id: @order_type.id, month: 2, year: 2014
+			expect(response).to render_template :show_month
+		end
 		it 'date parameters return correct time range for orders'
 		it 'collects orders by month'
 		it 'groups orders by day'
@@ -27,7 +32,10 @@ describe DatesController do
 			it "flash message 'Invalid Date'"
 		end
 		context "when valid" do
-			it "@date assigns month if valid"
+			it "@date assigns month" do
+				get :show_month, order_type_id: @order_type.id, month: 2, year:2014
+				expect(assigns(:month)).to eq 2
+			end
 		end
 	end
 

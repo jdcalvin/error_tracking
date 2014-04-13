@@ -1,7 +1,7 @@
 ABOUT
 =====
 
-This application is intended for companies that do large scale production, and utilize qa/qc review of thier products, or with some modifications could easily be utilized as a survey application. For more information visit the applications [about page](http://afternoon-springs-2374.herokuapp.com/about)
+This is an example enterprise level application built with rails. It is intended for companies that do large scale production, and utilize qa/qc review of thier products, or with some modifications could easily be utilized as a survey application. For more information visit the applications [about page](http://afternoon-springs-2374.herokuapp.com/about)
 
 Setup
 -----

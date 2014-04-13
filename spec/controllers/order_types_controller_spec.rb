@@ -4,7 +4,6 @@ describe OrderTypesController do
 		let(:user) {FactoryGirl.create(:admin)}
 		before{sign_in user}
 
-
 	it 'should have a current user' do
 		user.should_not be_nil
 	end
