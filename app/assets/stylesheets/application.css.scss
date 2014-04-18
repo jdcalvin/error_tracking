@@ -12,28 +12,11 @@
  *= require_tree .
 */
 
+$border-radius-base: 0;
+$border-radius-small: 0;
+$border-radius-large: 0;
+
 @import "bootstrap";
-
-.btn {
-	border-radius: 0;
-}
-
-.panel {
-	border-radius: 0;
-}
-
-.well {
-	border-radius: 0;
-}
-
-.list-group-item {
-	border-radius: 0;
-}
-
-.form-control {
-	border-radius: 0;
-}
-
 .panel {
 	margin: 0px;
 }

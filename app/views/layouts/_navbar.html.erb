@@ -1,25 +1,21 @@
 <div id="nav_menu">
   <table style="border:none">
     <tr>
-      <td>
-  <%= link_to '<span class="glyphicon glyphicon-home"></span>'.html_safe, root_path %></td>
-  <td>
-  <%= link_to '<span class="glyphicon glyphicon-question-sign"></span>'.html_safe, help_path %></td>
-  <td>
-  <%= link_to '<span class="glyphicon glyphicon-comment"></span>'.html_safe, contact_path %></td>
-  <td>
-  <%= link_to '<span class="glyphicon glyphicon-dashboard"></span>'.html_safe, organization_admin_panel_path(@organization) %></td>
-</tr>
-</table>
+      <td><%= link_to '<span class="glyphicon glyphicon-home"></span>'.html_safe, root_path %></td>
+  		<td><%= link_to '<span class="glyphicon glyphicon-question-sign"></span>'.html_safe, help_path %></td>
+  		<td><%= link_to '<span class="glyphicon glyphicon-comment"></span>'.html_safe, contact_path %></td>
+  		<td><%= link_to '<span class="glyphicon glyphicon-dashboard"></span>'.html_safe, organization_admin_panel_path(@organization) %></td>
+		</tr>
+	</table>
 </div>
 
 <% if user_signed_in? %>
 
   <div class="panel panel-group" style="margin-top: 0em; margin:0px;" 
-    id="accordion nav_bar">
-    <%= render 'layouts/nav/user' %>  
-    <%= render 'layouts/nav/template' %>
-    <%= render 'layouts/nav/search' %>
+		id="accordion nav_bar">
+		<% ['user', 'template', 'search'].each do |f| %>
+			<%= render "layouts/nav/#{f}" %>  
+		<% end %>
   </div>
     <%= render 'layouts/nav/new_order' %>
 

@@ -4,13 +4,16 @@ development:
   pool: 5
   host: localhost
   timeout: 5000
-
+  user: user
+  password: user
 test:
   adapter: postgresql
   database: error_tracker_test
   pool: 5
   host: localhost
   timeout: 5000
+  user: user
+  password: user
 
 production:
   adapter: postgresql
