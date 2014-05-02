@@ -7,6 +7,8 @@ Bundler.require(:default, Rails.env)
 
 module Tracker
   class Application < Rails::Application
+
+  	I18n.enforce_available_locales = false
     config.time_zone = 'Pacific Time (US & Canada)'
     Rack::MiniProfiler.config.position = 'right'
 		config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
