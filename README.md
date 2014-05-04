@@ -8,15 +8,4 @@ Setup
 
 This applicaiton is currently configured to run on postgres. Ensure neccessary changes are made to `database.yml` before running `db:setup`.
 
-Currently, `db/seeds.rb` is set up to randomly generate a number of `organizations`, `users`, `order_types`, and `orders` and will be organized into seperate rake files in a future update.
-
-Usage
------
-
-More to come
-
-* Devise configurations
-
-* Creating/modifying templates
-
-* Modifying validations
+Ruuning `db/seeds.rb` will generate a set of organizations with users and activity. Rake tasks are currently being written to create customized data sets for demoing.
