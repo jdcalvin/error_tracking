@@ -4,7 +4,7 @@
   <div class="form-order_type" role="form"> 
     <div>
       <h3>Template Title</h3>
-      <%= f.text_field :title, class: "form-control", style:"max-width:200px; margin-left: 1em; margin: .5em;" %>
+      <%= f.text_field :title, class: "form-control item-title" %>
    	</div>
 
     <%= f.hidden_field(:organization_id, :value => @organization.id) %>

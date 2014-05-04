@@ -25,7 +25,7 @@ class OrdersController < ApplicationController
     if @order.save
       flash[:success] = "Order successfully created"
         redirect_to order_type_show_day_path(@order_type, 
-        @order.created_at.year, @order.created_at.month, @order.created_at.day)
+        @order.date[2], @order.date[1], @order.date[0])
     else
       render action: 'new'
     end
@@ -40,7 +40,7 @@ class OrdersController < ApplicationController
       @order.save
 			flash[:success] = "Order successfully updated"
 			redirect_to order_type_show_day_path(@order_type, 
-        @order.created_at.year, @order.created_at.month, @order.created_at.day)
+        @order.date[2], @order.date[1], @order.date[0])
 		else
 			render action: 'edit'
 		end

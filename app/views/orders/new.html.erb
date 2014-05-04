@@ -5,8 +5,8 @@
   <div class="form-inline form-order" role="form">
 
     <div class="field">
-      <%= f.label :order_name, "Order ID:", style:"width: 100px" %> 
-      <%= f.text_field :order_name, class: "form-control" %>
+      <%= f.label :order_name, "Order ID:" %> 
+      <%= f.text_field :order_name, class: "form-control item-title" %>
     </div>
 
     <div class="field" style="padding-top: .5em;">
@@ -30,15 +30,14 @@
             <td class="td-description" style="padding-left: 2em;">
               <%= task.description%>
             </td>
-           
             <%= f.fields_for :validations, @order.validations.build do |builder| %>
-  <td class="td-status">
-  	<div>
-	    <%= builder.check_box :approval %>
-	    <%= builder.hidden_field(:task_id, :value => task.id) %>
-  	</div>
-	</td> 
-<% end %>
+              <td class="td-status">
+              	<div>
+            	    <%= builder.check_box :approval %>
+            	    <%= builder.hidden_field(:task_id, :value => task.id) %>
+              	</div>
+            	</td> 
+    <% end %>
            
           </tr>
         <% end %>

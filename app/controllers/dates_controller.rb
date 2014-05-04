@@ -12,7 +12,7 @@ class DatesController < ApplicationController
   end
 
   def show_month
-    time_range = (@date.beginning_of_month.to_date..@date.end_of_month.to_date + 1)
+    time_range = (@date.beginning_of_month.to_date..@date.end_of_month.to_date - 1)
     @orders = @order_type.orders.date(time_range)
     @orders_by_day = @orders.group_by {|x| x.created_at.day }
     @order_error_status = @orders.group_by(&:error)

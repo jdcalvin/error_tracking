@@ -8,7 +8,7 @@
 				<table style="border:none">
 					<th><%= f.text_field :name, class: "form-control"%></th>
 				<th>
-					<%= link_to_remove_association '', f, class: "glyphicon glyphicon-remove", style: "padding:0;padding-left: .5em;color: #a94442", data: { confirm: "Are you sure?"+"\n"+"\n"+"Removing category will also remove all associated tasks" } %>
+					<%= link_to_remove_association '', f, class: "remove-item", data: { confirm: destroy_alert } %>
 					<%= f.hidden_field :_destroy %>
 				</th>
 				</table>

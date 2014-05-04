@@ -18,6 +18,10 @@ class Order < ActiveRecord::Base
     .includes(:validations).includes(:tasks).includes(:categories)
   end
 
+  def date
+    arr = [self.created_at.day, self.created_at.month, self.created_at.year]
+  end
+    
   def show_errors
   	show_errors = validations.select {|x| x.approval}
   	hash = Hash.new{|h,k| h[k] = []}

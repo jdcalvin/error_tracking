@@ -5,6 +5,7 @@
 HTML
 ====================================================================
 */
+
 .field_with_errors {
 	display: inline;
 	color: #a94442;
@@ -248,4 +249,34 @@ padding-right: .5em;;
 
 ol {
 	padding-left: -5px;
+}
+
+/*
+GLYPHS
+*/
+
+.remove-item {
+	@extend .glyphicon; 
+	@extend .glyphicon-remove;
+	padding:0;
+	padding-left: .5em;
+	color: #a94442;
+}
+
+.remove-item:hover {
+	color: #750900;
+}
+
+.item-title {
+	max-width:200px; 
+	margin-left: 1em; 
+	margin: .5em;
+}
+
+.alert-header {
+	border: 1px solid #a94442; 
+	padding-left: 1em; 
+	background-color: #dddddd;
+	margin: 0;
+	margin-bottom: 1em
 }
