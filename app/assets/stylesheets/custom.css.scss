@@ -176,6 +176,17 @@ CONTENT
 	border-color: 1px solid #a94442;
 	color: #31708f;
 }
+.alert {
+	border-radius:0; 
+	padding: .5em;
+}
+
+.error-message {
+	background-color:transparent; 
+	border:none; 
+	margin-bottom: 0; 
+	padding-left: 0px;
+}
 
 .alert-notice {
 	background-color: #d9edf7;

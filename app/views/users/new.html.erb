@@ -1,8 +1,9 @@
-<%if signed_in? %>
-<h2>Create New User</h2>
+<% if current_user.nil? %>
+  <%= render 'users/new_org' %>
 <% else %>
-<h2>Sign Up</h2>
+  <%= render 'users/add_to_org' %>
 <% end %>
+
 <%= form_for @user do |f| %>
 	<%= render 'layouts/error_messages', object: f.object %>
 

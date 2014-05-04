@@ -1,5 +1,5 @@
 <% flash.each do |key, value| %>
-	<div class="<%="alert alert-#{key}"%>" style="border-radius:0; padding: .5em;">
+	<div class="<%="alert alert-#{key}"%>">
 		<span class="glyphicon glyphicon-<%=alert_icons[key]%>" style="font-size: 15px"></span>
 		<%= value %>
 	</div>
