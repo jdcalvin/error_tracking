@@ -1,6 +1,31 @@
 
 def notice(item)
-	h1("CREATED #{item.class.name}: NAME: #{item.title} | ID: #{item.id}")
+	h1("CREATED #{item.class.name}: NAME: #{title_selector(item)} | ID: #{item.id}")
+end
+
+def title_selector(item)
+	case item.class.name
+	when "Order"
+		item.order_name
+	when "User"
+		if item.admin == true
+			status = 'Admin'
+		else
+			status = 'User'
+		end
+		arr = [item.email, status]
+	when 'OrderType'
+		item.title
+	when 'Organization'
+		item.title
+	when 'Category'
+		item.name
+	when 'Task'
+		item.description
+	when 'Validation'
+		puts 'Validation'
+	end
+		#No ELSE - should already be verified
 end
 
 def notice_collection(item)

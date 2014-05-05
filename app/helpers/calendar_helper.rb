@@ -5,16 +5,11 @@ module CalendarHelper
     Calendar.new(self, date, block).table
   end
 
-  def list_months
-    months = "January February March April May June July August September October November December".split(" ")
-  end
-
   class Calendar < Struct.new(:view, :date, :callback)
     HEADER = %w[SUN MON TUES WEDS THURS FRI SAT]
     START_DAY = :sunday
 
     delegate :content_tag, to: :view
-
 
     def table
       content_tag :table, class: "calendar" do
