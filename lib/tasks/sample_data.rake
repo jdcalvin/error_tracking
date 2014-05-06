@@ -7,7 +7,7 @@ namespace :demo do
 		make_org(opts)
 	end
 	
-	desc "Adds samle order_type to DB - Takes required organization id as argument"
+	desc "Adds sample order_type to DB - Takes required organization id as argument"
 	task :order_type, [:org, :cat_opts, :task_opts] => :environment do |t, args|
 		org = args[:org]
 		cat_opts = args[:cat_opts]
@@ -28,4 +28,6 @@ namespace :demo do
 		puts cat_opts["category"]
 		puts task_opts["task"]
 	end
+
+	task
 end

@@ -23,13 +23,11 @@ gem 'better_errors'
 gem 'binding_of_caller'
 gem 'meta_request'
 gem 'dalli'
-gem 'pundit'
 gem 'pg', '0.15.1'
  
 group :doc do
   gem 'sdoc', require: false
 end
-
 
 group :development, :test do	
 	gem 'rspec-rails'

@@ -1,14 +1,9 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  include Pundit
   protect_from_forgery with: :exception
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :today
   before_filter :organization
   require 'will_paginate/array'
-
-
 
   def today
     @today = Time.now.in_time_zone

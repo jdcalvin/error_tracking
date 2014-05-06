@@ -1,10 +1,4 @@
-
 /* universal */
-/*
-====================================================================
-HTML
-====================================================================
-*/
 
 .field_with_errors {
 	display: inline;
@@ -12,17 +6,32 @@ HTML
 	input {
 		background-color: #f2dede;
 	}
-	}
+}
 body {
-background-color:#2C2731;
-opacity: .97;
-height: 100%;
+	background-color:#2C2731;
+	opacity: .97;
+	height: 100%;
 }
-html {
-}
+
 html, body, .wrapper {
   height: 100%;
 }
+
+div {
+	label
+	{
+		width: auto;
+	}
+}
+
+ol {
+	padding-left: -5px;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
 .wrapper {
 	padding-bottom: 50px;
 }
@@ -30,6 +39,7 @@ html, body, .wrapper {
 .glyphicon {
 	padding-right: 1em;
 }
+
 path:hover {
 	cursor: pointer;
 }
@@ -52,16 +62,6 @@ path:hover {
 .form-control {
 	width: auto;
 	margin-bottom: .5em;
-}
-
-div {
-label
-{
-	width: auto;
-}
-}
-a:hover {
-text-decoration: none;
 }
 
 table {
@@ -89,21 +89,19 @@ table {
 		}
 	}
 }
-	.line-even {
-		background: #D8DDFC;
-	}
-	.line-odd {
-		background: none;
-	}
-	button
-{
+
+.line-even {
+	background: #D8DDFC;
+}
+
+.line-odd {
+	background: none;
+}
+
+button {
 	a:visited {color: white;}
 }
-/*
-====================================================================
-SIDE
-====================================================================
-*/
+
 .btn-menu:hover {
 	background-color: #adadad;
 }
@@ -166,11 +164,7 @@ SIDE
 	padding: .5em;
 	padding-bottom: 1em;
 }
-/*
-====================================================================
-CONTENT
-====================================================================
-*/
+
 .alert-alert {
 	background-color: #d9edf7;
 	border-color: 1px solid #a94442;
@@ -179,6 +173,14 @@ CONTENT
 .alert {
 	border-radius:0; 
 	padding: .5em;
+}
+
+.alert-header {
+	border: 1px solid #a94442; 
+	padding-left: 1em; 
+	background-color: #dddddd;
+	margin: 0;
+	margin-bottom: 1em
 }
 
 .error-message {
@@ -219,11 +221,7 @@ CONTENT
 textarea {
 	resize: none;
 }
-/*
-====================================================================
-FOOTER
-====================================================================
-*/
+
 footer {
 	padding-bottom: 2em;
 	padding-top: 2em;
@@ -258,13 +256,7 @@ padding-right: .5em;;
   padding-left: 20px;
 }
 
-ol {
-	padding-left: -5px;
-}
 
-/*
-GLYPHS
-*/
 
 .remove-item {
 	@extend .glyphicon; 
@@ -284,10 +276,3 @@ GLYPHS
 	margin: .5em;
 }
 
-.alert-header {
-	border: 1px solid #a94442; 
-	padding-left: 1em; 
-	background-color: #dddddd;
-	margin: 0;
-	margin-bottom: 1em
-}

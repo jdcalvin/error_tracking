@@ -13,7 +13,6 @@ require 'will_paginate/array'
 		end
 	end
 
-
 	def redirect_back_or_root
  		redirect_to :back
 	rescue ActionController::RedirectBackError
