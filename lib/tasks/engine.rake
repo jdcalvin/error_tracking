@@ -82,3 +82,11 @@ def return_obj(obj)
 	puts ""
 	h2("If empty re-run parent task to create a parent object")
 end
+
+def hashify(opts)
+	key = opts.slice(0..(opts.index(':')-1)) 
+	value = opts.slice(key.index(key.last)+2..-1).to_i
+	hash = Hash.new
+	hash[key] = value
+	hash
+end

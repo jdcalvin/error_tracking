@@ -5,14 +5,15 @@ def make_org(opts={}) #:user, :order_type
 		name = Faker::Company.name
 		org = Organization.create!(title: name)
 		notice(org)
-		key = opts.slice(0..(opts.index(':')-1)) 
-		value = opts.slice(key.index(key.last)+2..-1).to_i
-		hash = Hash.new
-		hash[key] = value
-		hash[key].times do
-			make_user(org, false) #Regular User
+		opts = hashify(opts)
+
+		create_records(opts)
+		if opts.keys == [:user]
+			opts["user"].times do 
+				make_user(org, false)
+			end
 		end
-		make_user(org, true) #Admin User
+		make_user(org, true)
 		h2("User passwords are 'password'")
 end
 
@@ -26,20 +27,43 @@ def make_user(org, type)
 	email: email, password: 'password', organization_id: org.id, admin: type)
 	notice(user)
 end
+
 #====================================================================
 #TASK
-def make_task
+def make_task(category)
+	desc = "Task #{rand(100..999)}"
+	Task.create(description: desc, category: category)
 end
+
 #====================================================================
 #CATEGORY
-def make_category
+def make_category(type)
+	name = "Category #{rand(100..999)}"
+	Category.create(name: name, order_type: type)
 end
 
 #====================================================================
 #ORDER_TYPE
-def make_order_type(item, type)
-	puts item
-	puts type
+def make_order_type(org, cat_opt, task_opt)
+	title = Faker::Commerce.department
+	cat_opt = hashify(cat_opt)
+	task_opt = hashify(task_opt)
+
+	type = OrderType.create(title: title, organization_id: org)
+	notice(type)
+
+	categories = []
+	cat_opt["category"].times do
+		categories << make_category(type)
+	end
+	notice_collection(type.categories)
+
+	categories.each do |category|
+		task_opt["task"].times do
+			make_task(category)
+		end
+	end
+	notice_collection(type.tasks)
 end
 
 #====================================================================
