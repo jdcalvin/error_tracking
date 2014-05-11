@@ -1,16 +1,22 @@
+function testAlert(name) {
+  alert("."+name);
+};
+
+
+
 if ($(document).has('#chart')) {
-function pieChart() {
+  function pieChart() {
     $('#chart').highcharts({
       chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
         plotShadow: false
       },
-//ok
+
       title: {
         text: 'Errors by Category'
       },
-//ok
+
       plotOptions: {
         pie: {
           allowPointSelect: true,
@@ -23,13 +29,43 @@ function pieChart() {
           }
         }
       },
-//ok
+
       series: [{
         type: 'pie',
         name: 'Total',
         data: gon.chart_data  
       }]
-
     });   
+    //$('path').on('click', function(){
+     //   alert('Hello');
+    //});
   };
-  }
+String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
+  function barChart(name) {
+    $('.'+name).highcharts({
+        data: {
+            table: document.getElementById(name)
+        },
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: name.capitalize().split('-container')[0]
+        },
+        yAxis: {
+            allowDecimals: false,
+            title: {
+                text: 'Units'
+            }
+        },
+        tooltip: {
+            formatter: function() {
+                return '<b>'+ this.series.name +'</b><br/>'+
+                    this.point.y +' '+ this.point.name.toLowerCase();
+            }
+        }
+    });
+  };
+}

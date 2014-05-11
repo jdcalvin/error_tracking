@@ -19,6 +19,7 @@ class DatesController < ApplicationController
     @errors = @orders.breakdown
     gon.chart_data = pie_chart_data(@errors)
     gon.date = @date.strftime("%B %Y")
+    gon.test = @errors.keys
   end
 
   def show_year
