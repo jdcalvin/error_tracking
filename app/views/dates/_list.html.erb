@@ -1,0 +1,15 @@
+<div class="breakdown well list-group" >
+	<% @errors.each_pair do |category, tasks| %>
+		<div id="<%= category.downcase.gsub(/ /,"_") %>-container">
+			<a href="#" class="list-group-item active">
+				<%= category %>
+			</a>
+				<% @errors[category].each_pair do |task, value| %>
+					<li class="list-group-item">
+						<span class="badge"><%= value %></span>
+						<%= task %>
+					</li>
+				<% end %>
+		</div>
+	<% end %>
+</div>
