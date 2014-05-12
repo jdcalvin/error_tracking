@@ -12,10 +12,12 @@
   </div>
 		<div class="panel-body">
 		<% if @orders.count > 0 %> 
-			<%= render 'chart' %>
-			<div id="chart" class="chart">
+			<div id="chart" class="chart"></div>
+			<div id ="render-chart">
+				
+				<%= render 'bar_charts' %>
 			</div>
-			<%= render 'bar_charts' %>
+			<%= render 'chart' %>
 		<% end %>
 		</div>
 		

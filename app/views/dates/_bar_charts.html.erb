@@ -1,17 +1,14 @@
-<div id ="table_agg">
-	<% @errors.each_pair do |category, tasks| %>
-		
-			<table id="<%= category.downcase.gsub(/ /,"_") %>-container" style="display:none">
-				<th colspan="2"><%=category%></th>
-				<% @errors[category].each_pair do |task, value| %>
-					<tr>
-						<td><%=task%></td>
-						<td><%=value%></td>
-					</tr>
-				<% end %>
-			</table>		
+<% @errors.each_pair do |category, tasks| %>	
+	<table id="<%= category.downcase.gsub(/ /,"_") %>-container" style="display:none">
+		<th colspan="2"><%=category%></th>
+		<% @errors[category].each_pair do |task, value| %>
+			<tr>
+				<td><%=task%></td>
+				<td><%=value%></td>
+			</tr>
+		<% end %>
+	</table>		
 
-		<div class="chart bar_chart <%=category.downcase.gsub(/ /,"_") %>-container" style="display:none">
-		</div>
-	<% end %>
+<div class="bar_chart <%=category.downcase.gsub(/ /,"_") %>-container" style="display:none">
 </div>
+<% end %>
