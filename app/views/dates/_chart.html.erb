@@ -4,7 +4,7 @@
 
     var categories = gon.test;
 		for(i = 0; i < categories.length; i++){
-			name = categories[i].toLowerCase()+"-container";
+			name = categories[i].toLowerCase().replace(' ', '_')+"-container";
 			barChart(name.toString());
 		}
 

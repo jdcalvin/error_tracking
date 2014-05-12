@@ -25,6 +25,7 @@ class Order < ActiveRecord::Base
   def show_errors
   	show_errors = validations.select {|x| x.approval}
   	hash = Hash.new{|h,k| h[k] = []}
+
 	  show_errors.each {|x| hash[x.category_name] << x.task_description }
   	return hash
   end
@@ -40,6 +41,7 @@ class Order < ActiveRecord::Base
   def self.breakdown
     new_hash = Hash.new(0)
     hash = Hash.new{|h, k| h[k] = []}
+
     self.with_errors.each do |order|
       order.show_errors.each_pair do |k,v|
         hash[k] << v
@@ -72,4 +74,5 @@ class Order < ActiveRecord::Base
       errors?
     end
   end
+
 end

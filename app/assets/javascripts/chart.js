@@ -31,14 +31,23 @@ if ($(document).has('#chart')) {
       },
 
       series: [{
+        allowPointSelect: true,
         type: 'pie',
         name: 'Total',
-        data: gon.chart_data  
+        data: gon.chart_data,
+        point: {
+          events: {
+            click: function() {
+              var select_chart = (this.name).toLowerCase().replace(' ','_')+'-container';
+              $('.'+select_chart).toggleClass('hidden');
+            }
+          }    
+        }
+
       }]
+
+      
     });   
-    //$('path').on('click', function(){
-     //   alert('Hello');
-    //});
   };
 String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
