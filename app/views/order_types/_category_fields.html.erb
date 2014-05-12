@@ -8,7 +8,7 @@
 				<table style="border:none">
 					<th><%= f.text_field :name, class: "form-control"%></th>
 				<th>
-					<%= link_to_remove_association '', f, class: "remove-item", data: { confirm: destroy_alert } %>
+					<%= link_to_remove_association '', f, class: "remove-item glyphicon glyphicon-remove", data: { confirm: destroy_alert } %>
 					<%= f.hidden_field :_destroy %>
 				</th>
 				</table>

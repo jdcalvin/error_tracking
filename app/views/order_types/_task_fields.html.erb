@@ -4,7 +4,7 @@
 		<table style="border:none">
 			<th style="width:184px;"><%= f.text_field :description, class: "form-control" %></th>
 <th><%= f.hidden_field :_destroy %>
-		<%= link_to_remove_association '', f, class: "remove-item", data: { confirm: destroy_alert } %>
+		<%= link_to_remove_association '', f, class: "remove-item glyphicon glyphicon-remove", data: { confirm: destroy_alert } %>
 </th>
 </table>
 	</div>
