@@ -9,6 +9,11 @@ end
 ['Title Company', 'Org1', 'Org2'].each do |org|
 	Organization.create(title:org)
 end
+
+User.create(first_name:"Admin", last_name: "User", 
+	email:"admin@admin.com", password:"password", 
+	admin:true, organization_id: 1)
+
 notice "Organizations"
 #Users
 @orgs = Organization.all
@@ -175,6 +180,8 @@ def create_orders_for(month, type, number)
 end
 
 #Main test database to test load
+create_orders_for(5,OrderType.find(1), 500)
+notice("500 orders for Title Company")
 
 OrderType.all.each do |x|
 	unless x.id == 2
