@@ -1,6 +1,6 @@
 /* universal */
 
-.bar_charts {
+.chart {
 	width:auto; 
 	height: 300px;
 }
@@ -9,8 +9,8 @@
 	display:none;
 }
 
-#taxes-container {
-	display:none;
+.highcharts-background {
+	background-color: red;
 }
 .field_with_errors {
 	display: inline;

@@ -38,8 +38,9 @@ if ($(document).has('#chart')) {
         point: {
           events: {
             click: function() {
-              var select_chart = (this.name).toLowerCase().replace(' ','_')+'-container';
-              $('.'+select_chart).toggleClass('hidden');
+              var chart_class = (this.name).toLowerCase().replace(' ','_')+'-container';
+              $('.bar_chart').hide();
+              $('.'+chart_class).fadeIn();
             }
           }    
         }
@@ -58,10 +59,10 @@ String.prototype.capitalize = function() {
             table: document.getElementById(name)
         },
         chart: {
-            type: 'column'
+            type: 'column',
         },
         title: {
-            text: name.capitalize().split('-container')[0]
+            text: name.capitalize().replace('_',' ').split('-container')[0]
         },
         yAxis: {
             allowDecimals: false,

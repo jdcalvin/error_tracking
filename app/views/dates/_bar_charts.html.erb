@@ -1,7 +1,7 @@
-<div id = "table_agg">
+<div id ="table_agg">
 	<% @errors.each_pair do |category, tasks| %>
-		<div class="table-wrapper" style="display:none">
-			<table id="<%= category.downcase.gsub(/ /,"_") %>-container">
+		
+			<table id="<%= category.downcase.gsub(/ /,"_") %>-container" style="display:none">
 				<th colspan="2"><%=category%></th>
 				<% @errors[category].each_pair do |task, value| %>
 					<tr>
@@ -10,9 +10,8 @@
 					</tr>
 				<% end %>
 			</table>		
-		</div>
 
-		<div class="hidden bar_charts <%=category.downcase.gsub(/ /,"_") %>-container">
+		<div class="chart bar_chart <%=category.downcase.gsub(/ /,"_") %>-container" style="display:none">
 		</div>
 	<% end %>
 </div>
