@@ -5,23 +5,34 @@
   <div class="panel-body">
     <ul class="nav nav-tabs">
       <li class="active"><a href="#admin-all" data-toggle="tab">All</a></li>
-      <% directory_partials('organizations/admin').each do |x| %>
-        <li><a href="#admin-<%=x%>" data-toggle="tab"><%=x.capitalize%></a></li>
+      <% ['org','templates','users'].each do |partial| %>
+        <li>
+          <a href="#admin-<%=partial%>" data-toggle="tab">
+            <%=partial.capitalize%>
+          </a>
+        </li>
       <% end %>
     </ul>
 
 <!-- Tab panes -->
     <div class="tab-content">
       <div class="tab-pane active" id="admin-all">
-      	<p style="padding-top:1em">Modify elements of your organization. Change or remove templates or users, and rename your organization.</p>
-        <% directory_partials('organizations/admin').each do |x| %>
-          <%= render "organizations/admin/#{x}" %><br>
+      	<p style="padding-top:1em">
+          Modify elements of your organization. Change or remove templates or users, and rename your organization.
+        </p>
+        
+        <% ['org','templates','users'].each do |partial| %>
+          <%= render "organizations/admin/#{partial}" %>
+        <% end %>
+
+        <% ['org','templates','users'].each do |partial| %>
+          <%= render "organizations/admin/#{partial}" %><br>
         <% end %>	
       </div>
 
-      <% directory_partials('organizations/admin').each do |x| %>
-        <div class="tab-pane" id="admin-<%=x%>">
-      	 <%= render "organizations/admin/#{x}" %>
+      <% ['org','templates','users'].each do |partial| %>
+        <div class="tab-pane" id="admin-<%=partial%>">
+      	 <%= render "organizations/admin/#{partial}" %>
         </div>
       <% end %>
 

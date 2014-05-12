@@ -24,11 +24,5 @@ module ApplicationHelper
     "Are you sure?"+"\n"+"\n"+"Removing item will remove all associated order data"
   end
 
-  def directory_partials(dir)
-    dir = Dir.entries("app/views/" + dir)[2..-1]
-    arr = []
-    dir.map {|x| arr << x.slice(1..(x.index('.')-1)) }
-    return arr
-  end
 end
 
