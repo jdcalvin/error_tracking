@@ -114,7 +114,7 @@ describe OrganizationsController do
 		end
 	end
 	describe 'DELETE #destroy' do
-		pending("Unsure of applications implementation, if any")
+		#No application implementation
 	end
 
 	describe 'GET #admin' do

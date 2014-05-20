@@ -5,50 +5,56 @@ describe DatesController do
 	before :each do
 		sign_in user
 		@order_type = FactoryGirl.create(:order_type, :organization => user.organization)
+		@url = "/order_types/#{@order_type.id}"
 	end
 	
+	let (:controller) {DatesController.new}
+
 	describe "GET #show_year" do
-		it 'redirects to archive for current year' do
+		it 'renders the :archive template' do
 			get :show_year, order_type_id: @order_type.id, year: 2014
-			expect(response).to redirect_to order_type_archive_path(@order_type, assigns(:year))
+			expect(response).to redirect_to("#{@url}/archive")
+		end
+	
+		it 'routes to correct year' do
+			expect(:get => "#{@url}/date/2014").to route_to(
+				:controller => "dates",
+				:action => "show_year",
+				:order_type_id => @order_type.id.to_s,
+				:year => '2014')
 		end
 	end
-	
-	describe "GET #show_month" do
 
-		it 'renders the :show_month template' do
+	describe "GET #show_month" do
+		it 'routes to correct month' do
 			get :show_month, order_type_id: @order_type.id, month: 2, year: 2014
 			expect(response).to render_template :show_month
 		end
-		it 'date parameters return correct time range for orders'
-		it 'collects orders by month'
-		it 'groups orders by day'
-		context 'breakdown method' do
-			it 'organizes order data for chart'
-			it 'initialze gon variable for javascript'
+		it 'routes to correct month' do
+			expect(:get => "#{@url}/date/2014/5").to route_to(
+				:controller => "dates",
+				:action => "show_month",
+				:order_type_id => @order_type.id.to_s,
+				:year => '2014',
+				:month => '5')
 		end
-		context "when invalid" do
-			it "@date assigns to current month"
-			it "flash message 'Invalid Date'"
-		end
-		context "when valid" do
-			it "@date assigns month" 
-				#get :show_month, order_type_id: @order_type.id, month: 2, year:2014
-				#expect(assigns(:month)).to eq 2
-		end
+
 	end
 
 	describe "GET #show_day" do
 
-		it 'renders the :show_day template'
-		it 'date parameters return correct time range for orders'
-		it 'collects orders by order_type for that day'
-		context "when invalid" do
-			it "@date assigns to current day"
-			it "flash message 'Invalid Date'"
+		it 'renders the :show_day template' do
+			get :show_day, order_type_id: @order_type.id, day: 1, month:2, year: 2014
 		end
-		context "when valid" do
-			it "@date assigns year if valid"
+		
+		it 'routes to correct day' do
+			expect(:get => "#{@url}/date/2014/5/13").to route_to(
+				:controller => "dates",
+				:action => "show_day",
+				:order_type_id => @order_type.id.to_s,
+				:year => '2014',
+				:month => '5',
+				:day => '13')
 		end
 	end
 
