@@ -47,19 +47,24 @@ private
   end
   
   def set_date
-    validate_date
+    validate_year
+    validate_month
     return_date    
   end
 
-  def validate_date
+  def validate_year
     if params[:year].nil? || params[:year].to_i == 0
       params[:year] = @today.year
-      flash[:warning] = "Invalid date"
-    elsif params[:month].to_i < 1 || params[:month].to_i > 12
-      params[:month] = @today.month
-        flash[:warning] = "Invalid date"
+      invalid_date
     end
-  end    
+  end
+
+  def validate_month
+    if params[:month].to_i < 1 || params[:month].to_i > 12
+      params[:month] = @today.month
+      invalid_date
+    end
+  end
 
   def return_date
     date = [params[:year], params[:month], params[:day]]
@@ -68,10 +73,14 @@ private
       @date = Date.parse("#{date[2]}.#{date[1]}.#{date[0]}")
     else
       @date = @today
-      flash[:warning] = "Invalid date"
+      invalid_date
     end
   end
 
+  def invalid_date
+    flash[:warning] = "Invalid date"
+  end
+  
   def validate_user
     unless @order_type.organization == current_user.organization
       redirect_to root_url
