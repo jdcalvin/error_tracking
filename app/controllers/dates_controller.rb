@@ -17,9 +17,7 @@ class DatesController < ApplicationController
     @orders_by_day = @orders.group_by {|x| x.created_at.day }
     @order_error_status = @orders.group_by(&:error)
     @errors = @orders.breakdown
-    gon.chart_data = pie_chart_data(@errors)
-    gon.date = @date.strftime("%B %Y")
-    gon.test = @errors.keys
+    gon_data
   end
 
   def show_year
@@ -30,6 +28,12 @@ class DatesController < ApplicationController
     arr = []
     opt.each_pair { |key, value| arr << [key, opt[key].values.sum] }
     return arr
+  end
+
+  def gon_data
+    gon.chart_data = pie_chart_data(@errors)
+    gon.date = @date.strftime("%B %Y")
+    gon.test = @errors.keys
   end
 
   def clear_gon
@@ -43,6 +47,11 @@ private
   end
   
   def set_date
+    validate_date
+    return_date    
+  end
+
+  def validate_date
     if params[:year].nil? || params[:year].to_i == 0
       params[:year] = @today.year
       flash[:warning] = "Invalid date"
@@ -50,6 +59,9 @@ private
       params[:month] = @today.month
         flash[:warning] = "Invalid date"
     end
+  end    
+
+  def return_date
     date = [params[:year], params[:month], params[:day]]
           .map {|p| p ||= '1' }
     if Date.valid_date? date[0].to_i, date[1].to_i, date[2].to_i
@@ -66,7 +78,6 @@ private
       flash[:warning] = "You do not have permission to access that"
     end
   end
-
 
 end
 
