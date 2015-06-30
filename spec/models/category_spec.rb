@@ -9,11 +9,11 @@ describe Category do
 		expect(Category.new(name: "test", order_type: build(:order_type))).to be_valid
 	end
 	it "is invalid without a name" do
-		expect(build(:category, name: nil)).to have(1).errors_on(:name)
+		expect(Category.create.errors.messages[:name]).to eq ["can't be blank"]
 	end
 
 	it "is invalid without an order_type" do
-		expect(build(:category, order_type:nil)).to have(1).errors_on(:order_type)
+		expect(Category.create.errors.messages[:order_type]).to eq ["can't be blank"]
 	end
 
 	it "capitalizes full name before save" do

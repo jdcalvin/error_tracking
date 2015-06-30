@@ -6,13 +6,13 @@ describe Order do
 	end
 
 	it "is invalid without an order_name" do
-		expect(Order.new(order_name: nil)).to have(1).errors_on(:order_name)
+		expect(Order.create.errors.messages[:order_name]).to eq ["can't be blank"]
 	end
 	it "is invalid without an order_type" do
-		expect(Order.new(order_type: nil)).to have(1).errors_on(:order_type)
+		expect(Order.create.errors.messages[:order_type]).to eq ["can't be blank"]
 	end
 	it "is invalid without a user" do
-		expect(Order.new(user:nil)).to have(1).errors_on(:user)
+		expect(Order.create.errors.messages[:user]).to eq ["can't be blank"]
 	end
 	it "is valid with user, order_type, and order_name" do
 		expect(build(:order, :with_error)).to be_valid
@@ -31,7 +31,7 @@ describe Order do
       expect(order.error).to eq true
     end
     it "note is required" do
-    	expect(build(:order, :with_error, note: nil)).to have(1).errors_on(:note)
+    	expect(Order.create(error:true).errors.messages[:note]).to eq ["can't be empty if errors are present"]
     end
     it "checks validations for errors" do
     	expect(order.errors?).to eq true

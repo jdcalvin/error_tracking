@@ -1,5 +1,6 @@
 class DatesController < ApplicationController
-	before_filter :authenticate_user!
+
+  before_filter :authenticate_user!
   before_action :set_order_type
   before_action :validate_user
   before_action :set_date, only: [:show_year, :show_month, :show_day]

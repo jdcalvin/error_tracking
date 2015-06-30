@@ -6,7 +6,7 @@ describe Organization do
 	end
 
 	it "is invalid without a title" do
-		expect(Organization.new(title:nil)).to have(1).errors_on(:title)
+		expect(Organization.create.errors.messages[:title]).to eq ["can't be blank"]
 	end
 
 	it "is valid with a title" do

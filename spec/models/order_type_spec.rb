@@ -20,11 +20,11 @@ describe OrderType do
 
 	org_type = Organization.create(title:"blah")
 	it "is invalid without an organization" do
-		expect(OrderType.new(organization_id: nil)).to have(1).errors_on(:organization_id)
+		expect(OrderType.create(organization_id: nil).errors.messages[:organization_id]).to eq ["can't be blank"]
 	end
 
 	it "is invalid without a title" do
-		expect(OrderType.new(title: nil)).to have(1).errors_on(:title)
+		expect(OrderType.create(organization_id: nil).errors.messages[:title]).to eq ["can't be blank"]
 	end
 
 	it "is valid with an organization and title" do

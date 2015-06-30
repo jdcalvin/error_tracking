@@ -6,11 +6,11 @@ describe Task do
 	end
   
   it "must have a description" do
-    expect(build(:task, description: nil)).to have(1).errors_on(:description)
+    expect(Task.create.errors.messages[:description]).to eq ["can't be blank"]
   end
 
   it "must have a category" do
-    expect(build(:task, category: nil)).to have(1).errors_on(:category)
+    expect(Task.create.errors.messages[:category]).to eq ["can't be blank"]
   end
 
 

@@ -11,11 +11,12 @@ describe Validation do
   end
   describe "relationship entry" do
     it "must include an order" do
-      expect(Validation.create(order: nil)).to have(1).errors_on(:order)
+
+      expect(Validation.create(order: nil).errors.messages[:order]).to eq ["can't be blank"]
     end
       
     it "must include a task" do
-      expect(Validation.create(task_id: nil)).to have(1).errors_on(:task_id)
+      expect(Validation.create(order: nil).errors.messages[:task_id]).to eq ["can't be blank"]
     end
 
     it "must be unique" do
@@ -28,7 +29,7 @@ describe Validation do
   end
   
   it "must include a validation" do
-    expect(Validation.new(approval: nil)).to have(1).errors_on(:approval)
+    expect(Validation.create(order: nil).errors.messages[:approval]).to eq ["is not included in the list"]
   end    
 end
 

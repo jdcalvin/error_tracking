@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20140330223834) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "categories", force: true do |t|
+  create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20140330223834) do
 
   add_index "categories", ["order_type_id"], name: "index_categories_on_order_type_id", using: :btree
 
-  create_table "order_types", force: true do |t|
+  create_table "order_types", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20140330223834) do
 
   add_index "order_types", ["organization_id"], name: "index_order_types_on_organization_id", using: :btree
 
-  create_table "orders", force: true do |t|
+  create_table "orders", force: :cascade do |t|
     t.string   "order_name"
     t.string   "note"
     t.integer  "order_type_id"
@@ -47,13 +47,13 @@ ActiveRecord::Schema.define(version: 20140330223834) do
   add_index "orders", ["order_type_id"], name: "index_orders_on_order_type_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
-  create_table "organizations", force: true do |t|
+  create_table "organizations", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "tasks", force: true do |t|
+  create_table "tasks", force: :cascade do |t|
     t.string   "description"
     t.integer  "category_id"
     t.datetime "created_at"
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20140330223834) do
 
   add_index "tasks", ["category_id"], name: "index_tasks_on_category_id", using: :btree
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 20140330223834) do
   add_index "users", ["organization_id"], name: "index_users_on_organization_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "validations", force: true do |t|
+  create_table "validations", force: :cascade do |t|
     t.integer  "task_id"
     t.integer  "order_id"
     t.boolean  "approval"
