@@ -31,6 +31,7 @@ if ($(document).has('#chart')) {
         point: {
           events: {
             click: function(event) {
+              $(window).resize();
               var chart_class = (this.name).toLowerCase().replace(' ','_')+'-container';
               //gets valid class name. ie 'Task 1' = 'task_1-container'
               //$('#render-chart').removeClass();

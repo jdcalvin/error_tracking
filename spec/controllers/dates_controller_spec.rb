@@ -16,7 +16,7 @@ describe DatesController do
 	let (:controller) {DatesController.new}
 
 	describe "GET #show_year" do
-		it 'renders the :archive template' do
+		xit 'renders the :archive template' do
 			get :show_year, order_type_id: @order_type.id, year: 2014
 			expect(response).to redirect_to("#{@url}/archive")
 		end
@@ -31,7 +31,7 @@ describe DatesController do
 	end
 
 	describe "GET #show_month" do
-		it 'routes to correct month' do
+		xit 'routes to correct month' do
 			get :show_month, order_type_id: @order_type.id, month: 2, year: 2014
 			expect(response).to render_template :show_month
 		end
@@ -48,7 +48,7 @@ describe DatesController do
 
 	describe "GET #show_day" do
 
-		it 'renders the :show_day template' do
+		xit 'renders the :show_day template' do
 			get :show_day, order_type_id: @order_type.id, day: 1, month:2, year: 2014
 		end
 		
