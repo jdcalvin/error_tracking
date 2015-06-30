@@ -121,7 +121,7 @@ end
 
 #Generates random date for given month, excluding weekends
 def randomize_day(month)
-	t = Date.parse("1.#{month}.2014")
+	t = Date.parse("1.#{month}.2015")
 	days = (t..t.end_of_month).count
 	date = Date.new(2014, month, rand(days)+1)
 	if date.saturday? || date.sunday?
