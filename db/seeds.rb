@@ -1,5 +1,4 @@
 def notice(item)
-	puts "-"*80
 	puts "Completed: #{item}"
 	puts "-"*80
 end
@@ -123,7 +122,7 @@ end
 def randomize_day(month)
 	t = Date.parse("1.#{month}.2015")
 	days = (t..t.end_of_month).count
-	date = Date.new(2014, month, rand(days)+1)
+	date = Date.new(2015, month, rand(days)+1)
 	if date.saturday? || date.sunday?
 		randomize_day(month)
 	else
@@ -147,8 +146,7 @@ def create_orders_for(month, type, number)
 		org_users << x.id
 	end
 
-	puts "Creating #{number} orders for #{type.title} in #{Date::MONTHNAMES[month]}"
-	puts "..."
+	puts "Creating #{number} orders for #{type.title} in #{Date::MONTHNAMES[month]}.."
 
 	number.times do
 		order = Order.create(
@@ -176,7 +174,7 @@ end
 
 #Main test database to test load
 create_orders_for(5,OrderType.find(1), 200)
-notice("500 orders for Title Company")
+notice("200 orders for Title Company")
 
 OrderType.all.each do |x|
 	unless x.id == 2
