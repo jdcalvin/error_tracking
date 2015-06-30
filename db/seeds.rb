@@ -6,9 +6,9 @@ end
 
 #Organizations
 
-['Title Company', 'Org1', 'Org2'].each do |org|
-	Organization.create(title:org)
-end
+
+	title_co = Organization.create(title: ' Title Co')
+
 
 User.create(first_name:"Admin", last_name: "User", 
 	email:"admin@admin.com", password:"password", 
@@ -32,13 +32,13 @@ def randomize_admin
 	end
 end
 
-40.times do |x|
+20.times do |x|
 	User.create(
 		first_name: first_names[rand(first_names.count)], 
 		last_name: last_names[rand(last_names.count)], 
 		password: "password", 
-		email: "test.user#{x}@test.com",
-		organization_id: rand(1..3),
+		email: "test.user#{x}@test_title_co.com",
+		organization: title_co,
 		admin: randomize_admin)	
 	x = x + 1
 end
@@ -91,12 +91,7 @@ def test_type_for(org_num)
 	end
 end
 
-test_type_for(1)
-test_type_for(1)
-test_type_for(2)
-test_type_for(2)
-test_type_for(3)
-test_type_for(3)
+test_type_for(title_co)
 
 notice "Test Templates completed"
 
@@ -180,14 +175,12 @@ def create_orders_for(month, type, number)
 end
 
 #Main test database to test load
-create_orders_for(5,OrderType.find(1), 500)
+create_orders_for(5,OrderType.find(1), 200)
 notice("500 orders for Title Company")
 
 OrderType.all.each do |x|
 	unless x.id == 2
-		create_orders_for(1, x, rand(20..30))
-		create_orders_for(2, x, rand(20..30))
-		create_orders_for(3, x, rand(20..30))
+		create_orders_for(4, x, rand(20..30))
 	end
 end
 
