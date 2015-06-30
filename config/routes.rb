@@ -11,7 +11,7 @@ Tracker::Application.routes.draw do
     delete "/logout" => "devise/sessions#destroy",  :as => :destroy_user_session
   end
   resources :organizations do
-    get 'admin_panel' =>  'organizations#admin'
+    get 'admin_panel' =>  'organizations#admin', as: :admin_panel
   end
 
 	
@@ -27,16 +27,18 @@ Tracker::Application.routes.draw do
   #       SEARCH/DATE
   #===============================================================
   resources :search_results, only: [:search]
-  get '/search_results' => 'search_results#search'
+    get '/search_results' => 'search_results#search'
 
   resources :order_types do 
-  	get 'archive' => 'order_types#archive'
-    resources :orders
-    resources :date, only: [:show_year, :show_month, :show_day]
+    get 'archive' => 'order_types#archive'
 
-    get 'date/:year/:month/:day' => 'dates#show_day'
-    get 'date/:year/:month'      => 'dates#show_month'
-    get 'date/:year'             => 'dates#show_year'
+    # resources :date, only: [:show_year, :show_month, :show_day]
+
+    get "date/:year/:month/:day" => "dates#show_day", as: :show_day
+    get 'date/:year/:month'      => 'dates#show_month', as: :show_month
+    get 'date/:year'             => 'dates#show_year', as: :show_year
+    
+    resources :orders
   end
 
 end
