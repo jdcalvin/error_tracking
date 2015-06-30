@@ -4,7 +4,7 @@ class DatesController < ApplicationController
   before_action :set_order_type
   before_action :validate_user
   before_action :set_date, only: [:show_year, :show_month, :show_day]
-  after_filter :clear_gon, only: [:show_month]
+  # after_filter :clear_gon, only: [:show_month]
 
   def show_day
     time_range = (@date.beginning_of_day.in_time_zone..@date.end_of_day.in_time_zone)
@@ -31,15 +31,17 @@ class DatesController < ApplicationController
     return arr
   end
 
-  def gon_data
-    gon.chart_data = pie_chart_data(@errors)
-    gon.date = @date.strftime("%B %Y")
-    gon.test = @errors.keys
-  end
+  # def gon_data
+  #   return nil
+  #   gon.chart_data = pie_chart_data(@errors)
+  #   gon.date = @date.strftime("%B %Y")
+  #   gon.test = @errors.keys
+  # end
 
-  def clear_gon
-    gon.clear
-  end
+  # def clear_gon
+  #   return nil
+  #   gon.clear
+  # end
 
 private
 

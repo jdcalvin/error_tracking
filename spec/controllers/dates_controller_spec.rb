@@ -7,6 +7,11 @@ describe DatesController do
 		@order_type = FactoryGirl.create(:order_type, :organization => user.organization)
 		@url = "/order_types/#{@order_type.id}"
 	end
+
+	before do
+		DatesController.any_instance.stub(:gon_data){nil}
+		DatesController.any_instance.stub(:clear_gon){nil}
+	end
 	
 	let (:controller) {DatesController.new}
 
