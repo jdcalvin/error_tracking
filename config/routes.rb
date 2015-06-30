@@ -11,7 +11,7 @@ Tracker::Application.routes.draw do
     delete "/logout" => "devise/sessions#destroy",  :as => :destroy_user_session
   end
   resources :organizations do
-    get 'admin_panel', to: 'organizations', action: 'admin'
+    get 'admin_panel' =>  'organizations#admin'
   end
 
 	
@@ -19,23 +19,24 @@ Tracker::Application.routes.draw do
   #         STATIC
   #===============================================================
   root 'static_pages#home'
-  match 'contact',  to: 'static_pages#contact', via: 'get'
-  match 'help',     to: 'static_pages#help',    via: 'get'
-  match 'about',    to: 'static_pages#about',   via: 'get'
+  get 'contact'  => 'static_pages#contact'
+  get 'help'     => 'static_pages#help'  
+  get 'about'    => 'static_pages#about'   
 
   #===============================================================
   #       SEARCH/DATE
   #===============================================================
   resources :search_results, only: [:search]
-  get '/search_results', to: 'search_results#search', via: 'get'
+  get '/search_results' => 'search_results#search'
 
   resources :order_types do 
-  	match 'archive', 	   to: 'order_types#archive',   via: 'get'
+  	get 'archive' => 'order_types#archive'
     resources :orders
     resources :date, only: [:show_year, :show_month, :show_day]
-    	get 'date/:year/:month/:day', to: 'dates#show_day', as: 'show_day' 
-      get 'date/:year/:month', to: 'dates#show_month', as: 'show_month'
-      get 'date/:year', to: 'dates#show_year', as: 'show_year'
+
+    get 'date/:year/:month/:day' => 'dates#show_day'
+    get 'date/:year/:month'      => 'dates#show_month'
+    get 'date/:year'             => 'dates#show_year'
   end
 
 end
