@@ -15,7 +15,7 @@
 //= require turbolinks
 //= require jquery.turbolinks
 //= require cocoon
-//= require bootstrap
+//= require bootstrap-sprockets
 //= require highcharts
 //= require highcharts/highcharts-more
 //= require highcharts/modules/data

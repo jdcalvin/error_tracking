@@ -10,13 +10,15 @@
  *
  *= require_self
  *= require_tree .
+
 */
 
 $border-radius-base: 0;
 $border-radius-small: 0;
 $border-radius-large: 0;
-
+@import "bootstrap-sprockets";
 @import "bootstrap";
+ @import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css");
 .panel {
 	margin: 0px;
 }
