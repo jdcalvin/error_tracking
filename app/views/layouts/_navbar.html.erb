@@ -4,7 +4,10 @@
       <td><%= link_to '<span class="glyphicon glyphicon-home"></span>'.html_safe, root_path %></td>
   		<td><%= link_to '<span class="glyphicon glyphicon-question-sign"></span>'.html_safe, help_path %></td>
   		<td><%= link_to '<span class="glyphicon glyphicon-comment"></span>'.html_safe, contact_path %></td>
-  		<td><%= link_to '<span class="glyphicon glyphicon-dashboard"></span>'.html_safe, organization_admin_panel_path(@organization) %></td>
+
+  		<% if @organization %>
+        <td><%= link_to '<span class="glyphicon glyphicon-dashboard"></span>'.html_safe, organization_admin_panel_path(@organization) %></td>
+      <% end %>
 		</tr>
 	</table>
 </div>

@@ -10,6 +10,8 @@
         <%= link_to '<span class="glyphicon glyphicon-question-sign"></span>'.html_safe, help_path %>
 
         <%= link_to '<span class="glyphicon glyphicon-comment"></span>'.html_safe, contact_path %>  
-  			<%= link_to '<span class="glyphicon glyphicon-dashboard"></span>'.html_safe, organization_admin_panel_path(@organization) %>
+        <% if @organization %>
+  			   <%= link_to '<span class="glyphicon glyphicon-dashboard"></span>'.html_safe, organization_admin_panel_path(@organization) %>
+         <% end %>
 			</div>  		
 	</div>
