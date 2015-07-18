@@ -65,34 +65,4 @@ describe Order do
     end
   end
 
-
-  describe "show_errors" do
-    it 'returns list of errors' do
-      expect(TestOrders.new.create_order_with_errors_on('A-1','B-2','B-3').show_errors).to eq (
-        {
-          "A" => ["A-1"],
-          "B" => ["B-2", "B-3"],
-        })
-    end
-  end
-
-  describe "breakdown" do
-    let!(:test_orders)  {TestOrders.new}
-
-    before do
-      test_orders.create_order_with_errors_on('A-1','B-2')
-      test_orders.create_order_with_errors_on('A-1','B-2','B-3')
-      test_orders.create_order_without_errors
-      test_orders.create_order_with_errors_on('A-2','B-1','B-3')
-    end
-
-    it 'displays count of errors on order_type' do
-      expect(test_orders.all_orders.breakdown).to eq(
-        {
-          "A" => {"A-1"=>2, "A-2"=>1},
-          "B" => {"B-2"=>2, "B-3"=>2, "B-1"=>1},
-        })
-    end
-  end
-
 end
