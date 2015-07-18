@@ -12,8 +12,7 @@
     padding-right: .5em;
   }
   td, th {
-    font-family: "Lucida Grande", arial, helvetica, sans-serif;
-    border: 1px solid #999;
+    border: 1px solid #DDD;
   }
 
   th {
@@ -22,10 +21,10 @@
     text-align: center;
 		border: 1px solid #3276b1;
     line-height: 1.5em;
-
   }
 
   td {
+    font-size: 1vw;
     background: #FFF;
     color: #777;
     height: 80px;
