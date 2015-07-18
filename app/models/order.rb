@@ -4,18 +4,19 @@ class Order < ActiveRecord::Base
   cattr_accessor :skip_callbacks
   validates :order_type, presence: true
   validates :order_name, presence: true
-	validates :user, presence: true
-  validates_presence_of :note, :if => :require_note,
-    :message => "can't be empty if errors are present"
+  validates :user, presence: true
+  validates_presence_of :note, 
+                        :if      => :require_note,
+                        :message => "can't be empty if errors are present"
+
   has_many :validations, dependent: :destroy, inverse_of: :order
   has_many :tasks, through: :validations
   has_many :categories, through: :tasks
   accepts_nested_attributes_for :validations
   
-  
   def self.date(date)
     where(created_at: date)
-    .includes(:validations).includes(:tasks).includes(:categories)
+    .includes(:validations => { :task => :category})
   end
 
   def date
@@ -23,11 +24,11 @@ class Order < ActiveRecord::Base
   end
     
   def show_errors
-  	show_errors = validations.select {|x| x.approval}
-  	hash = Hash.new{|h,k| h[k] = []}
+    show_errors = validations.select {|x| x.approval}
+    hash = Hash.new{|h,k| h[k] = []}
 
-	  show_errors.each {|x| hash[x.category_name] << x.task_description }
-  	return hash
+    show_errors.each {|x| hash[x.category_name] << x.task_description }
+    return hash
   end
 
   def errors?

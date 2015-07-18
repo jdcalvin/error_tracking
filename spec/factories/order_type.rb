@@ -14,6 +14,7 @@ FactoryGirl.define do
 		title nil
 		association :organization
 	end
+
 end
 
 

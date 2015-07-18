@@ -26,6 +26,7 @@ gem 'binding_of_caller'
 gem 'meta_request'
 gem 'dalli'
 gem 'pg', '0.15.1'
+gem 'pry'
  
 group :doc do
   gem 'sdoc', require: false

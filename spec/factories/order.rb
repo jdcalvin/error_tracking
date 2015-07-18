@@ -4,6 +4,9 @@ FactoryGirl.define do
 		association :order_type
 		association :user
 		note 'test note'
+
+		trait :empty do
+		end
 		
 		trait :with_error do
 			error true

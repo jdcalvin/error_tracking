@@ -298,6 +298,7 @@ DEPENDENCIES
   libv8 (= 3.16.14.7)
   meta_request
   pg (= 0.15.1)
+  pry
   rack-mini-profiler
   rails (= 4.2)
   rails_12factor (= 0.0.2)
