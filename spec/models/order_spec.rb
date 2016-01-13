@@ -27,7 +27,7 @@ describe Order do
   describe "with errors" do  		
   	order = FactoryGirl.create(:order, :with_error)
 
-    it "status should return true" do
+    it "status returns true" do
       expect(order.error).to eq true
     end
     it "note is required" do
@@ -40,7 +40,7 @@ describe Order do
   describe "without errors" do
   	order = FactoryGirl.create(:order, :no_error)
 
-    it "status should return false" do
+    it "status returns false" do
       expect(order.error).to eq false
     end
     it "note isn't required" do

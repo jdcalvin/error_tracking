@@ -5,7 +5,7 @@ describe StaticPagesController do
 	before{sign_in user}
 
 	describe "GET #home" do
-		it 'if logged in should redirect to organization path' do
+		it 'if logged in redirects to organization path' do
 			get :home
 			expect(response).to redirect_to user.organization
 		end
@@ -17,7 +17,7 @@ describe StaticPagesController do
 		end
 	end
 	describe "GET #about" do
-		it 'should return about path' do
+		it 'returns about path' do
 			expect(about_path).to eq '/about'
 		end
 		it 'renders :about page' do
@@ -27,7 +27,7 @@ describe StaticPagesController do
 	end
 
 	describe "GET #contact" do
-		it 'should return contact path' do 
+		it 'returns contact path' do 
 			expect(contact_path).to eq '/contact'
 		end
 		it 'renders :contact page' do
@@ -36,7 +36,7 @@ describe StaticPagesController do
 		end
 	end
 	describe "GET #help" do
-		it 'should return help path' do 
+		it 'returns help path' do 
 			expect(help_path).to eq '/help'
 		end
 		it 'renders :help page' do

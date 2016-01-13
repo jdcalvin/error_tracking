@@ -4,8 +4,8 @@ describe OrderTypesController do
 		let(:user) {FactoryGirl.create(:admin)}
 		before{sign_in user}
 
-	it 'should have a current user' do
-		user.should_not be_nil
+	it 'instance of current_user exists' do
+		expect(user).not_to eq(nil)
 	end
 
 	describe 'GET #index' do
@@ -70,7 +70,7 @@ describe OrderTypesController do
 			it 'shows errors' do
 				@type = FactoryGirl.build(:invalid_order_type)
 				@type.valid?
-				@type.errors.messages[:title].should include("can't be blank")
+				expect(@type.errors.messages[:title]).to include("can't be blank")
 			end
 
 			it 're-renders :new template' do
@@ -117,7 +117,7 @@ describe OrderTypesController do
 			it 'shows errors' do
 				@order_type.update_attributes(title: nil)
 				@order_type.valid?
-				@order_type.errors.messages[:title].should include("can't be blank")
+				expect(@order_type.errors.messages[:title]).to include("can't be blank")
 			end
 			it 're-renders :edit template' do
 				patch :update, id: @order_type, order_type: attributes_for(:order_type, title:nil)

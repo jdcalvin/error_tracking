@@ -117,7 +117,7 @@ describe OrdersController do
 			it "shows form errors" do
 				@order.update_attributes(order_name: nil)
 				@order.valid?
-				@order.errors.messages[:order_name].should include("can't be blank")
+				expect(@order.errors.messages[:order_name]).to include("can't be blank")
 			end
 		end
 	end
@@ -158,7 +158,7 @@ describe OrdersController do
 				expect do
 				xhr :delete, :destroy, :order_type_id => @order_type.id, id: @order
 				end.to change(Validation, :count).by(-4) 
-				#:order_type factory creates 4 tasks, so should reduce it by 4 validations
+				#:order_type factory creates 4 tasks, calling DELETE will reduce collection by 4 validations
 			end
 			it "does not destroy tasks" do
 				expect do

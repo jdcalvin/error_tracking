@@ -9,8 +9,8 @@ describe DatesController do
 	end
 
 	before do
-		DatesController.any_instance.stub(:gon_data){nil}
-		DatesController.any_instance.stub(:clear_gon){nil}
+		allow_any_instance_of(::DatesController).to receive(:gon_data){nil}
+		allow_any_instance_of(::DatesController).to receive(:clear_gon){nil}
 	end
 	
 	let (:controller) {DatesController.new}

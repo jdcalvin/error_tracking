@@ -62,7 +62,7 @@ describe UsersController do
 			it 'shows errors' do
 				@user = FactoryGirl.build(:user, :email => nil)
 				@user.valid?
-				@user.errors.messages[:email].should include("can't be blank")
+				expect(@user.errors.messages[:email]).to include("can't be blank")
 			end
 			it 're-renders :new template' do
 				xhr :post, :create, user: attributes_for(:user, :email => nil)
@@ -123,7 +123,7 @@ describe UsersController do
 			it 'shows errors' do
 				user.update_attributes(email:nil)
 				user.valid?
-				user.errors.messages[:email].should include("can't be blank")
+				expect(user.errors.messages[:email]).to include("can't be blank")
 			end
 			it 're-renders the :edit template' do
 				patch :update, id: user, user: attributes_for(:user, :first_name => nil)
@@ -132,7 +132,7 @@ describe UsersController do
 		end
 	end
 	describe 'DELETE #destroy' do
-		#Users should not be deleted, but deactivated
+		
 	end
 
 end

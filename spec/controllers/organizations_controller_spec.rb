@@ -62,7 +62,7 @@ describe OrganizationsController do
 				user.update_attributes(organization:nil)
 				@org = FactoryGirl.build(:invalid_organization)
 				@org.valid?
-				@org.errors.messages[:title].should include("can't be blank")
+				expect(@org.errors.messages[:title]).to include("can't be blank")
 			end
 			it 're-renders :new template' do
 				user.update_attributes(organization:nil)
@@ -104,7 +104,7 @@ describe OrganizationsController do
 			it 'shows errors' do
 				user.organization.update_attributes(title:nil)
 				user.organization.valid?
-				user.organization.errors.messages[:title].should include("can't be blank")
+				expect(user.organization.errors.messages[:title]).to include("can't be blank")
 			end
 			it 're-renders :edit template' do
 				patch :update, id: user.organization, organization: attributes_for(:organization, title: nil)
