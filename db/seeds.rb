@@ -120,9 +120,15 @@ end
 
 #Generates random date for given month, excluding weekends
 def randomize_day(month)
-	t = Date.parse("1.#{month}.2015")
+	year = Time.now.year
+	if month == 0
+		month = 12
+		year = year - 1
+	end
+
+	t = Date.parse("1.#{month}.#{year}")
 	days = (t..t.end_of_month).count
-	date = Date.new(2015, month, rand(days)+1)
+	date = Date.new(year, month, rand(days)+1)
 	if date.saturday? || date.sunday?
 		randomize_day(month)
 	else
@@ -146,7 +152,7 @@ def create_orders_for(month, type, number)
 		org_users << x.id
 	end
 
-	puts "Creating #{number} orders for #{type.title} in #{Date::MONTHNAMES[month]}.."
+	puts "Creating #{number} orders for #{type.title} in #{Date::MONTHNAMES[(month == 0) ? 12 : month]}..."
 
 	number.times do
 		order = Order.create(
@@ -173,12 +179,12 @@ def create_orders_for(month, type, number)
 end
 
 #Main test database to test load
-create_orders_for(5,OrderType.find(1), 200)
+create_orders_for(Time.now.month,OrderType.find(1), 200)
 notice("200 orders for Title Company")
 
 OrderType.all.each do |x|
 	unless x.id == 2
-		create_orders_for(4, x, rand(20..30))
+		create_orders_for(Time.now.month-1, x, rand(20..30))
 	end
 end
 
