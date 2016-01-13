@@ -11,12 +11,12 @@
       <div class="list-group">
         <% unless @order_type.nil? || @order_type.id.nil? %>
           <h3 class="panel-title" style="padding: .5em;">Orders by Month</h3>
-          <% (@today.month).downto(@today.month-2) do |month| %>
+          <% show_orders_by_month.each do |date| %>
             <a class="list-group-item" 
-            href="<%= order_type_show_month_path(@order_type.id, @today.year, month) %>">
+            href="<%= order_type_show_month_path(@order_type.id, date.year, date.month) %>">
 
               <span class="glyphicon glyphicon-calendar"></span>
-              <%= "#{Date::MONTHNAMES[month]} #{@today.year}" %>
+              <%= "#{Date::MONTHNAMES[date.month]} #{date.year}" %>
             </a>
           <% end %>
             <a class="list-group-item" href="<%= order_type_archive_path(@order_type)%>">

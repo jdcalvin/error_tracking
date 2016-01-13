@@ -35,7 +35,11 @@ module OrdersHelper
 		end
 	end
 
-
-
+	def show_orders_by_month
+		time_now = @today
+		time_last_month = @today - 1.month
+		time_last_2_month = @today - 2.month
+		[time_now, time_last_month, time_last_2_month]
+	end
 
 end
