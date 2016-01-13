@@ -9,15 +9,11 @@ class Validation < ActiveRecord::Base
   validates :task_id, presence: true
 
 	def task_description
-		# Rails.cache.fetch([:task, task_id, :description], expires_in: 5.minutes) do
 		task.description
-		# end
 	end
 
 	def category_name
-		# Rails.cache.fetch([:category, category.id, :name], expires_in: 5.minutes) do
 			category.name
-		# end
 	end
 
 end
