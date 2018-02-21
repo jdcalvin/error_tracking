@@ -3,7 +3,7 @@ class TestOrders
   attr_reader :user, :organization, :order_type, :tasks, :categories
 
   def initialize
-    @user = FactoryGirl.create(:user)
+    @user = FactoryBot.create(:user)
     @organization = @user.organization
     @order_type = OrderType.create(title: "Basic", organization: user.organization)
     build_data!
@@ -74,8 +74,8 @@ class TestOrders
   end
 
   def base
-    let(:user) { FactoryGirl.create(:user)}
-    let(:test_order) { FactoryGirl.create(:order, :empty, user: user) }
+    let(:user) { FactoryBot.create(:user)}
+    let(:test_order) { FactoryBot.create(:order, :empty, user: user) }
     let(:order_type) { OrderType.create(title: "Basic", organization: user.organization)}
   end
 end

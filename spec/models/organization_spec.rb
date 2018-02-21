@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Organization do
 	it "has a valid factory" do
-		expect(FactoryGirl.build(:organization)).to be_valid
+		expect(FactoryBot.build(:organization)).to be_valid
 	end
 
 	it "is invalid without a title" do

@@ -1,6 +1,6 @@
 require 'faker'
 
-FactoryGirl.define do
+FactoryBot.define do
 	factory :organization do
 		title {Faker::Company.name}
 		after(:create) do |organization|

@@ -36,7 +36,7 @@ describe User do
   end
 
   it "must have a unique email address" do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     expect(User.create(email: user.email).errors.messages[:email]).to eq ["has already been taken"]
   end
 

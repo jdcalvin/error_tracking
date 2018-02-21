@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe OrganizationsController do
-	let(:user) {FactoryGirl.create(:admin)}
+	let(:user) {FactoryBot.create(:admin)}
 	before{sign_in user}
 
 	describe 'GET #index' do
 		before :each do
-			@organization = FactoryGirl.create(:organization)
+			@organization = FactoryBot.create(:organization)
 		end
 
 		it 'returns users organization path' do
@@ -22,7 +22,7 @@ describe OrganizationsController do
 		end
 
 		it 'renders the :show template' do
-			organization = FactoryGirl.create(:organization)
+			organization = FactoryBot.create(:organization)
 
 			get :show, id: organization
 			expect(response).to render_template :show
@@ -69,7 +69,7 @@ describe OrganizationsController do
 
 			it 'shows errors' do
 				user.update_attributes(organization:nil)
-				@org = FactoryGirl.build(:invalid_organization)
+				@org = FactoryBot.build(:invalid_organization)
 				@org.valid?
 				expect(@org.errors.messages[:title]).to include("can't be blank")
 			end

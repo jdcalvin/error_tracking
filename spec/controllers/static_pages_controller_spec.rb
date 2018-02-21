@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe StaticPagesController do
-	let(:user) {FactoryGirl.create(:admin)}
+	let(:user) {FactoryBot.create(:admin)}
 	before{sign_in user}
 
 	describe "GET #home" do

@@ -1,10 +1,10 @@
 require "spec_helper"
 
 describe OrdersController do
-		let(:user) {FactoryGirl.create(:admin)}
+		let(:user) {FactoryBot.create(:admin)}
 		before :each do
 			sign_in user
-			@order_type = FactoryGirl.create(:order_type, :organization => user.organization)
+			@order_type = FactoryBot.create(:order_type, :organization => user.organization)
 		end
 		
 	describe "GET #index" do
@@ -56,7 +56,7 @@ describe OrdersController do
 	
 	describe "PATCH #update" do
 		before :each do
-			@order = FactoryGirl.create(:order, :no_error, :user => user, :order_type => @order_type)
+			@order = FactoryBot.create(:order, :no_error, :user => user, :order_type => @order_type)
 			@validation = @order.validations.find_by(task: @order_type.tasks.first)
 		end
 
@@ -136,20 +136,20 @@ describe OrdersController do
 
 	describe "GET #edit" do
 		it "renders :edit template" do
-			order = FactoryGirl.create(:order, :order_type_id => @order_type.id)
+			order = FactoryBot.create(:order, :order_type_id => @order_type.id)
 			get :edit, :order_type_id => @order_type.id, id: order
 			expect(response).to render_template :edit
 		end
 
 		it 'assigns params to order' do
-			order = FactoryGirl.create(:order, :order_type_id => @order_type.id)
+			order = FactoryBot.create(:order, :order_type_id => @order_type.id)
 			get :edit, :order_type_id => @order_type.id, id: order
 			expect(assigns(:order)).to eq order
 		end
 
 		describe "associations/nested attributes" do
 			it "loads current validation data" do
-				order = FactoryGirl.create(:order, :no_error, :user => user, :order_type_id => @order_type.id)
+				order = FactoryBot.create(:order, :no_error, :user => user, :order_type_id => @order_type.id)
 				get :edit, :order_type_id => @order_type.id, id: order
 				expect(assigns(:order).validations.count).to eq order.validations.count
 			end
@@ -158,7 +158,7 @@ describe OrdersController do
 
 	describe "DELETE #destroy" do
 		before :each do
-			@order = FactoryGirl.create(:order, :no_error, :user => user, :order_type_id => @order_type.id)
+			@order = FactoryBot.create(:order, :no_error, :user => user, :order_type_id => @order_type.id)
 		end
 
 		context "if successful" do

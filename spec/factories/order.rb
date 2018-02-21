@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 	factory :order do
 		sequence(:order_name) {|n| "TST00#{n}" }
 		association :order_type

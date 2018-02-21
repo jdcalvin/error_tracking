@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe OrderTypesController do
-		let(:user) {FactoryGirl.create(:admin)}
+		let(:user) {FactoryBot.create(:admin)}
 		before{sign_in user}
 
 	it 'instance of current_user exists' do
@@ -10,8 +10,8 @@ describe OrderTypesController do
 
 	describe 'GET #index' do
 		before :each do 
-			@organization = FactoryGirl.create(:organization)
-			@order_type = FactoryGirl.create(:order_type, :organization => @organization)
+			@organization = FactoryBot.create(:organization)
+			@order_type = FactoryBot.create(:order_type, :organization => @organization)
 		end
 		it 'redirects to organization' do
 			get :index
@@ -21,12 +21,12 @@ describe OrderTypesController do
 
 	describe 'GET #show' do
 		it 'renders :show template' do
-			order_type = FactoryGirl.create(:order_type)
+			order_type = FactoryBot.create(:order_type)
 			get :show, id: order_type
 			expect(response).to render_template :show
 		end
 		it 'assigns params to @order_type' do
-			order_type = FactoryGirl.create(:order_type)
+			order_type = FactoryBot.create(:order_type)
 			get :show, id: order_type
 			expect(assigns(:order_type)).to eq order_type
 		end
@@ -73,7 +73,7 @@ describe OrderTypesController do
 				end.to change(OrderType, :count).by(0)
 			end
 			it 'shows errors' do
-				@type = FactoryGirl.build(:invalid_order_type)
+				@type = FactoryBot.build(:invalid_order_type)
 				@type.valid?
 				expect(@type.errors.messages[:title]).to include("can't be blank")
 			end
@@ -87,7 +87,7 @@ describe OrderTypesController do
 
 	describe 'GET #edit' do
 		it 'renders :edit template' do
-			order_type = FactoryGirl.create(:order_type)
+			order_type = FactoryBot.create(:order_type)
 			get :edit, id: order_type
 			expect(assigns[:order_type]).to eq order_type
 		end
@@ -95,7 +95,7 @@ describe OrderTypesController do
 
 	describe 'PATCH #update' do
 		before :each do
-			@order_type = FactoryGirl.create(:order_type, title: "Type Active")
+			@order_type = FactoryBot.create(:order_type, title: "Type Active")
 		end
 
 		context 'with valid attributes' do
@@ -138,10 +138,10 @@ describe OrderTypesController do
 
 	describe 'DELETE #destroy' do
 		before :each do
-			@organization = FactoryGirl.create(:organization)
-			@order_type = FactoryGirl.create(:order_type, organization: @organization)
-			@orders = [FactoryGirl.create(:order, :no_error, :order_type => @order_type),
-				FactoryGirl.create(:order, :no_error, :order_type => @order_type)]
+			@organization = FactoryBot.create(:organization)
+			@order_type = FactoryBot.create(:order_type, organization: @organization)
+			@orders = [FactoryBot.create(:order, :no_error, :order_type => @order_type),
+				FactoryBot.create(:order, :no_error, :order_type => @order_type)]
 			@categories = @order_type.categories
 			@tasks = @order_type.tasks
 			@validations = @order_type.validations

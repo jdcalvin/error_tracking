@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Category do
 	it "has a valid factory" do
-		expect(FactoryGirl.build(:category)).to be_valid
+		expect(FactoryBot.build(:category)).to be_valid
 	end
 	
 	it "is valid with a name and order_type" do

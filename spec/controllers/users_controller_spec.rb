@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe UsersController do
-	let(:user) {FactoryGirl.create(:user)}
-	let(:admin) {FactoryGirl.create(:admin)}
-	let(:inactive) {FactoryGirl.create(:inactive)}
+	let(:user) {FactoryBot.create(:user)}
+	let(:admin) {FactoryBot.create(:admin)}
+	let(:inactive) {FactoryBot.create(:inactive)}
 
 	describe 'GET #index' do
 		before{sign_in user}
@@ -68,7 +68,7 @@ describe UsersController do
 			end
 
 			it 'shows errors' do
-				@user = FactoryGirl.build(:user, :email => nil)
+				@user = FactoryBot.build(:user, :email => nil)
 				@user.valid?
 				expect(@user.errors.messages[:email]).to include("can't be blank")
 			end
@@ -85,7 +85,7 @@ describe UsersController do
 			before{sign_in user}
 			context "tries editing other user" do
 				it 'redirects to organization' do
-					other = FactoryGirl.create(:user, :organization => user.organization)
+					other = FactoryBot.create(:user, :organization => user.organization)
 					get :edit, id: other
 					expect(response).to redirect_to organization_path(user.organization)
 				end
@@ -102,7 +102,7 @@ describe UsersController do
 		context "when admin user" do
 			before{sign_in admin}
 			it "renders template if editing other user" do
-				other = FactoryGirl.create(:user, :organization => admin.organization)
+				other = FactoryBot.create(:user, :organization => admin.organization)
 				get :edit, id: other
 				expect(response).to render_template :edit
 			end

@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe DatesController do
-	let(:user) {FactoryGirl.create(:admin)}
+	let(:user) {FactoryBot.create(:admin)}
 	before :each do
 		sign_in user
-		@order_type = FactoryGirl.create(:order_type, :organization => user.organization)
+		@order_type = FactoryBot.create(:order_type, :organization => user.organization)
 		@url = "/order_types/#{@order_type.id}"
 	end
 

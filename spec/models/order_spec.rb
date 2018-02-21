@@ -28,7 +28,7 @@ describe Order do
   end
 
   describe "with errors" do  		
-  	order = FactoryGirl.create(:order, :with_error)
+  	order = FactoryBot.create(:order, :with_error)
 
     it "status returns true" do
       expect(order.error).to eq true
@@ -44,7 +44,7 @@ describe Order do
   end
 
   describe "without errors" do
-  	order = FactoryGirl.create(:order, :no_error)
+  	order = FactoryBot.create(:order, :no_error)
 
     it "status returns false" do
       expect(order.error).to eq false
@@ -62,9 +62,9 @@ describe Order do
 
   describe "search method" do
     before :each do
-      order1 = FactoryGirl.create(:order, order_name: 'testing1')
-      order2 = FactoryGirl.create(:order, order_name: 'testing2')
-      order3 = FactoryGirl.create(:order, order_name: 'testing3')
+      order1 = FactoryBot.create(:order, order_name: 'testing1')
+      order2 = FactoryBot.create(:order, order_name: 'testing2')
+      order3 = FactoryBot.create(:order, order_name: 'testing3')
     end
     
     it 'returns specific search criteria' do

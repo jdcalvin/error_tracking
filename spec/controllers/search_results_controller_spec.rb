@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SearchResultsController do
-	let(:user) {FactoryGirl.create(:admin)}
+	let(:user) {FactoryBot.create(:admin)}
 	before{sign_in user}
 
 	describe 'GET #search' do
@@ -16,9 +16,9 @@ describe SearchResultsController do
 		end
 		
 		it 'scopes searches to current organization' do
-			@organization = FactoryGirl.create(:organization)
-			@alt_user = FactoryGirl.create(:user, :organization => @organization)
-			@order = FactoryGirl.create(:order, :no_error, order_name: "test", :user => @alt_user)
+			@organization = FactoryBot.create(:organization)
+			@alt_user = FactoryBot.create(:user, :organization => @organization)
+			@order = FactoryBot.create(:order, :no_error, order_name: "test", :user => @alt_user)
 			get :search, search: "test"
 			expect(response).to_not include(@order)
 		end

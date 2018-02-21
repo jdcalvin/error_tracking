@@ -76,10 +76,10 @@ GEM
     erubi (1.7.0)
     erubis (2.7.0)
     execjs (2.7.0)
-    factory_girl (4.9.0)
+    factory_bot (4.8.2)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.9.0)
-      factory_girl (~> 4.9.0)
+    factory_bot_rails (4.8.2)
+      factory_bot (~> 4.8.2)
       railties (>= 3.0.0)
     faker (1.8.7)
       i18n (>= 0.7)
@@ -156,6 +156,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
     public_suffix (3.0.2)
+    quiet_assets (1.1.0)
+      railties (>= 3.1, < 5.0)
     rack (1.6.8)
     rack-contrib (1.8.0)
       rack (~> 1.4)
@@ -273,7 +275,7 @@ DEPENDENCIES
   database_cleaner
   devise
   execjs
-  factory_girl_rails
+  factory_bot_rails
   faker
   fuubar
   gon
@@ -288,6 +290,7 @@ DEPENDENCIES
   meta_request
   pg (= 0.15.1)
   pry
+  quiet_assets
   rack-mini-profiler
   rails (= 4.2.10)
   rails_12factor (= 0.0.2)
