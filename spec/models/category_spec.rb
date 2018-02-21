@@ -8,6 +8,7 @@ describe Category do
 	it "is valid with a name and order_type" do
 		expect(Category.new(name: "test", order_type: build(:order_type))).to be_valid
 	end
+	
 	it "is invalid without a name" do
 		expect(Category.create.errors.messages[:name]).to eq ["can't be blank"]
 	end

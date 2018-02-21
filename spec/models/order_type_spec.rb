@@ -17,8 +17,8 @@ describe OrderType do
 		end
 	end
 
-
 	org_type = Organization.create(title:"blah")
+	
 	it "is invalid without an organization" do
 		expect(OrderType.create(organization_id: nil).errors.messages[:organization_id]).to eq ["can't be blank"]
 	end

@@ -14,6 +14,7 @@ describe SearchResultsController do
 			get :search, search: nil
 			expect(response).to redirect_to root_path
 		end
+		
 		it 'scopes searches to current organization' do
 			@organization = FactoryGirl.create(:organization)
 			@alt_user = FactoryGirl.create(:user, :organization => @organization)

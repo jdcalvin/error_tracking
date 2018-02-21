@@ -47,7 +47,6 @@ describe DatesController do
 	end
 
 	describe "GET #show_day" do
-
 		xit 'renders the :show_day template' do
 			get :show_day, order_type_id: @order_type.id, day: 1, month:2, year: 2014
 		end

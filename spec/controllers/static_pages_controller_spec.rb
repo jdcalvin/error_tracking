@@ -16,10 +16,12 @@ describe StaticPagesController do
 			expect(response).to render_template :home
 		end
 	end
+
 	describe "GET #about" do
 		it 'returns about path' do
 			expect(about_path).to eq '/about'
 		end
+
 		it 'renders :about page' do
 			get :about
 			expect(response).to render_template :about
@@ -30,19 +32,21 @@ describe StaticPagesController do
 		it 'returns contact path' do 
 			expect(contact_path).to eq '/contact'
 		end
+
 		it 'renders :contact page' do
 			get :contact
 			expect(response).to render_template :contact
 		end
 	end
+
 	describe "GET #help" do
 		it 'returns help path' do 
 			expect(help_path).to eq '/help'
 		end
+
 		it 'renders :help page' do
 			get :help
 			expect(response).to render_template :help
 		end
 	end
-
 end

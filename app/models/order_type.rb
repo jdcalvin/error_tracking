@@ -1,11 +1,13 @@
 class OrderType < ActiveRecord::Base
 	before_save {self.title = title.split.map {|x| x.capitalize }.join(" ") }
+
 	has_many :tasks, through: :categories
 	has_many :orders, dependent: :destroy, inverse_of: :order_type
 	has_many :categories, dependent: :destroy, inverse_of: :order_type
 	has_many :users, through: :orders
 	has_many :validations, through: :orders
 	belongs_to :organization
+	
 	validates :title, presence: true
 	validates :organization_id, presence: true
 

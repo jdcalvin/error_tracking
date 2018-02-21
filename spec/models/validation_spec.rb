@@ -9,6 +9,7 @@ describe Validation do
   it "must have a valid no error factory" do
     expect(build(:validation, :has_error)).to be_valid
   end
+  
   describe "relationship entry" do
     it "must include an order" do
 

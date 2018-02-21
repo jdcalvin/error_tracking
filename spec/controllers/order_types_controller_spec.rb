@@ -31,6 +31,7 @@ describe OrderTypesController do
 			expect(assigns(:order_type)).to eq order_type
 		end
 	end
+
 	describe 'GET #new' do
 		it 'renders :new template' do
 			get :new
@@ -42,10 +43,12 @@ describe OrderTypesController do
 			expect(assigns(:order_type)).to be_a_new(OrderType)
 		end
 	end
+
 	describe 'POST #create' do
 		before :each do
 			@organization = user.organization
 		end
+
 		context 'IF valid' do
 			it 'saves order_type' do
 				expect do
@@ -54,6 +57,7 @@ describe OrderTypesController do
 						tasks_attributes: [attributes_for(:task)])])
 				end.to change(OrderType, :count).by(1)
 			end
+
 			it 'redirects to order_type' do	
 				xhr :post, :create, order_type: attributes_for(:order_type, :organization_id => @organization.id, 
 					categories_attributes: [attributes_for(:category, 
@@ -61,6 +65,7 @@ describe OrderTypesController do
 				expect(response).to redirect_to order_type_path(assigns[:order_type])
 			end
 		end
+
 		context 'IF invalid' do
 			it 'does not save order_type' do
 				expect do
@@ -79,17 +84,20 @@ describe OrderTypesController do
 			end
 		end
 	end
+
 	describe 'GET #edit' do
 		it 'renders :edit template' do
-		order_type = FactoryGirl.create(:order_type)
+			order_type = FactoryGirl.create(:order_type)
 			get :edit, id: order_type
 			expect(assigns[:order_type]).to eq order_type
 		end
 	end
+
 	describe 'PATCH #update' do
 		before :each do
 			@order_type = FactoryGirl.create(:order_type, title: "Type Active")
 		end
+
 		context 'with valid attributes' do
 			it 'locates the requested resource' do
 				patch :update, id: @order_type, order_type: attributes_for(:order_type)
@@ -105,8 +113,8 @@ describe OrderTypesController do
 				patch :update, id: @order_type, order_type: attributes_for(:order_type)
 				expect(response).to redirect_to order_type_path(@order_type)
 			end
-
 		end
+
 		context 'with invalid attributes' do
 			it 'does not save order_type' do
 				patch :update, id: @order_type, order_type: attributes_for(:order_type, title: nil)
@@ -114,17 +122,20 @@ describe OrderTypesController do
 				expect(@order_type.title).to_not eq nil
 				expect(@order_type.title).to eq "Type Active"
 			end
+
 			it 'shows errors' do
 				@order_type.update_attributes(title: nil)
 				@order_type.valid?
 				expect(@order_type.errors.messages[:title]).to include("can't be blank")
 			end
+
 			it 're-renders :edit template' do
 				patch :update, id: @order_type, order_type: attributes_for(:order_type, title:nil)
 				expect(response).to render_template :edit
 			end
 		end
 	end
+
 	describe 'DELETE #destroy' do
 		before :each do
 			@organization = FactoryGirl.create(:organization)
@@ -135,24 +146,29 @@ describe OrderTypesController do
 			@tasks = @order_type.tasks
 			@validations = @order_type.validations
 		end
+
 		it 'destroys order_type' do
 			expect do
 				xhr :delete, :destroy, id: @order_type
 			end.to change(OrderType, :count).by(-1)
 		end
+
 		it 'destroys orders' do
 			expect(@order_type == @orders.first.order_type)
 		end
+
 		it 'destroys tasks' do
 			expect do
 				xhr :delete, :destroy, id: @order_type
 			end.to change(@tasks, :count).to(0)
 		end
+
 		it 'destroys categories' do
 			expect do
 				xhr :delete, :destroy, id: @order_type
 			end.to change(@categories, :count).to(0)
 		end
+		
 		it 'destroys validations' do
 			expect do
 				xhr :delete, :destroy, id: @order_type
